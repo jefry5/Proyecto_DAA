@@ -17,7 +17,7 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
         //gestionar_eventos = new Evento_Deportivo();
         this.setTitle("Sistema_Deportivo");
         this.setLocationRelativeTo(null);
-        iniciarPaneles();
+        panelInicio = new InicioPanel(this,Content,gestionar_eventos);
         cambiarPanel(panelInicio);
         this.jbtnEvento.setEnabled(false);
     }
@@ -27,8 +27,7 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
     }
     
     //Inicia los paneles que se cambiaran
-    public void iniciarPaneles(){
-        panelInicio = new InicioPanel(this,Content,gestionar_eventos);
+    public void iniciarPanelEvento(){
         panelEvento = new EventoPanel(this,Content,panelInicio.getPanelCrearEvento().getGesEvento());
     }
 

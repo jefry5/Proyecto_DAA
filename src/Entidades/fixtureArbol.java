@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Entidades;
 
 import Herramientas.NumeroAleatorioRango;
+import java.util.Calendar;
 
 public class fixtureArbol {
     
@@ -12,10 +9,12 @@ public class fixtureArbol {
     private GestionarDeEquipos equipos;
     private final NumeroAleatorioRango aleatorio;
     private ListaResultados listaResultados;
+    private Calendar fecha_inicio, fecha_fin;
 
-    public fixtureArbol(GestionarDeEquipos e){
-        //crearListaEnfrentamiento();
+    public fixtureArbol(GestionarDeEquipos e, Calendar inicio, Calendar fin){
         this.equipos = e;
+        this.fecha_inicio = inicio;
+        this.fecha_fin = fin;
         this.listaEnfrentamientos = new ListaEnfrentamiento();
         this.listaResultados = new ListaResultados();
         aleatorio = new NumeroAleatorioRango(0,equipos.getContadorEquipos());

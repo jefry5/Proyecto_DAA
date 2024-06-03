@@ -22,35 +22,31 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel {
     }
     
     public void actualizarPanel(){
-        if(gesEvento != null){
-            this.removeAll();
-            this.setLayout(new GridLayout(this.gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos(),4));
-            anadirElemento();
-        }
+        this.removeAll();
+        this.setLayout(new GridLayout(this.gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos(),4));
+        anadirElemento();
     }
     
     public void anadirElemento(){
-        if(gesEvento != null){
-            Enfrentamiento actual = gesEvento.getEnfrentamientos().getEnfrentamientos().getCabecera();
-            int numEnfrentamientos = gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos();
-            jtxtGol = new JTextField[numEnfrentamientos * 2];
+        Enfrentamiento actual = gesEvento.getEnfrentamientos().getEnfrentamientos().getCabecera();
+        int numEnfrentamientos = gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos();
+        jtxtGol = new JTextField[numEnfrentamientos * 2];
 
-            for (int i = 0; i < jtxtGol.length; i++) {
-                jtxtGol[i] = new JTextField();
-            }
-
-            int cont = 0;
-            for (int i = 0; i < numEnfrentamientos; i++) {
-                this.add(new JLabel(actual.getEquipo1().getNombre_Equipo()));
-                this.add(jtxtGol[cont++]);
-                this.add(jtxtGol[cont++]);
-                this.add(new JLabel(actual.getEquipo2().getNombre_Equipo()));
-                actual = actual.getSiguiente_enfrentamiento();
-            }
-
-            this.revalidate();
-            this.repaint();
+        for (int i = 0; i < jtxtGol.length; i++) {
+            jtxtGol[i] = new JTextField();
         }
+
+        int cont = 0;
+        for (int i = 0; i < numEnfrentamientos; i++) {
+            this.add(new JLabel(actual.getEquipo1().getNombre_Equipo()));
+            this.add(jtxtGol[cont++]);
+            this.add(jtxtGol[cont++]);
+            this.add(new JLabel(actual.getEquipo2().getNombre_Equipo()));
+            actual = actual.getSiguiente_enfrentamiento();
+        }
+
+        this.revalidate();
+        this.repaint();
     }
     
     public void guardarGoles(){
