@@ -1,5 +1,7 @@
 package Entidades;
 
+import java.util.Calendar;
+
 public class Enfrentamiento {
     
     private Equipo equipo1;
@@ -7,15 +9,25 @@ public class Enfrentamiento {
     private Equipo ganador;
     private int goles_equipo1;
     private int goles_equipo2;
+    private Calendar fecha_Enfrentamiento;
     private Enfrentamiento siguiente_enfrentamiento;
     
-    public Enfrentamiento(Equipo e1, Equipo e2){
+    public Enfrentamiento(Equipo e1, Equipo e2, Calendar fecha_Enfrentamiento){
         this.goles_equipo1 = 0;
         this.goles_equipo2 = 0;
+        this.fecha_Enfrentamiento = fecha_Enfrentamiento;
         this.ganador = null;
         this.equipo1 = e1;
         this.equipo2 = e2;
         this.siguiente_enfrentamiento = null;
+    }
+
+    public Calendar getFecha_Enfrentamiento() {
+        return fecha_Enfrentamiento;
+    }
+
+    public void setFecha_Enfrentamiento(Calendar fecha_Enfrentamiento) {
+        this.fecha_Enfrentamiento = fecha_Enfrentamiento;
     }
 
     public Equipo getEquipo1() {

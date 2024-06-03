@@ -10,6 +10,8 @@ public class fixtureArbol {
     private final NumeroAleatorioRango aleatorio;
     private ListaResultados listaResultados;
     private Calendar fecha_inicio, fecha_fin;
+    private Calendar[] fechas;
+    private int contadorFechasEnfrentamientos;
 
     public fixtureArbol(GestionarDeEquipos e, Calendar inicio, Calendar fin){
         this.equipos = e;
@@ -17,6 +19,7 @@ public class fixtureArbol {
         this.fecha_fin = fin;
         this.listaEnfrentamientos = new ListaEnfrentamiento();
         this.listaResultados = new ListaResultados();
+        this.contadorFechasEnfrentamientos = 0;
         aleatorio = new NumeroAleatorioRango(0,equipos.getContadorEquipos());
     }
 
@@ -28,16 +31,32 @@ public class fixtureArbol {
         return listaResultados;
     }
     
+    public void verificarFechaEnfrentamiento(int indice){
+        if(indice == 0){
+            fechas[indice] = (Calendar)fecha_inicio.clone();
+        }else{
+            fechas[indice] = (Calendar) fechas[indice-1].clone();
+            fechas[indice].add(Calendar.DAY_OF_MONTH, 1);
+        }
+    }
+    
+    
     public String crearListaEnfrentamiento(){
         listaEnfrentamientos.eliminarLista();
         int contadorEquiposRegistrados = 0; //Se aumentara con cada equipo ingresado 
         String mensaje = "No hay equipos registrados";
         
+        if(equipos.getContadorEquipos()>1){
+            fechas = new Calendar[equipos.getContadorEquipos()-1]; //Cantidad de fechas de enfrentamiento
+            for(int i=0; i<fechas.length; i++){
+                fechas[i] = Calendar.getInstance();
+            }
+        }
+        
         while(contadorEquiposRegistrados < equipos.getContadorEquipos()){
-            Equipo equipoVisitante, equipoLocal;
-            
+            Equipo equipoVisitante, equipoLocal; 
             equipoLocal = equipos.getEquiposPorPosicion(contadorEquiposRegistrados);
-
+            
             if(contadorEquiposRegistrados < equipos.getContadorEquipos()-1){
                 contadorEquiposRegistrados++;
                 equipoVisitante = equipos.getEquiposPorPosicion(contadorEquiposRegistrados);
@@ -46,8 +65,9 @@ public class fixtureArbol {
             }
             contadorEquiposRegistrados++;
             
-            if(equipoLocal.getListaDepor().contarNodos() >= 11 || equipoVisitante.getListaDepor().contarNodos() >= 11){
-                Enfrentamiento enfrentamiento = new Enfrentamiento(equipoLocal, equipoVisitante);
+            if(equipoLocal.getListaDepor().contarNodos() <= 11 || equipoVisitante.getListaDepor().contarNodos() <= 11){
+                verificarFechaEnfrentamiento(contadorFechasEnfrentamientos);
+                Enfrentamiento enfrentamiento = new Enfrentamiento(equipoLocal, equipoVisitante, fechas[contadorFechasEnfrentamientos++]);
                 listaEnfrentamientos.agregarEnfrentamiento(enfrentamiento);
                 mensaje = "Se creo enfrentamiento correctamente";
             }else{
@@ -82,7 +102,8 @@ public class fixtureArbol {
             System.out.println("Ganador: "+enfrentamientoActual.getGanador().getNombre_Equipo());
         }else if(listaEnfrentamientos.contarEnfrentamientos() % 2 == 0){
             while(enfrentamientoActual != null){
-                nuevaEtapa.agregarEnfrentamiento(new Enfrentamiento(enfrentamientoActual.getGanador(),enfrentamientoActual.getSiguiente_enfrentamiento().getGanador()));
+                verificarFechaEnfrentamiento(contadorFechasEnfrentamientos);
+                nuevaEtapa.agregarEnfrentamiento(new Enfrentamiento(enfrentamientoActual.getGanador(),enfrentamientoActual.getSiguiente_enfrentamiento().getGanador(),fechas[contadorFechasEnfrentamientos++]));
                 enfrentamientoActual = enfrentamientoActual.getSiguiente_enfrentamiento().getSiguiente_enfrentamiento();
             }
         }else{
@@ -90,7 +111,8 @@ public class fixtureArbol {
             listaEnfrentamientos.eliminarUltimoNodo();
             
             while(enfrentamientoActual != null){
-                nuevaEtapa.agregarEnfrentamiento(new Enfrentamiento(enfrentamientoActual.getGanador(),enfrentamientoActual.getSiguiente_enfrentamiento().getGanador()));
+                verificarFechaEnfrentamiento(contadorFechasEnfrentamientos);
+                nuevaEtapa.agregarEnfrentamiento(new Enfrentamiento(enfrentamientoActual.getGanador(),enfrentamientoActual.getSiguiente_enfrentamiento().getGanador(),fechas[contadorFechasEnfrentamientos++]));
                 enfrentamientoActual = enfrentamientoActual.getSiguiente_enfrentamiento().getSiguiente_enfrentamiento();
             }
             listaEnfrentamientos.agregarEnfrentamiento(auxUltimo);

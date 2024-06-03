@@ -1,5 +1,7 @@
 package Entidades;
 
+import java.text.SimpleDateFormat;
+
 public class ListaEnfrentamiento {
     
     private Enfrentamiento cabecera;
@@ -37,9 +39,11 @@ public class ListaEnfrentamiento {
     
     public String mostrarEnfrentamientos(){
         String total = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Enfrentamiento aux1 = cabecera;
         while(aux1 != null){
-            total += aux1.getEquipo1().getNombre_Equipo() + "\t" + "vs" + "\t" + aux1.getEquipo2().getNombre_Equipo() + "\n";
+            total += aux1.getEquipo1().getNombre_Equipo() + "\t" + "vs" + "\t" + aux1.getEquipo2().getNombre_Equipo() + "\t" +
+                    "Fecha: "+ sdf.format(aux1.getFecha_Enfrentamiento().getTime())+"\n";
             aux1 = aux1.getSiguiente_enfrentamiento();
         }
         return total;
