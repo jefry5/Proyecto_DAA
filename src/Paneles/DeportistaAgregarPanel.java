@@ -1,13 +1,13 @@
 package Paneles;
 
 import Entidades.Deportista;
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Evento_Deportivo;
 
 public class DeportistaAgregarPanel extends javax.swing.JPanel {
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Evento_Deportivo gesEvento;
     private int posicionDeBusqueda;
     
-    public DeportistaAgregarPanel(Gestionador_Evento_Deportivo gesEvento) {
+    public DeportistaAgregarPanel(Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
     }

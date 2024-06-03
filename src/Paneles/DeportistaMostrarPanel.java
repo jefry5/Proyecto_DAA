@@ -4,14 +4,14 @@
  */
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Evento_Deportivo;
 import javax.swing.table.DefaultTableModel;
 
 public class DeportistaMostrarPanel extends javax.swing.JPanel {
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Evento_Deportivo gesEvento;
     private int posicionDeBusqueda;
     
-    public DeportistaMostrarPanel(Gestionador_Evento_Deportivo gesEvento) {
+    public DeportistaMostrarPanel(Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
     }

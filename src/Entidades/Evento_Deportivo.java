@@ -1,11 +1,15 @@
 package Entidades;
 
-public class Gestionador_Evento_Deportivo {
+public class Evento_Deportivo {
     
+    private int codigo_Evento;
+    private String nombre_Evento;
     private GestionarDeEquipos equiposGes;
     private fixtureArbol enfrentamientosGes;
 
-    public Gestionador_Evento_Deportivo(){
+    public Evento_Deportivo(int codigo, String nombre){
+        this.codigo_Evento = codigo;
+        this.nombre_Evento = nombre;
         this.equiposGes = new GestionarDeEquipos();
         this.enfrentamientosGes = new fixtureArbol(equiposGes);
     }

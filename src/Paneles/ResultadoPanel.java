@@ -1,11 +1,11 @@
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Evento_Deportivo;
 
 public class ResultadoPanel extends javax.swing.JPanel {
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Evento_Deportivo gesEvento;
     
-    public ResultadoPanel(Gestionador_Evento_Deportivo gesEvento) {
+    public ResultadoPanel(Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
         jtxtMostrar.setEditable(false);

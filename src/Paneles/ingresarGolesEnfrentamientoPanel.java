@@ -5,16 +5,16 @@
 package Paneles;
 
 import Entidades.Enfrentamiento;
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Evento_Deportivo;
 import java.awt.*;
 import javax.swing.*;
 
 public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel {
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Evento_Deportivo gesEvento;
     private JTextField[] jtxtGol;
     
     
-    public ingresarGolesEnfrentamientoPanel(Gestionador_Evento_Deportivo gesEvento) {
+    public ingresarGolesEnfrentamientoPanel(Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
         actualizarPanel();
@@ -22,31 +22,35 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel {
     }
     
     public void actualizarPanel(){
-        this.removeAll();
-        this.setLayout(new GridLayout(this.gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos(),4));
-        anadirElemento();
+        if(gesEvento != null){
+            this.removeAll();
+            this.setLayout(new GridLayout(this.gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos(),4));
+            anadirElemento();
+        }
     }
     
     public void anadirElemento(){
-        Enfrentamiento actual = gesEvento.getEnfrentamientos().getEnfrentamientos().getCabecera();
-        int numEnfrentamientos = gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos();
-        jtxtGol = new JTextField[numEnfrentamientos * 2];
+        if(gesEvento != null){
+            Enfrentamiento actual = gesEvento.getEnfrentamientos().getEnfrentamientos().getCabecera();
+            int numEnfrentamientos = gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos();
+            jtxtGol = new JTextField[numEnfrentamientos * 2];
 
-        for (int i = 0; i < jtxtGol.length; i++) {
-            jtxtGol[i] = new JTextField();
+            for (int i = 0; i < jtxtGol.length; i++) {
+                jtxtGol[i] = new JTextField();
+            }
+
+            int cont = 0;
+            for (int i = 0; i < numEnfrentamientos; i++) {
+                this.add(new JLabel(actual.getEquipo1().getNombre_Equipo()));
+                this.add(jtxtGol[cont++]);
+                this.add(jtxtGol[cont++]);
+                this.add(new JLabel(actual.getEquipo2().getNombre_Equipo()));
+                actual = actual.getSiguiente_enfrentamiento();
+            }
+
+            this.revalidate();
+            this.repaint();
         }
-
-        int cont = 0;
-        for (int i = 0; i < numEnfrentamientos; i++) {
-            this.add(new JLabel(actual.getEquipo1().getNombre_Equipo()));
-            this.add(jtxtGol[cont++]);
-            this.add(jtxtGol[cont++]);
-            this.add(new JLabel(actual.getEquipo2().getNombre_Equipo()));
-            actual = actual.getSiguiente_enfrentamiento();
-        }
-
-        this.revalidate();
-        this.repaint();
     }
     
     public void guardarGoles(){

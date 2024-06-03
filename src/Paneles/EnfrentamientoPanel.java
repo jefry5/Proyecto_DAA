@@ -1,6 +1,6 @@
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Evento_Deportivo;
 import Entidades.fixtureArbol;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 public class EnfrentamientoPanel extends javax.swing.JPanel {
     private JPanel panel;
     private fixtureArbol enfrentamientos;
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Evento_Deportivo gesEvento;
     private ConcatenarIngresarGolesPanel golesPanel;
     
-    public EnfrentamientoPanel(JPanel p, Gestionador_Evento_Deportivo gesEvento) {
+    public EnfrentamientoPanel(JPanel p, Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento; 
         this.panel = p;

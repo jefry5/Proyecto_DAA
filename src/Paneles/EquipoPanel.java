@@ -4,7 +4,7 @@
  */
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Evento_Deportivo;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 public class EquipoPanel extends javax.swing.JPanel {
     private JPanel panel;
     private JFrame frame;
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Evento_Deportivo gesEvento;
     private EquipoAgregarPanel panelAgregarPanel;
     private EquipoGestionarPanel panelGestionarEquipo;
     
-    public EquipoPanel(JFrame frame,JPanel p,Gestionador_Evento_Deportivo gesEvento) {
+    public EquipoPanel(JFrame frame,JPanel p,Evento_Deportivo gesEvento) {
         initComponents();
         this.frame = frame;
         this.gesEvento = gesEvento;

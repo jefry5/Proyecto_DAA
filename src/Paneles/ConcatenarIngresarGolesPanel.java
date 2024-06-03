@@ -4,22 +4,22 @@
  */
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Evento_Deportivo;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel {
     private JPanel panel, cambio;
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Evento_Deportivo gesEvento;
     private ingresarGolesEnfrentamientoPanel golesEnfrentamientoPanel;
     
-    public ConcatenarIngresarGolesPanel(JPanel p, JPanel cambio, Gestionador_Evento_Deportivo gesEvento) {
+    public ConcatenarIngresarGolesPanel(JPanel p, JPanel cambio, Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
         this.panel = p;
         this.cambio = cambio;
         this.golesEnfrentamientoPanel = new ingresarGolesEnfrentamientoPanel(this.gesEvento);
-        actualizarPanel();
+       actualizarPanel();
     }
     
     public void actualizarPanel(){
