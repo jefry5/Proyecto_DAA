@@ -3,14 +3,13 @@ package Paneles;
 import Entidades.Deportista;
 import Entidades.Gestionador_Evento_Deportivo;
 
-public class DeportistaPanel extends javax.swing.JPanel {
+public class DeportistaAgregarPanel extends javax.swing.JPanel {
     private Gestionador_Evento_Deportivo gesEvento;
     private int posicionDeBusqueda;
     
-    public DeportistaPanel(Gestionador_Evento_Deportivo gesEvento) {
+    public DeportistaAgregarPanel(Gestionador_Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
-        JtxtMostrar.setEditable(false);
     }
 
     public void posicionDeportista(int codigo){
@@ -29,7 +28,6 @@ public class DeportistaPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        JbtnMostrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -41,20 +39,10 @@ public class DeportistaPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         JbtnIngresar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        JtxtMostrar = new javax.swing.JTextArea();
-        JbtnMergeSort = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 515));
-
-        JbtnMostrar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        JbtnMostrar.setText("Mostrar Deportistas");
-        JbtnMostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JbtnMostrarActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel1.setText("Nombre");
@@ -101,7 +89,7 @@ public class DeportistaPanel extends javax.swing.JPanel {
             }
         });
 
-        JbtnIngresar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        JbtnIngresar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         JbtnIngresar.setText("Ingresar Deportista");
         JbtnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,17 +97,8 @@ public class DeportistaPanel extends javax.swing.JPanel {
             }
         });
 
-        JtxtMostrar.setColumns(20);
-        JtxtMostrar.setRows(5);
-        jScrollPane1.setViewportView(JtxtMostrar);
-
-        JbtnMergeSort.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        JbtnMergeSort.setText("MergeSort");
-        JbtnMergeSort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JbtnMergeSortActionPerformed(evt);
-            }
-        });
+        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel6.setText("Deportista");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -128,48 +107,42 @@ public class DeportistaPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(JbtnIngresar)
-                                .addGap(53, 53, 53)
-                                .addComponent(JbtnMostrar))
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(125, 125, 125)
-                                .addComponent(jLabel5)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(JbtnMergeSort))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(77, 77, 77)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(319, 319, 319)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(276, 276, 276)
+                        .addComponent(JbtnIngresar)))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel6)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,21 +160,11 @@ public class DeportistaPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JbtnMostrar)
-                    .addComponent(JbtnIngresar)
-                    .addComponent(JbtnMergeSort))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(JbtnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(173, 173, 173))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void JbtnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnMostrarActionPerformed
-        // TODO add your handling code here:
-        JtxtMostrar.setText(gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().listarDeportista());
-    }//GEN-LAST:event_JbtnMostrarActionPerformed
 
     private void JbtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnIngresarActionPerformed
         // TODO add your handling code here:
@@ -214,11 +177,6 @@ public class DeportistaPanel extends javax.swing.JPanel {
             //Validar
         }
     }//GEN-LAST:event_JbtnIngresarActionPerformed
-
-    private void JbtnMergeSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnMergeSortActionPerformed
-        // TODO add your handling code here:
-        gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().ordenarListaDeportista();
-    }//GEN-LAST:event_JbtnMergeSortActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -239,15 +197,12 @@ public class DeportistaPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JbtnIngresar;
-    private javax.swing.JButton JbtnMergeSort;
-    private javax.swing.JButton JbtnMostrar;
-    private javax.swing.JTextArea JtxtMostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

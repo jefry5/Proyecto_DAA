@@ -50,6 +50,21 @@ public class ListaDeportista {
         return cadena;
     }
     
+    public NodoDeportista obtenerDeportistaPorIndice(int i){
+        NodoDeportista deportista;
+        if(i < contarNodos()){
+            deportista = cabecera;
+            for(int j=0; j<i; j++){
+                deportista = deportista.getSiguiente();
+            }
+        }else{
+            //validar error
+            deportista = null;
+        }
+        return deportista;
+    }
+    
+    
     public void ordenarListaDeportista(){
         ordenar.mergeSort(this, this.contarNodos());
     }

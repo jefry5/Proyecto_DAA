@@ -6,7 +6,6 @@ package Paneles;
 
 import Entidades.Gestionador_Evento_Deportivo;
 import java.awt.BorderLayout;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -17,8 +16,8 @@ import javax.swing.table.DefaultTableModel;
 public class EquipoGestionarPanel extends javax.swing.JPanel {
     private Gestionador_Evento_Deportivo gesEvento;
     private JFrame frame;
-    private JDialog AgregarDeportistaDialog;
-    private DeportistaPanel deportistaPanel;
+    private DeportistaAgregarPanel deportistaPanel;
+    private DeportistaMostrarPanel panelDeportistaMostrar;
     private JPanel panel;
     /**
      * Creates new form EquipoGestionarPanel
@@ -28,8 +27,8 @@ public class EquipoGestionarPanel extends javax.swing.JPanel {
         this.frame = frame;
         this.gesEvento = gesEvento;
         this.panel = p;
-        this.deportistaPanel = new DeportistaPanel(this.gesEvento);
-        this.AgregarDeportistaDialog = new JDialog(frame,true);
+        this.deportistaPanel = new DeportistaAgregarPanel(this.gesEvento);
+        this.panelDeportistaMostrar = new DeportistaMostrarPanel(this.gesEvento);
     }
 
     private void cambiarPanel(JPanel p){
@@ -182,9 +181,9 @@ public class EquipoGestionarPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(jtblMostrar.getRowCount() > 0){
+        if(jtblMostrar.getRowCount() > 0 && jtblMostrar.getSelectedRow()!=-1 && jtblMostrar.getSelectedColumn() != -1){  
            deportistaPanel.posicionDeportista(Integer.parseInt(jtblMostrar.getValueAt(jtblMostrar.getSelectedRow(), 0).toString()));
-           cambiarPanel(deportistaPanel); 
+           cambiarPanel(deportistaPanel);
         }else{
             //Validar error
         }
@@ -192,7 +191,14 @@ public class EquipoGestionarPanel extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        //AgregarDeportistaDialog.setVisible(true);
+        if(jtblMostrar.getRowCount() > 0 && jtblMostrar.getSelectedRow()!=-1 && jtblMostrar.getSelectedColumn() != -1){ 
+           panelDeportistaMostrar.posicionEquipo(Integer.parseInt(jtblMostrar.getValueAt(jtblMostrar.getSelectedRow(), 0).toString()));
+           panelDeportistaMostrar.actualizarTablaMostrar();
+           panelDeportistaMostrar.habilitarBotonExamenMedico();
+           cambiarPanel(panelDeportistaMostrar);
+        }else{
+            //Validar error
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
