@@ -17,6 +17,7 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
         this.setTitle("Sistema_Deportivo");
         this.setLocationRelativeTo(null);
         iniciarPaneles();
+        cambiarPanel(panelInicio);
     }
     
     //Inicia los paneles que se cambiaran
