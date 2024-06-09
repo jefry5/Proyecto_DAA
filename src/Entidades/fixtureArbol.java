@@ -1,13 +1,14 @@
 package Entidades;
 
 import Herramientas.NumeroAleatorioRango;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class fixtureArbol {
     
     private ListaEnfrentamiento listaEnfrentamientos;
     private GestionarDeEquipos equipos;
-    private final NumeroAleatorioRango aleatorio;
+    private NumeroAleatorioRango aleatorio;
     private ListaResultados listaResultados;
     private Calendar fecha_inicio, fecha_fin;
     private Calendar[] fechas;
@@ -20,7 +21,6 @@ public class fixtureArbol {
         this.listaEnfrentamientos = new ListaEnfrentamiento();
         this.listaResultados = new ListaResultados();
         this.contadorFechasEnfrentamientos = 0;
-        aleatorio = new NumeroAleatorioRango(0,equipos.getContadorEquipos());
     }
 
     public ListaEnfrentamiento getEnfrentamientos() {
@@ -44,7 +44,14 @@ public class fixtureArbol {
     public String crearListaEnfrentamiento(){
         listaEnfrentamientos.eliminarLista();
         int contadorEquiposRegistrados = 0; //Se aumentara con cada equipo ingresado 
+        contadorFechasEnfrentamientos = 0; //Inicializamos las fechas
         String mensaje = "No hay equipos registrados";
+        
+        //Enfrentamiento aleatorios
+        aleatorio = new NumeroAleatorioRango(0,equipos.getContadorEquipos()-1);
+        int[] aleatorios = new int[equipos.getContadorEquipos()];
+        aleatorios = aleatorio.generarAleatoriosSinRepetir(equipos.getContadorEquipos());
+        System.out.println("ALEATORIOS: "+Arrays.toString(aleatorios));
         
         if(equipos.getContadorEquipos()>1){
             fechas = new Calendar[equipos.getContadorEquipos()-1]; //Cantidad de fechas de enfrentamiento
@@ -55,13 +62,13 @@ public class fixtureArbol {
         
         while(contadorEquiposRegistrados < equipos.getContadorEquipos()){
             Equipo equipoVisitante, equipoLocal; 
-            equipoLocal = equipos.getEquiposPorPosicion(contadorEquiposRegistrados);
+            equipoLocal = equipos.getEquiposPorPosicion(aleatorios[contadorEquiposRegistrados]);
             
             if(contadorEquiposRegistrados < equipos.getContadorEquipos()-1){
                 contadorEquiposRegistrados++;
-                equipoVisitante = equipos.getEquiposPorPosicion(contadorEquiposRegistrados);
+                equipoVisitante = equipos.getEquiposPorPosicion(aleatorios[contadorEquiposRegistrados]);
             }else{
-                equipoVisitante = equipos.getEquiposPorPosicion(equipos.getContadorEquipos()-1); //El ultimo nodo agarra dos veces al mismo equipo si la cantida de equipos es impar
+                equipoVisitante = equipos.getEquiposPorPosicion(aleatorios[aleatorios.length-1]); //El ultimo nodo agarra dos veces al mismo equipo si la cantida de equipos es impar
             }
             contadorEquiposRegistrados++;
             
@@ -82,6 +89,7 @@ public class fixtureArbol {
     
     public void definirEtapas(int[][] goles){ 
         int i = 0;
+
         ListaEnfrentamiento nuevaEtapa = new ListaEnfrentamiento();
         Enfrentamiento enfrentamientoActual = listaEnfrentamientos.getCabecera();
         

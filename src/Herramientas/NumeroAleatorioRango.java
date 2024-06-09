@@ -1,20 +1,18 @@
 package Herramientas;
 
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 public class NumeroAleatorioRango {
     private int valorMinimo;
     private int valorMaximo;
-    private Set<Integer> numerosUnicos;
     private Random random;
+    private boolean[] hashTable;
     
     public NumeroAleatorioRango(int _valorMinimo, int _valorMaximo){
         this.valorMinimo = _valorMinimo;
         this.valorMaximo = _valorMaximo;
-        this.numerosUnicos = new HashSet();
         this.random = new Random();
+        this.hashTable = new boolean[_valorMaximo - _valorMinimo + 1];
     }
     
     public int generarAleatorio(){
@@ -28,17 +26,24 @@ public class NumeroAleatorioRango {
         if (cantidad > (valorMaximo - valorMinimo + 1)) {
             throw new IllegalArgumentException("La cantidad solicitada excede el rango de números únicos disponibles.");
         }
-        while (numerosUnicos.size() < cantidad) {
-            int numeroAleatorio = valorMinimo + random.nextInt(valorMaximo - valorMinimo + 1);
-            numerosUnicos.add(numeroAleatorio);
-        }
-        Integer[] arregloNumeros = numerosUnicos.toArray(new Integer[0]);
-        System.out.println("ARREGLONUYMERO: "+arregloNumeros.length);
         
-        int[] arregloNumerosInt = new int[arregloNumeros.length];
-        for (int i = 0; i < arregloNumeros.length; i++) {
-            arregloNumerosInt[i] = arregloNumeros[i];
-        }    
+        // Reiniciar la tabla de dispersión para asegurar que esté vacía
+        for (int i = 0; i < hashTable.length; i++) {
+            hashTable[i] = false;
+        }
+        
+        int[] arregloNumerosInt = new int[cantidad];
+        int count = 0;
+        
+        while (count < cantidad) {
+            int numeroAleatorio = valorMinimo + random.nextInt(valorMaximo - valorMinimo + 1);
+            int index = numeroAleatorio - valorMinimo;
+            
+            if (!hashTable[index]) {
+                hashTable[index] = true;
+                arregloNumerosInt[count++] = numeroAleatorio;
+            }
+        }
       
         return arregloNumerosInt;
     }
