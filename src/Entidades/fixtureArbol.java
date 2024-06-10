@@ -24,6 +24,14 @@ public class fixtureArbol implements Serializable{
         this.contadorFechasEnfrentamientos = 0;
     }
 
+    public void setFecha_inicio(Calendar fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
+    }
+
+    public void setFecha_fin(Calendar fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
+
     public ListaEnfrentamiento getEnfrentamientos() {
         return listaEnfrentamientos;
     }

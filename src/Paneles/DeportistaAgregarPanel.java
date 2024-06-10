@@ -1,19 +1,19 @@
 package Paneles;
 
 import Entidades.Deportista;
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 
 public class DeportistaAgregarPanel extends javax.swing.JPanel{
-    private Evento_Deportivo gesEvento;
+    private Gestionador_Evento_Deportivo gesEvento;
     private int posicionDeBusqueda;
     
-    public DeportistaAgregarPanel(Evento_Deportivo gesEvento) {
+    public DeportistaAgregarPanel(Gestionador_Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
     }
 
     public void posicionDeportista(int codigo){
-        this.posicionDeBusqueda = gesEvento.getEquipos().busquedaBinariaPorCodigo(codigo);
+        this.posicionDeBusqueda = gesEvento.getGesEquipos().busquedaBinariaPorCodigo(codigo);
     }
     
     public void limpiarCampos(){
@@ -135,7 +135,7 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(276, 276, 276)
                         .addComponent(JbtnIngresar)))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +160,7 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
                 .addComponent(JbtnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(173, 173, 173))
         );
@@ -171,7 +171,7 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
         if(posicionDeBusqueda!=-1){
             Deportista depo = new Deportista(jTextField1.getText(),jTextField2.getText(),jTextField3.getText(),jTextField4.getText(),
                                         Integer.parseInt(jTextField6.getText()));
-            gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().agregarDeportista(depo);
+            gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().agregarDeportista(depo);
             limpiarCampos();
         }else{
             //Validar

@@ -4,7 +4,7 @@
  */
 package Paneles;
 
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,13 +16,13 @@ import javax.swing.JPanel;
 public class EventoPanel extends javax.swing.JPanel{
     private JPanel panel;
     private JFrame frame;
-    private Evento_Deportivo gesEvento;
+    private Gestionador_Evento_Deportivo gesEvento;
     private EnfrentamientoPanel panelEnfrentamiento;
     private EquipoPanel panelEquipo;
     private ResultadoPanel panelResultado;
     
     
-    public EventoPanel(JFrame frame,JPanel p,Evento_Deportivo gesEvento) {
+    public EventoPanel(JFrame frame,JPanel p,Gestionador_Evento_Deportivo gesEvento) {
         initComponents();
         this.frame = frame;
         this.panel = p;
@@ -31,7 +31,7 @@ public class EventoPanel extends javax.swing.JPanel{
     }
     
     private void cambiarPanel(JPanel p){
-        p.setSize(730,615); //Se encarga de definir el tamaño de los paneles en Content
+        p.setSize(760,650); //Se encarga de definir el tamaño de los paneles en Content
         p.setLocation(0,0);
         panel.removeAll();
         panel.add(p,BorderLayout.CENTER);
@@ -132,7 +132,7 @@ public class EventoPanel extends javax.swing.JPanel{
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jbtnReportes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbtnCalendario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +150,7 @@ public class EventoPanel extends javax.swing.JPanel{
                     .addComponent(jbtnResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnEnfrentamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

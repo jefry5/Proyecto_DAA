@@ -5,16 +5,16 @@
 package Paneles;
 
 import Entidades.Enfrentamiento;
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 import java.awt.*;
 import javax.swing.*;
 
 public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
-    private Evento_Deportivo gesEvento;
+    private Gestionador_Evento_Deportivo gesEvento;
     private JTextField[] jtxtGol;
     
     
-    public ingresarGolesEnfrentamientoPanel(Evento_Deportivo gesEvento) {
+    public ingresarGolesEnfrentamientoPanel(Gestionador_Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
         actualizarPanel();

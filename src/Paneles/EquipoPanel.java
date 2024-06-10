@@ -4,7 +4,7 @@
  */
 package Paneles;
 
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 public class EquipoPanel extends javax.swing.JPanel{
     private JPanel panel;
     private JFrame frame;
-    private Evento_Deportivo gesEvento;
+    private Gestionador_Evento_Deportivo gesEvento;
     private EquipoAgregarPanel panelAgregarPanel;
     private EquipoGestionarPanel panelGestionarEquipo;
     
-    public EquipoPanel(JFrame frame,JPanel p,Evento_Deportivo gesEvento) {
+    public EquipoPanel(JFrame frame,JPanel p,Gestionador_Evento_Deportivo gesEvento) {
         initComponents();
         this.frame = frame;
         this.gesEvento = gesEvento;
@@ -26,7 +26,7 @@ public class EquipoPanel extends javax.swing.JPanel{
         panel = p;
     }
     private void cambiarPanel(JPanel p){
-        p.setSize(730,615); //Se encarga de definir el tamaño de los paneles en Content
+        p.setSize(760,650); //Se encarga de definir el tamaño de los paneles en Content
         p.setLocation(0,0);
         panel.removeAll();
         panel.add(p,BorderLayout.CENTER);
@@ -75,7 +75,7 @@ public class EquipoPanel extends javax.swing.JPanel{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(326, 326, 326)
                         .addComponent(jLabel1)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,7 +86,7 @@ public class EquipoPanel extends javax.swing.JPanel{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(274, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

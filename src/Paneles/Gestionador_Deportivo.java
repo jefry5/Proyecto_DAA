@@ -1,22 +1,22 @@
 package Paneles;
 
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class Gestionador_Deportivo extends javax.swing.JFrame{
-
+    
     private InicioPanel panelInicio;
     private EventoPanel panelEvento;
-    private Evento_Deportivo gestionar_eventos;
+    private Gestionador_Evento_Deportivo gestionar_eventos;
     
     
     public Gestionador_Deportivo() {
         initComponents();
-        //gestionar_eventos = new Evento_Deportivo();
         this.setTitle("Sistema_Deportivo");
         this.setLocationRelativeTo(null);
+        gestionar_eventos = new Gestionador_Evento_Deportivo();
         panelInicio = new InicioPanel(this,Content,gestionar_eventos);
         cambiarPanel(panelInicio);
         this.jbtnEvento.setEnabled(false);
@@ -25,7 +25,11 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
     public JButton getJbtnEvento() {
         return jbtnEvento;
     }
-    
+
+    public void setGestionar_eventos(Gestionador_Evento_Deportivo gestionar_eventos) {
+        this.gestionar_eventos = gestionar_eventos;
+    }
+ 
     //Inicia los paneles que se cambiaran
     public void iniciarPanelEvento(){
         if (panelInicio.getPanelCrearEvento().getGesEvento() != null) {
@@ -36,7 +40,7 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
     }
 
     private void cambiarPanel(JPanel p){
-        p.setSize(730,615); //Se encarga de definir el tamaño de los paneles en Content
+        p.setSize(760,650); //Se encarga de definir el tamaño de los paneles en Content
         p.setLocation(0,0);
         Content.removeAll();
         Content.add(p,BorderLayout.CENTER);

@@ -4,16 +4,16 @@
  */
 package Paneles;
 
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
     private JPanel panel, cambio;
-    private Evento_Deportivo gesEvento;
+    private Gestionador_Evento_Deportivo gesEvento;
     private ingresarGolesEnfrentamientoPanel golesEnfrentamientoPanel;
     
-    public ConcatenarIngresarGolesPanel(JPanel p, JPanel cambio, Evento_Deportivo gesEvento) {
+    public ConcatenarIngresarGolesPanel(JPanel p, JPanel cambio, Gestionador_Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
         this.panel = p;
@@ -31,7 +31,7 @@ public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
     }
     
     private void cambiarPanel(JPanel p){
-        p.setSize(730,615); //Se encarga de definir el tamaño de los paneles en Content
+        p.setSize(760,650); //Se encarga de definir el tamaño de los paneles en Content
         p.setLocation(0,0);
         panel.removeAll();
         panel.add(p,BorderLayout.CENTER);
@@ -80,7 +80,7 @@ public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(307, 307, 307)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,7 +91,7 @@ public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
                 .addComponent(jPanelGoles, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jButton1)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

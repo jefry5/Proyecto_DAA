@@ -1,6 +1,6 @@
 package Paneles;
 
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 import Entidades.fixtureArbol;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -8,20 +8,19 @@ import javax.swing.JPanel;
 public class EnfrentamientoPanel extends javax.swing.JPanel{
     private JPanel panel;
     private fixtureArbol enfrentamientos;
-    private Evento_Deportivo gesEvento;
+    private Gestionador_Evento_Deportivo gesEvento;
     private ConcatenarIngresarGolesPanel golesPanel;
     
-    public EnfrentamientoPanel(JPanel p, Evento_Deportivo gesEvento) {
+    public EnfrentamientoPanel(JPanel p, Gestionador_Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento; 
         this.panel = p;
         golesPanel = new ConcatenarIngresarGolesPanel(panel,this,gesEvento);
         jTextArea1.setEditable(false);
-        jButton4.setEnabled(false);
     }
     
     private void cambiarPanel(JPanel p){
-        p.setSize(730,615); //Se encarga de definir el tamaño de los paneles en Content
+        p.setSize(760,650); //Se encarga de definir el tamaño de los paneles en Content
         p.setLocation(0,0);
         panel.removeAll();
         panel.add(p,BorderLayout.CENTER);
@@ -85,7 +84,7 @@ public class EnfrentamientoPanel extends javax.swing.JPanel{
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(54, Short.MAX_VALUE)
+                        .addContainerGap(102, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -113,7 +112,7 @@ public class EnfrentamientoPanel extends javax.swing.JPanel{
                     .addComponent(jButton4))
                 .addGap(18, 18, 18)
                 .addComponent(jlblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -127,9 +126,6 @@ public class EnfrentamientoPanel extends javax.swing.JPanel{
         // TODO add your handling code here:
         gesEvento.getEnfrentamientos().getListaResultados().eliminarLista();
         jlblAviso.setText(gesEvento.crearListaEnfrentamiento());
-        if(jlblAviso.getText() == "Se creo enfrentamiento correctamente"){
-            jButton4.setEnabled(true);
-        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

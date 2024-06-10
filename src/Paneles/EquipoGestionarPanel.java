@@ -4,7 +4,7 @@
  */
 package Paneles;
 
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Luis
  */
 public class EquipoGestionarPanel extends javax.swing.JPanel{
-    private Evento_Deportivo gesEvento;
+    private Gestionador_Evento_Deportivo gesEvento;
     private JFrame frame;
     private DeportistaAgregarPanel deportistaPanel;
     private DeportistaMostrarPanel panelDeportistaMostrar;
@@ -22,7 +22,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
     /**
      * Creates new form EquipoGestionarPanel
      */
-    public EquipoGestionarPanel(JFrame frame,Evento_Deportivo gesEvento, JPanel p) {
+    public EquipoGestionarPanel(JFrame frame,Gestionador_Evento_Deportivo gesEvento, JPanel p) {
         initComponents();   
         this.frame = frame;
         this.gesEvento = gesEvento;
@@ -32,7 +32,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
     }
 
     private void cambiarPanel(JPanel p){
-        p.setSize(730,615); //Se encarga de definir el tamaño de los paneles en Content
+        p.setSize(760,650); //Se encarga de definir el tamaño de los paneles en Content
         p.setLocation(0,0);
         panel.removeAll();
         panel.add(p,BorderLayout.CENTER);
@@ -44,11 +44,11 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
         DefaultTableModel model = (DefaultTableModel) jtblMostrar.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de añadir datos
         
-        for(int i=0; i<gesEvento.getEquipos().getContadorEquipos(); i++){
-            String codigo = gesEvento.getEquipos().getEquipos()[i].getCodigo_Equipo();
-            String nombre = gesEvento.getEquipos().getEquipos()[i].getNombre_Equipo();
-            String dt = gesEvento.getEquipos().getEquipos()[i].getNombre_DT();
-            String provenencia = gesEvento.getEquipos().getEquipos()[i].getProvenencia_Equipo();
+        for(int i=0; i<gesEvento.getGesEquipos().getContadorEquipos(); i++){
+            String codigo = gesEvento.getGesEquipos().getEquipos()[i].getCodigo_Equipo();
+            String nombre = gesEvento.getGesEquipos().getEquipos()[i].getNombre_Equipo();
+            String dt = gesEvento.getGesEquipos().getEquipos()[i].getNombre_DT();
+            String provenencia = gesEvento.getGesEquipos().getEquipos()[i].getProvenencia_Equipo();
             model.addRow(new Object[]{codigo, nombre, dt, provenencia});
         }
     }
@@ -147,7 +147,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(104, 104, 104)
                 .addComponent(jButton2)
@@ -168,13 +168,13 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        gesEvento.getEquipos().ordenarLista();
+        gesEvento.getGesEquipos().ordenarLista();
         actualizarTablaMostrar();
         //OTRA LOGICA PARA ORDENAR LA TABLA
     }//GEN-LAST:event_jButton1ActionPerformed

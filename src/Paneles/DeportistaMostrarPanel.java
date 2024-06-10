@@ -4,20 +4,20 @@
  */
 package Paneles;
 
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 import javax.swing.table.DefaultTableModel;
 
 public class DeportistaMostrarPanel extends javax.swing.JPanel{
-    private Evento_Deportivo gesEvento;
+    private Gestionador_Evento_Deportivo gesEvento;
     private int posicionDeBusqueda;
     
-    public DeportistaMostrarPanel(Evento_Deportivo gesEvento) {
+    public DeportistaMostrarPanel(Gestionador_Evento_Deportivo gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
     }
 
     public void posicionEquipo(int codigo){
-        this.posicionDeBusqueda = gesEvento.getEquipos().busquedaBinariaPorCodigo(codigo);
+        this.posicionDeBusqueda = gesEvento.getGesEquipos().busquedaBinariaPorCodigo(codigo);
     }
     
     public void actualizarTablaMostrar(){
@@ -25,13 +25,13 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
             DefaultTableModel model = (DefaultTableModel) jtblMostrar.getModel();
             model.setRowCount(0); // Limpiar la tabla antes de añadir datos
 
-            for(int i=0; i<gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().contarNodos(); i++){ //Saber a que equipo se refiere
+            for(int i=0; i<gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().contarNodos(); i++){ //Saber a que equipo se refiere
 
-                String dni = gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getDni_Deportista();
-                String nombre = gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getNombre_Deportista();
-                String apellidos = gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getApellidoPaterno_Deportista()
-                                    + " "+gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getApellidoMaterno_Deportista();
-                int edad = gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getEdad_Deportista();
+                String dni = gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getDni_Deportista();
+                String nombre = gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getNombre_Deportista();
+                String apellidos = gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getApellidoPaterno_Deportista()
+                                    + " "+gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getApellidoMaterno_Deportista();
+                int edad = gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getEdad_Deportista();
                 model.addRow(new Object[]{dni, nombre, apellidos, edad});
             }
         }else{
@@ -40,7 +40,7 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
     }
     
     public void habilitarBotonExamenMedico(){
-        if(gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().contarNodos()>0){
+        if(gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().contarNodos()>0){
             jButton2.setEnabled(true);
         }else{
             jButton2.setEnabled(false);
@@ -144,7 +144,7 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(294, 294, 294)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,14 +157,14 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(posicionDeBusqueda != -1){
-            gesEvento.getEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().ordenarListaDeportista();
+            gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().ordenarListaDeportista();
             actualizarTablaMostrar();
         }else{
             //validar error

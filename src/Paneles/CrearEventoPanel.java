@@ -1,6 +1,6 @@
 package Paneles;
 
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,13 +10,13 @@ import javax.swing.JPanel;
 
 public class CrearEventoPanel extends javax.swing.JPanel{
 
-    private Evento_Deportivo gesEvento;
+    private Gestionador_Evento_Deportivo gesEvento;
     private JPanel panel;
     private InicioPanel panelAux;
     private Gestionador_Deportivo frame;
     private Calendar calendario;
     
-    public CrearEventoPanel(Gestionador_Deportivo frame,InicioPanel panelAux, JPanel p, Evento_Deportivo gesEvento) {
+    public CrearEventoPanel(Gestionador_Deportivo frame,InicioPanel panelAux, JPanel p, Gestionador_Evento_Deportivo gesEvento) {
         initComponents();
         this.frame = frame;
         this.panelAux = panelAux;
@@ -57,16 +57,16 @@ public class CrearEventoPanel extends javax.swing.JPanel{
         iniciarAnios(jcmbAnioFin);
     }
 
-    public Evento_Deportivo getGesEvento() {
+    public Gestionador_Evento_Deportivo getGesEvento() {
         return gesEvento;
     }
 
-    public void setGesEvento(Evento_Deportivo gesEvento) {
+    public void setGesEvento(Gestionador_Evento_Deportivo gesEvento) {
         this.gesEvento = gesEvento;
     }
 
     public void cambiarPanel(JPanel p){
-        p.setSize(730,615); //Se encarga de definir el tamaño de los paneles en Content
+        p.setSize(760,650); //Se encarga de definir el tamaño de los paneles en Content
         p.setLocation(0,0);
         panel.removeAll();
         panel.add(p,BorderLayout.CENTER);
@@ -288,7 +288,7 @@ public class CrearEventoPanel extends javax.swing.JPanel{
         fin.set(AnioFin,MesFin,DiaFin);
         
         if(!fin.before(inicio) && !jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty()){
-            gesEvento = new Evento_Deportivo(Integer.parseInt(jTextField1.getText()),jTextField2.getText(),inicio,fin);
+            gesEvento.iniciarEventoDeportivo(Integer.parseInt(jTextField1.getText()),jTextField2.getText(),inicio,fin);
             frame.iniciarPanelEvento();
             frame.getJbtnEvento().setEnabled(true);
             panelAux.eventoEnColaJlabel();

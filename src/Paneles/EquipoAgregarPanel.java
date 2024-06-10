@@ -1,12 +1,12 @@
 package Paneles;
 
 import Entidades.Equipo;
-import Entidades.Evento_Deportivo;
+import Entidades.Gestionador_Evento_Deportivo;
 
 public class EquipoAgregarPanel extends javax.swing.JPanel{
-    private Evento_Deportivo gesEvento;
+    private Gestionador_Evento_Deportivo gesEvento;
    
-    public EquipoAgregarPanel(Evento_Deportivo gesEvento){
+    public EquipoAgregarPanel(Gestionador_Evento_Deportivo gesEvento){
         initComponents();
         this.gesEvento = gesEvento;
     }
@@ -112,7 +112,7 @@ public class EquipoAgregarPanel extends javax.swing.JPanel{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(331, 331, 331)
                         .addComponent(jLabel1)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,15 +135,15 @@ public class EquipoAgregarPanel extends javax.swing.JPanel{
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(58, 58, 58)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(gesEvento.getEquipos().getContadorEquipos() <= gesEvento.getEquipos().getMax()){
+        if(gesEvento.getGesEquipos().getContadorEquipos() <= gesEvento.getGesEquipos().getMax()){
             Equipo auxEq = new Equipo(jTextField2.getText(),jTextField1.getText(),jTextField4.getText(),jTextField5.getText());
-            gesEvento.getEquipos().agregarEquipo(auxEq);
+            gesEvento.getGesEquipos().agregarEquipo(auxEq);
             limpiarCampos();
         }else{
             //Validar error
