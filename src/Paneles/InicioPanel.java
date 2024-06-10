@@ -6,6 +6,7 @@ package Paneles;
 
 import Entidades.Evento_Deportivo;
 import java.awt.BorderLayout;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -65,6 +66,10 @@ public class InicioPanel extends javax.swing.JPanel{
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -96,6 +101,12 @@ public class InicioPanel extends javax.swing.JPanel{
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("Consultar evento en curso:");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Consultar evento finalizado: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,6 +126,18 @@ public class InicioPanel extends javax.swing.JPanel{
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(174, 174, 174)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,10 +154,18 @@ public class InicioPanel extends javax.swing.JPanel{
                 .addGap(18, 18, 18)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -145,14 +176,33 @@ public class InicioPanel extends javax.swing.JPanel{
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
-            // TODO add your handling code here:
+            // Obtener el objeto gesEvento desde panelCrearEvento
             gesEvento = panelCrearEvento.getGesEvento();
-            if(gesEvento != null){
-                ObjectOutputStream archivo = new ObjectOutputStream(new FileOutputStream(gesEvento.getCodigo_Evento()+".txt"));
-                archivo.writeObject(gesEvento);
-                archivo.close();
-            }else{
-                //Validar error
+            if (gesEvento != null) {
+                // Obtener la ruta del directorio raíz del proyecto
+                String rutaProyecto = new File("").getAbsolutePath();
+
+                // Definir la ruta del directorio "src/Archivos"
+                String rutaDirectorio = rutaProyecto + File.separator + "src" + File.separator + "Archivos";
+
+                // Crear el directorio si no existe
+                File directorio = new File(rutaDirectorio);
+                if (!directorio.exists()) {
+                    directorio.mkdirs();
+                }
+
+                // Crear el archivo en el directorio "Archivos"
+                String nombreArchivo = gesEvento.getCodigo_Evento() + ".txt";
+                File archivo = new File(directorio, nombreArchivo);
+
+                // Escribir el objeto gesEvento al archivo
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo));
+                oos.writeObject(gesEvento);
+                oos.close();
+
+                System.out.println("Archivo guardado en: " + archivo.getAbsolutePath());
+            } else {
+                // Validar error
                 System.out.println("Objeto Null");
             }
         } catch (FileNotFoundException ex) {
@@ -164,30 +214,57 @@ public class InicioPanel extends javax.swing.JPanel{
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-            // TODO add your handling code here:
-            ObjectInputStream archivo = new ObjectInputStream(new FileInputStream("123.txt"));
-            Evento_Deportivo eventoDeportivo = (Evento_Deportivo) archivo.readObject();
-            archivo.close();
-            
-            panelCrearEvento.setGesEvento(eventoDeportivo);
-            
-            if(panelCrearEvento.getGesEvento() != null){
-                jLabel2.setText("Archivo cargado correctamente");
-                deshabilitarBotonCrearEvento();
-                frame.iniciarPanelEvento();
-                frame.getJbtnEvento().setEnabled(true);
+            // Obtener el código ingresado por el usuario
+            String codigo = jTextField1.getText().trim();
+
+            if (codigo.isEmpty()) {
+                jLabel2.setText("Por favor, ingrese un código válido.");
+                return;
             }
-            
-            
-            
+
+            // Obtener la ruta del directorio raíz del proyecto
+            String rutaProyecto = new File("").getAbsolutePath();
+
+            // Definir la ruta del directorio "src/Archivos"
+            String rutaDirectorio = rutaProyecto + File.separator + "src" + File.separator + "Archivos";
+
+            // Crear el objeto File para el directorio
+            File directorio = new File(rutaDirectorio);
+
+            // Verificar si el directorio existe y es una carpeta
+            if (directorio.exists() && directorio.isDirectory()) {
+                // Crear la ruta completa del archivo basado en el código ingresado
+                String nombreArchivo = codigo + ".txt";
+                File archivoSeleccionado = new File(directorio, nombreArchivo);
+
+                // Verificar si el archivo existe
+                if (archivoSeleccionado.exists() && archivoSeleccionado.isFile()) {
+                    // Cargar el archivo seleccionado
+                    ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivoSeleccionado));
+                    Evento_Deportivo eventoDeportivo = (Evento_Deportivo) ois.readObject();
+                    ois.close();
+
+                    panelCrearEvento.setGesEvento(eventoDeportivo);
+
+                    if (panelCrearEvento.getGesEvento() != null) {
+                        jLabel2.setText("Archivo cargado correctamente");
+                        deshabilitarBotonCrearEvento();
+                        frame.iniciarPanelEvento();
+                        frame.getJbtnEvento().setEnabled(true);
+                    }
+                } else {
+                    jLabel2.setText("No existe el archivo con el código especificado.");
+                }
+            } else {
+                jLabel2.setText("La carpeta 'src/Archivos' no existe.");
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }  
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
@@ -198,5 +275,9 @@ public class InicioPanel extends javax.swing.JPanel{
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
