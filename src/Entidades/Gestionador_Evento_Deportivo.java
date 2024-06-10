@@ -44,8 +44,8 @@ public class Gestionador_Evento_Deportivo implements Serializable{
         this.enfrentamientosGes.setFecha_fin(fFin);
     }
     
-    public String crearListaEnfrentamiento(){
-        return enfrentamientosGes.crearListaEnfrentamiento();
+    public String crearListaEnfrentamiento(int cantidadPartidosXFecha){
+        return enfrentamientosGes.crearListaEnfrentamiento(cantidadPartidosXFecha);
     }
     
     public void definirNuevaEtapa(int[][] goles){

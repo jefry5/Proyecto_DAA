@@ -160,6 +160,7 @@ public class EventoPanel extends javax.swing.JPanel{
 
     private void jbtnEnfrentamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEnfrentamientoActionPerformed
         // TODO add your handling code here:
+        panelEnfrentamiento.actualizarPartidosPorDia();
         cambiarPanel(panelEnfrentamiento);
     }//GEN-LAST:event_jbtnEnfrentamientoActionPerformed
 
