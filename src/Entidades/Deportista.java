@@ -1,8 +1,9 @@
 package Entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Deportista {
+public class Deportista implements Serializable{
     private String dni_Deportista, nombre_Deportista, apellidoPaterno_Deportista, apellidoMaterno_Deportista;
     private int edad_Deportista;
     private Date FechaNacimiento_Deportista;

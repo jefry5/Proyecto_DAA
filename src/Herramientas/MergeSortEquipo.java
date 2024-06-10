@@ -1,8 +1,9 @@
 package Herramientas;
 
 import Entidades.Equipo;
+import java.io.Serializable;
 
-public class MergeSortEquipo{
+public class MergeSortEquipo implements Serializable{
 
     public void mergeSort(Equipo[] array, int size) {
         if (array == null) {

@@ -1,6 +1,8 @@
 package Entidades;
 
-public class NodoDeportista {
+import java.io.Serializable;
+
+public class NodoDeportista implements Serializable{
     private Deportista depor;
     private NodoDeportista siguiente;
 

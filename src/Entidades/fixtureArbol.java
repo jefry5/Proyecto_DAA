@@ -1,10 +1,11 @@
 package Entidades;
 
 import Herramientas.NumeroAleatorioRango;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
 
-public class fixtureArbol {
+public class fixtureArbol implements Serializable{
     
     private ListaEnfrentamiento listaEnfrentamientos;
     private GestionarDeEquipos equipos;

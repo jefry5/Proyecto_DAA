@@ -28,7 +28,11 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
     
     //Inicia los paneles que se cambiaran
     public void iniciarPanelEvento(){
-        panelEvento = new EventoPanel(this,Content,panelInicio.getPanelCrearEvento().getGesEvento());
+        if (panelInicio.getPanelCrearEvento().getGesEvento() != null) {
+            panelEvento = new EventoPanel(this, Content, panelInicio.getPanelCrearEvento().getGesEvento());
+        } else {
+                System.out.println("Null Exception");
+        }
     }
 
     private void cambiarPanel(JPanel p){
@@ -40,7 +44,6 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
         Content.repaint();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

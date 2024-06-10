@@ -8,7 +8,7 @@ import Entidades.Evento_Deportivo;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
-public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel {
+public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
     private JPanel panel, cambio;
     private Evento_Deportivo gesEvento;
     private ingresarGolesEnfrentamientoPanel golesEnfrentamientoPanel;

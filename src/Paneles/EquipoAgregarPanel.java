@@ -3,7 +3,7 @@ package Paneles;
 import Entidades.Equipo;
 import Entidades.Evento_Deportivo;
 
-public class EquipoAgregarPanel extends javax.swing.JPanel {
+public class EquipoAgregarPanel extends javax.swing.JPanel{
     private Evento_Deportivo gesEvento;
    
     public EquipoAgregarPanel(Evento_Deportivo gesEvento){

@@ -1,8 +1,9 @@
 package Entidades;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
-public class ListaEnfrentamiento {
+public class ListaEnfrentamiento implements Serializable{
     
     private Enfrentamiento cabecera;
     private Enfrentamiento ultimo;

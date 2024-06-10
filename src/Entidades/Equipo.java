@@ -1,7 +1,9 @@
 package Entidades;
 
+import java.io.Serializable;
 
-public class Equipo {
+
+public class Equipo implements Serializable{
     private String codigo_Equipo, nombre_Equipo, nombre_DT, provenencia_Equipo;
     private ListaDeportista listaDepor;
     private int puntuacion;

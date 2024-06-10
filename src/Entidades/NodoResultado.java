@@ -4,11 +4,13 @@
  */
 package Entidades;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ghino
  */
-public class NodoResultado {
+public class NodoResultado implements Serializable{
     private String resultado;
     private NodoResultado siguiente;
 

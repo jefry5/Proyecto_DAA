@@ -4,11 +4,13 @@
  */
 package Entidades;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ghino
  */
-public class ListaResultados {
+public class ListaResultados implements Serializable{
     private NodoResultado cabecera;
     private NodoResultado ultimo;
 

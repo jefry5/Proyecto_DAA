@@ -1,8 +1,9 @@
 package Entidades;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Enfrentamiento {
+public class Enfrentamiento implements Serializable{
     
     private Equipo equipo1;
     private Equipo equipo2;

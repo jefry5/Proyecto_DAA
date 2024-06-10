@@ -1,8 +1,9 @@
 package Herramientas;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class NumeroAleatorioRango {
+public class NumeroAleatorioRango implements Serializable{
     private int valorMinimo;
     private int valorMaximo;
     private Random random;

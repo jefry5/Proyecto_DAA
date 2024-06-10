@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  *
  * @author Luis
  */
-public class EventoPanel extends javax.swing.JPanel {
+public class EventoPanel extends javax.swing.JPanel{
     private JPanel panel;
     private JFrame frame;
     private Evento_Deportivo gesEvento;

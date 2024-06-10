@@ -1,8 +1,9 @@
 package Entidades;
 
 import Herramientas.MergeSortEquipo;
+import java.io.Serializable;
 
-public class GestionarDeEquipos {
+public class GestionarDeEquipos implements Serializable{
     private Equipo[] equipos;
     private int contadorEquipos;
     private int max;

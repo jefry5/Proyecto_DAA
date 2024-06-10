@@ -2,8 +2,9 @@ package Herramientas;
 
 import Entidades.ListaDeportista;
 import Entidades.NodoDeportista;
+import java.io.Serializable;
 
-public class MergeSortListaDeportista{
+public class MergeSortListaDeportista implements Serializable{
 
     public void mergeSort(ListaDeportista lista, int size) {
         if (lista == null || size < 2) {

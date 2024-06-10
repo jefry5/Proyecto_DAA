@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Luis
  */
-public class EquipoGestionarPanel extends javax.swing.JPanel {
+public class EquipoGestionarPanel extends javax.swing.JPanel{
     private Evento_Deportivo gesEvento;
     private JFrame frame;
     private DeportistaAgregarPanel deportistaPanel;

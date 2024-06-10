@@ -1,6 +1,8 @@
 package Entidades;
 
-public class Deporte {
+import java.io.Serializable;
+
+public class Deporte implements Serializable{
     private String codigo_Deporte, nombre_Deporte;
 
     public Deporte(String codigo_Deporte, String nombre_Deporte) {

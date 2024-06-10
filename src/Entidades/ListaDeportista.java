@@ -1,8 +1,9 @@
 package Entidades;
 
 import Herramientas.MergeSortListaDeportista;
+import java.io.Serializable;
 
-public class ListaDeportista {
+public class ListaDeportista implements Serializable{
     private NodoDeportista cabecera;
     private NodoDeportista ultimo;
     private MergeSortListaDeportista ordenar;

@@ -5,7 +5,7 @@ import Entidades.fixtureArbol;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
-public class EnfrentamientoPanel extends javax.swing.JPanel {
+public class EnfrentamientoPanel extends javax.swing.JPanel{
     private JPanel panel;
     private fixtureArbol enfrentamientos;
     private Evento_Deportivo gesEvento;

@@ -7,7 +7,7 @@ package Paneles;
 import Entidades.Evento_Deportivo;
 import javax.swing.table.DefaultTableModel;
 
-public class DeportistaMostrarPanel extends javax.swing.JPanel {
+public class DeportistaMostrarPanel extends javax.swing.JPanel{
     private Evento_Deportivo gesEvento;
     private int posicionDeBusqueda;
     

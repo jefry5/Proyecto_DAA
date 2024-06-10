@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class EquipoPanel extends javax.swing.JPanel {
+public class EquipoPanel extends javax.swing.JPanel{
     private JPanel panel;
     private JFrame frame;
     private Evento_Deportivo gesEvento;

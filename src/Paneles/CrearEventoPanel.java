@@ -8,7 +8,7 @@ import java.util.Calendar;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-public class CrearEventoPanel extends javax.swing.JPanel {
+public class CrearEventoPanel extends javax.swing.JPanel{
 
     private Evento_Deportivo gesEvento;
     private JPanel panel;
@@ -60,7 +60,11 @@ public class CrearEventoPanel extends javax.swing.JPanel {
     public Evento_Deportivo getGesEvento() {
         return gesEvento;
     }
-    
+
+    public void setGesEvento(Evento_Deportivo gesEvento) {
+        this.gesEvento = gesEvento;
+    }
+
     public void cambiarPanel(JPanel p){
         p.setSize(730,615); //Se encarga de definir el tamaño de los paneles en Content
         p.setLocation(0,0);
@@ -259,14 +263,14 @@ public class CrearEventoPanel extends javax.swing.JPanel {
                     .addComponent(jcmbAnioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcmbDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(jLabel9)
                         .addComponent(jcmbMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jcmbAnioFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jcmbDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jcmbDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4))
                 .addGap(68, 68, 68)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(248, Short.MAX_VALUE))

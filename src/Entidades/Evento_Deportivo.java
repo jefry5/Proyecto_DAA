@@ -1,8 +1,9 @@
 package Entidades;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Evento_Deportivo {
+public class Evento_Deportivo implements Serializable{
     
     private int codigo_Evento;
     private String nombre_Evento;
@@ -19,6 +20,14 @@ public class Evento_Deportivo {
         this.enfrentamientosGes = new fixtureArbol(equiposGes,fecha_Inicio_Evento,fecha_Fin_Evento);
     }
 
+    public int getCodigo_Evento() {
+        return codigo_Evento;
+    }
+
+    public String getNombre_Evento() {
+        return nombre_Evento;
+    }
+    
     public GestionarDeEquipos getEquipos() {
         return equiposGes;
     }

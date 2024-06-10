@@ -6,9 +6,17 @@ package Paneles;
 
 import Entidades.Evento_Deportivo;
 import java.awt.BorderLayout;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
-public class InicioPanel extends javax.swing.JPanel {
+public class InicioPanel extends javax.swing.JPanel{
     private Gestionador_Deportivo frame;
     private JPanel panel;
     private Evento_Deportivo gesEvento;
@@ -73,8 +81,18 @@ public class InicioPanel extends javax.swing.JPanel {
         jButton2.setText("Historial de Eventos");
 
         jButton3.setText("Cargar Evento");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Guardar Evento");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -124,6 +142,53 @@ public class InicioPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         cambiarPanel(panelCrearEvento);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+            // TODO add your handling code here:
+            gesEvento = panelCrearEvento.getGesEvento();
+            if(gesEvento != null){
+                ObjectOutputStream archivo = new ObjectOutputStream(new FileOutputStream(gesEvento.getCodigo_Evento()+".txt"));
+                archivo.writeObject(gesEvento);
+                archivo.close();
+            }else{
+                //Validar error
+                System.out.println("Objeto Null");
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            // TODO add your handling code here:
+            ObjectInputStream archivo = new ObjectInputStream(new FileInputStream("123.txt"));
+            Evento_Deportivo eventoDeportivo = (Evento_Deportivo) archivo.readObject();
+            archivo.close();
+            
+            panelCrearEvento.setGesEvento(eventoDeportivo);
+            
+            if(panelCrearEvento.getGesEvento() != null){
+                jLabel2.setText("Archivo cargado correctamente");
+                deshabilitarBotonCrearEvento();
+                frame.iniciarPanelEvento();
+                frame.getJbtnEvento().setEnabled(true);
+            }
+            
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

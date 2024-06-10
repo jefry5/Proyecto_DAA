@@ -9,7 +9,7 @@ import Entidades.Evento_Deportivo;
 import java.awt.*;
 import javax.swing.*;
 
-public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel {
+public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
     private Evento_Deportivo gesEvento;
     private JTextField[] jtxtGol;
     
