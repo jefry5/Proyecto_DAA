@@ -28,6 +28,11 @@ public class EventoPanel extends javax.swing.JPanel{
         this.panel = p;
         this.gesEvento = gesEvento;
         iniciarPaneles();
+        
+        //Botones deshabilitados por el momento
+        jbtnInformacion.setEnabled(false);
+        jbtnCalendario.setEnabled(false);
+        jbtnFinalizar.setEnabled(false);
     }
     
     private void cambiarPanel(JPanel p){
@@ -59,7 +64,7 @@ public class EventoPanel extends javax.swing.JPanel{
         jbtnCalendario = new javax.swing.JButton();
         jbtnEnfrentamiento = new javax.swing.JButton();
         jbtnResultados = new javax.swing.JButton();
-        jbtnReportes = new javax.swing.JButton();
+        jbtnFinalizar = new javax.swing.JButton();
         jbtnEquipos = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -96,10 +101,10 @@ public class EventoPanel extends javax.swing.JPanel{
             }
         });
 
-        jbtnReportes.setText("Reportes");
-        jbtnReportes.addActionListener(new java.awt.event.ActionListener() {
+        jbtnFinalizar.setText("Finalizar Evento");
+        jbtnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnReportesActionPerformed(evt);
+                jbtnFinalizarActionPerformed(evt);
             }
         });
 
@@ -130,7 +135,7 @@ public class EventoPanel extends javax.swing.JPanel{
                             .addComponent(jbtnEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbtnReportes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnFinalizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbtnCalendario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(154, Short.MAX_VALUE))
         );
@@ -148,15 +153,15 @@ public class EventoPanel extends javax.swing.JPanel{
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnEnfrentamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(194, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReportesActionPerformed
+    private void jbtnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnFinalizarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnReportesActionPerformed
+    }//GEN-LAST:event_jbtnFinalizarActionPerformed
 
     private void jbtnEnfrentamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEnfrentamientoActionPerformed
         // TODO add your handling code here:
@@ -189,8 +194,8 @@ public class EventoPanel extends javax.swing.JPanel{
     private javax.swing.JButton jbtnCalendario;
     private javax.swing.JButton jbtnEnfrentamiento;
     private javax.swing.JButton jbtnEquipos;
+    private javax.swing.JButton jbtnFinalizar;
     private javax.swing.JButton jbtnInformacion;
-    private javax.swing.JButton jbtnReportes;
     private javax.swing.JButton jbtnResultados;
     // End of variables declaration//GEN-END:variables
 }

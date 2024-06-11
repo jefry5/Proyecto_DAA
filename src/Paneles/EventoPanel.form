@@ -43,7 +43,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jbtnReportes" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Component id="jbtnFinalizar" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                           <Component id="jbtnCalendario" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -68,7 +68,7 @@
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbtnResultados" alignment="3" min="-2" pref="150" max="-2" attributes="0"/>
-                  <Component id="jbtnReportes" alignment="3" min="-2" pref="150" max="-2" attributes="0"/>
+                  <Component id="jbtnFinalizar" alignment="3" min="-2" pref="150" max="-2" attributes="0"/>
                   <Component id="jbtnEnfrentamiento" alignment="3" min="-2" pref="150" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="194" max="32767" attributes="0"/>
@@ -117,12 +117,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnResultadosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jbtnReportes">
+    <Component class="javax.swing.JButton" name="jbtnFinalizar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Reportes"/>
+        <Property name="text" type="java.lang.String" value="Finalizar Evento"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnReportesActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnFinalizarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtnEquipos">
