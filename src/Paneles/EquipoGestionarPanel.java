@@ -4,7 +4,7 @@
  */
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Gestionador;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Luis
  */
 public class EquipoGestionarPanel extends javax.swing.JPanel{
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Gestionador gesEvento;
     private JFrame frame;
     private DeportistaAgregarPanel deportistaPanel;
     private DeportistaMostrarPanel panelDeportistaMostrar;
@@ -22,7 +22,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
     /**
      * Creates new form EquipoGestionarPanel
      */
-    public EquipoGestionarPanel(JFrame frame,Gestionador_Evento_Deportivo gesEvento, JPanel p) {
+    public EquipoGestionarPanel(JFrame frame,Gestionador gesEvento, JPanel p) {
         initComponents();   
         this.frame = frame;
         this.gesEvento = gesEvento;
@@ -44,11 +44,11 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
         DefaultTableModel model = (DefaultTableModel) jtblMostrar.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de añadir datos
         
-        for(int i=0; i<gesEvento.getGesEquipos().getContadorEquipos(); i++){
-            String codigo = gesEvento.getGesEquipos().getEquipos()[i].getCodigo_Equipo();
-            String nombre = gesEvento.getGesEquipos().getEquipos()[i].getNombre_Equipo();
-            String dt = gesEvento.getGesEquipos().getEquipos()[i].getNombre_DT();
-            String provenencia = gesEvento.getGesEquipos().getEquipos()[i].getProvenencia_Equipo();
+        for(int i=0; i<gesEvento.getEventoDeportivo().getEquiposGes().getContadorEquipos(); i++){
+            String codigo = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[i].getCodigo_Equipo();
+            String nombre = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[i].getNombre_Equipo();
+            String dt = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[i].getNombre_DT();
+            String provenencia = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[i].getProvenencia_Equipo();
             model.addRow(new Object[]{codigo, nombre, dt, provenencia});
         }
     }
@@ -174,7 +174,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        gesEvento.getGesEquipos().ordenarLista();
+        gesEvento.getEventoDeportivo().getEquiposGes().ordenarLista();
         actualizarTablaMostrar();
         //OTRA LOGICA PARA ORDENAR LA TABLA
     }//GEN-LAST:event_jButton1ActionPerformed

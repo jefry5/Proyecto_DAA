@@ -3,13 +3,13 @@ package Entidades;
 import Herramientas.MergeSortEquipo;
 import java.io.Serializable;
 
-public class GestionarDeEquipos implements Serializable{
+public class ArregloDeEquipos implements Serializable{
     private Equipo[] equipos;
     private int contadorEquipos;
     private int max;
     private MergeSortEquipo merge;
     
-    public GestionarDeEquipos(){
+    public ArregloDeEquipos(){
         this.max = 8; //Cuartos de eliminatorias
         this.equipos = new Equipo[max]; 
         this.contadorEquipos = 0;

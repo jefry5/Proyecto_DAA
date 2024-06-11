@@ -5,16 +5,16 @@
 package Paneles;
 
 import Entidades.Enfrentamiento;
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Gestionador;
 import java.awt.*;
 import javax.swing.*;
 
 public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Gestionador gesEvento;
     private JTextField[] jtxtGol;
     
     
-    public ingresarGolesEnfrentamientoPanel(Gestionador_Evento_Deportivo gesEvento) {
+    public ingresarGolesEnfrentamientoPanel(Gestionador gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
         actualizarPanel();
@@ -23,13 +23,13 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
     
     public void actualizarPanel(){
         this.removeAll();
-        this.setLayout(new GridLayout(this.gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos(),4));
+        this.setLayout(new GridLayout(this.gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().contarEnfrentamientos(),4));
         anadirElemento();
     }
     
     public void anadirElemento(){
-        Enfrentamiento actual = gesEvento.getEnfrentamientos().getEnfrentamientos().getCabecera();
-        int numEnfrentamientos = gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos();
+        Enfrentamiento actual = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().getCabecera();
+        int numEnfrentamientos = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().contarEnfrentamientos();
         jtxtGol = new JTextField[numEnfrentamientos * 2];
 
         for (int i = 0; i < jtxtGol.length; i++) {
@@ -50,7 +50,7 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
     }
     
     public void guardarGoles(){
-        int numEnfrentamientos = gesEvento.getEnfrentamientos().getEnfrentamientos().contarEnfrentamientos();
+        int numEnfrentamientos = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().contarEnfrentamientos();
         int[][] goles = new int[numEnfrentamientos][2];
         int contEnfrentamiento = 0;
         

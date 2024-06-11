@@ -4,7 +4,7 @@
  */
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Gestionador;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -14,10 +14,10 @@ import javax.swing.JPanel;
 public class InicioPanel extends javax.swing.JPanel{
     private Gestionador_Deportivo frame;
     private JPanel panel;
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Gestionador gesEvento;
     private CrearEventoPanel panelCrearEvento;
     
-    public InicioPanel(Gestionador_Deportivo frame,JPanel p,Gestionador_Evento_Deportivo gesEvento) {
+    public InicioPanel(Gestionador_Deportivo frame,JPanel p,Gestionador gesEvento) {
         initComponents();
         this.frame = frame;
         this.gesEvento = gesEvento;

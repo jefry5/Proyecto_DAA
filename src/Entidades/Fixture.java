@@ -2,20 +2,19 @@ package Entidades;
 
 import Herramientas.NumeroAleatorioRango;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Calendar;
 
-public class fixtureArbol implements Serializable{
+public class Fixture implements Serializable{
     
     private ListaEnfrentamiento listaEnfrentamientos;
-    private GestionarDeEquipos equipos;
+    private ArregloDeEquipos equipos;
     private NumeroAleatorioRango aleatorio;
     private ListaResultados listaResultados;
     private Calendar fecha_inicio, fecha_fin;
     private Calendar[] fechas;
     private int contadorFechasEnfrentamientos, contadorPartidosPorDia, partidosPorFecha;
 
-    public fixtureArbol(GestionarDeEquipos e, Calendar inicio, Calendar fin){
+    public Fixture(ArregloDeEquipos e, Calendar inicio, Calendar fin){
         this.equipos = e;
         this.fecha_inicio = inicio;
         this.fecha_fin = fin;
@@ -69,63 +68,75 @@ public class fixtureArbol implements Serializable{
         return cantidadDias;
     }
     
-    public String crearListaEnfrentamiento(int cantidadPartidosXFecha){
-        listaEnfrentamientos.eliminarLista();
-        int contadorEquiposRegistrados = 0; //Se aumentara con cada equipo ingresado y contara los partidos por día
-        int numeroEnfrentamientos = equipos.getContadorEquipos()-1;
-        contadorFechasEnfrentamientos = 0; //Inicializamos las fechas
-        contadorPartidosPorDia = 0; partidosPorFecha = cantidadPartidosXFecha; //Inicializamos el contador de partidos por fecha
-        String mensaje = "No hay equipos registrados";
-        
-        //Enfrentamiento aleatorios
-        aleatorio = new NumeroAleatorioRango(0,numeroEnfrentamientos);
-        int[] aleatorios = new int[equipos.getContadorEquipos()];
-        aleatorios = aleatorio.generarAleatoriosSinRepetir(equipos.getContadorEquipos());
-        System.out.println("ALEATORIOS: "+Arrays.toString(aleatorios));
-        
-        //Inicializa los objetos de fecha
+    public void inicializarFecha(){
         if(equipos.getContadorEquipos()>1){
             fechas = new Calendar[equipos.getContadorEquipos()-1]; //Cantidad de fechas de enfrentamiento
             for(int i=0; i<fechas.length; i++){
                 fechas[i] = Calendar.getInstance();
             }
         }
-        
-        //Validar que la cantidad de dias del evento alcanze para la cantidad de partidos  por día
-        int diasEvento = cantidadDeDiasEvento(), duracionEventoSegunPartidosXFecha = 1;
+    }
+    
+    public int calcularDuracionDeEventoSegunXFecha(int cantidadPartidosXFecha){
+        int duracionEventoSegunPartidosXFecha;
+        int numeroEnfrentamientos = equipos.getContadorEquipos()-1;
         if(cantidadPartidosXFecha == 1 || cantidadPartidosXFecha == numeroEnfrentamientos){
             duracionEventoSegunPartidosXFecha = numeroEnfrentamientos/cantidadPartidosXFecha;
         }else{
             duracionEventoSegunPartidosXFecha = numeroEnfrentamientos/cantidadPartidosXFecha + 1;
         }
+        return duracionEventoSegunPartidosXFecha;
+    }
+
+    public String crearListaEnfrentamiento(int cantidadPartidosXFecha){
+        listaEnfrentamientos.eliminarLista();
+        int contadorEquiposRegistrados = 0, diasEvento = cantidadDeDiasEvento(), 
+            duracionEventoSegunPartidosXFecha = calcularDuracionDeEventoSegunXFecha(cantidadPartidosXFecha);
+        contadorFechasEnfrentamientos = 0; //Inicializamos las fechas
+        contadorPartidosPorDia = 0; 
+        partidosPorFecha = cantidadPartidosXFecha; //Inicializamos el contador de partidos por fecha
+        String mensaje = "";
         
-        if(duracionEventoSegunPartidosXFecha <= diasEvento){
-            while(contadorEquiposRegistrados < equipos.getContadorEquipos()){
-                Equipo equipoVisitante, equipoLocal; 
-                equipoLocal = equipos.getEquiposPorPosicion(aleatorios[contadorEquiposRegistrados]);
+        //Inicializa los objetos de fecha
+        inicializarFecha();
+        
+        //Enfrentamiento aleatorios
+        aleatorio = new NumeroAleatorioRango(0,equipos.getContadorEquipos()-1);
+        int[] aleatorios = new int[equipos.getContadorEquipos()];
+        aleatorios = aleatorio.generarAleatoriosSinRepetir(equipos.getContadorEquipos());
+        
+        
+        if(equipos.getContadorEquipos() > 0){
+            if(duracionEventoSegunPartidosXFecha <= diasEvento){
+                while(contadorEquiposRegistrados < equipos.getContadorEquipos()){
+                    Equipo equipoVisitante, equipoLocal; 
+                    equipoLocal = equipos.getEquiposPorPosicion(aleatorios[contadorEquiposRegistrados]);
 
-                if(contadorEquiposRegistrados < equipos.getContadorEquipos()-1){
+                    if(contadorEquiposRegistrados < equipos.getContadorEquipos()-1){
+                        contadorEquiposRegistrados++;
+                        equipoVisitante = equipos.getEquiposPorPosicion(aleatorios[contadorEquiposRegistrados]);
+                    }else{
+                        equipoVisitante = equipos.getEquiposPorPosicion(aleatorios[aleatorios.length-1]); //El ultimo nodo agarra dos veces al mismo equipo si la cantida de equipos es impar
+                    }
                     contadorEquiposRegistrados++;
-                    equipoVisitante = equipos.getEquiposPorPosicion(aleatorios[contadorEquiposRegistrados]);
-                }else{
-                    equipoVisitante = equipos.getEquiposPorPosicion(aleatorios[aleatorios.length-1]); //El ultimo nodo agarra dos veces al mismo equipo si la cantida de equipos es impar
-                }
-                contadorEquiposRegistrados++;
 
-                if(equipoLocal.getListaDepor().contarNodos() <= 11 || equipoVisitante.getListaDepor().contarNodos() <= 11){ //Cantidad de jugadores permitidos
-                    verificarFechaEnfrentamiento(contadorFechasEnfrentamientos);
-                    Enfrentamiento enfrentamiento = new Enfrentamiento(equipoLocal, equipoVisitante, fechas[contadorFechasEnfrentamientos++]);
-                    listaEnfrentamientos.agregarEnfrentamiento(enfrentamiento);
-                    mensaje = "Se creo enfrentamiento correctamente";
-                }else{
-                    contadorEquiposRegistrados = contadorEquiposRegistrados - 2;
-                    mensaje = "Numero de integrantes incompletos "+equipoLocal.getNombre_Equipo()+"("+equipoLocal.getListaDepor().contarNodos()+")"+" || "
-                                +equipoVisitante.getNombre_Equipo()+"("+equipoVisitante.getListaDepor().contarNodos()+")";
-                    break;
-                } 
+                    if(equipoLocal.getListaDepor().contarNodos() >= 5 || equipoVisitante.getListaDepor().contarNodos() >= 5){ //Cantidad de jugadores permitidos
+                        verificarFechaEnfrentamiento(contadorFechasEnfrentamientos);
+                        Enfrentamiento enfrentamiento = new Enfrentamiento(equipoLocal, equipoVisitante, fechas[contadorFechasEnfrentamientos++]);
+                        listaEnfrentamientos.agregarEnfrentamiento(enfrentamiento);
+                        mensaje = "Se creo enfrentamiento correctamente";
+                    }else{
+                        contadorEquiposRegistrados = contadorEquiposRegistrados - 2;
+                        mensaje = "Numero de integrantes incompletos "+equipoLocal.getNombre_Equipo()+"("+equipoLocal.getListaDepor().contarNodos()+")"+" || "
+                                    +equipoVisitante.getNombre_Equipo()+"("+equipoVisitante.getListaDepor().contarNodos()+")";
+                        break;
+                    } 
+                }
+            }else{
+                mensaje = "No hay suficientes días para la cantidad de "+cantidadPartidosXFecha+" partidos por fecha";
             }
         }else{
-            mensaje = "No hay suficientes días para la cantidad de "+cantidadPartidosXFecha+" partidos por fecha";
+            mensaje = "No hay equipos registrados";
         }
         return mensaje;
     }

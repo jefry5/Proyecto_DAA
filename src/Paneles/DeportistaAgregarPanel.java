@@ -1,19 +1,19 @@
 package Paneles;
 
 import Entidades.Deportista;
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Gestionador;
 
 public class DeportistaAgregarPanel extends javax.swing.JPanel{
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Gestionador gesEvento;
     private int posicionDeBusqueda;
     
-    public DeportistaAgregarPanel(Gestionador_Evento_Deportivo gesEvento) {
+    public DeportistaAgregarPanel(Gestionador gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
     }
 
     public void posicionDeportista(int codigo){
-        this.posicionDeBusqueda = gesEvento.getGesEquipos().busquedaBinariaPorCodigo(codigo);
+        this.posicionDeBusqueda = gesEvento.getEventoDeportivo().getEquiposGes().busquedaBinariaPorCodigo(codigo);
     }
     
     public void limpiarCampos(){
@@ -171,7 +171,7 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
         if(posicionDeBusqueda!=-1){
             Deportista depo = new Deportista(jTextField1.getText(),jTextField2.getText(),jTextField3.getText(),jTextField4.getText(),
                                         Integer.parseInt(jTextField6.getText()));
-            gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().agregarDeportista(depo);
+            gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().agregarDeportista(depo);
             limpiarCampos();
         }else{
             //Validar

@@ -1,6 +1,6 @@
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Gestionador;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -9,14 +9,14 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
     
     private InicioPanel panelInicio;
     private EventoPanel panelEvento;
-    private Gestionador_Evento_Deportivo gestionar_eventos;
+    private Gestionador gestionar_eventos;
     
     
     public Gestionador_Deportivo() {
         initComponents();
         this.setTitle("Sistema_Deportivo");
         this.setLocationRelativeTo(null);
-        gestionar_eventos = new Gestionador_Evento_Deportivo();
+        gestionar_eventos = new Gestionador();
         panelInicio = new InicioPanel(this,Content,gestionar_eventos);
         cambiarPanel(panelInicio);
         this.jbtnEvento.setEnabled(false);
@@ -26,7 +26,7 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
         return jbtnEvento;
     }
 
-    public void setGestionar_eventos(Gestionador_Evento_Deportivo gestionar_eventos) {
+    public void setGestionar_eventos(Gestionador gestionar_eventos) {
         this.gestionar_eventos = gestionar_eventos;
     }
  

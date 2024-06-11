@@ -3,17 +3,24 @@ package Entidades;
 import java.io.Serializable;
 import java.util.Calendar;
 
-public class Evento_Deportivo implements Serializable{
+public class Evento implements Serializable{
     
     private int codigo_Evento;
     private String nombre_Evento;
     private Calendar fecha_Inicio_Evento, fecha_Fin_Evento;
+    private ArregloDeEquipos equiposGes;
+    private Fixture enfrentamientosGes;
     
-    public Evento_Deportivo(int codigo, String nombre, Calendar fInicio, Calendar fFin){
+    public Evento(int codigo, String nombre, Calendar fInicio, Calendar fFin){
         this.codigo_Evento = codigo;
         this.nombre_Evento = nombre;
         this.fecha_Inicio_Evento = fInicio;
         this.fecha_Fin_Evento = fFin;
+    }
+    
+    public void iniciarEnfrentamientos(){
+        this.equiposGes = new ArregloDeEquipos();
+        this.enfrentamientosGes = new Fixture(equiposGes,fecha_Inicio_Evento,fecha_Fin_Evento);
     }
 
     public int getCodigo_Evento() {
@@ -46,6 +53,14 @@ public class Evento_Deportivo implements Serializable{
 
     public void setFecha_Fin_Evento(Calendar fecha_Fin_Evento) {
         this.fecha_Fin_Evento = fecha_Fin_Evento;
+    }
+
+    public ArregloDeEquipos getEquiposGes() {
+        return equiposGes;
+    }
+
+    public Fixture getEnfrentamientosGes() {
+        return enfrentamientosGes;
     }
     
 }

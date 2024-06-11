@@ -4,20 +4,20 @@
  */
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Gestionador;
 import javax.swing.table.DefaultTableModel;
 
 public class DeportistaMostrarPanel extends javax.swing.JPanel{
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Gestionador gesEvento;
     private int posicionDeBusqueda;
     
-    public DeportistaMostrarPanel(Gestionador_Evento_Deportivo gesEvento) {
+    public DeportistaMostrarPanel(Gestionador gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
     }
 
     public void posicionEquipo(int codigo){
-        this.posicionDeBusqueda = gesEvento.getGesEquipos().busquedaBinariaPorCodigo(codigo);
+        this.posicionDeBusqueda = gesEvento.getEventoDeportivo().getEquiposGes().busquedaBinariaPorCodigo(codigo);
     }
     
     public void actualizarTablaMostrar(){
@@ -25,13 +25,13 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
             DefaultTableModel model = (DefaultTableModel) jtblMostrar.getModel();
             model.setRowCount(0); // Limpiar la tabla antes de añadir datos
 
-            for(int i=0; i<gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().contarNodos(); i++){ //Saber a que equipo se refiere
+            for(int i=0; i<gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().contarNodos(); i++){ //Saber a que equipo se refiere
 
-                String dni = gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getDni_Deportista();
-                String nombre = gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getNombre_Deportista();
-                String apellidos = gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getApellidoPaterno_Deportista()
-                                    + " "+gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getApellidoMaterno_Deportista();
-                int edad = gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getEdad_Deportista();
+                String dni = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getDni_Deportista();
+                String nombre = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getNombre_Deportista();
+                String apellidos = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getApellidoPaterno_Deportista()
+                                    + " "+gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getApellidoMaterno_Deportista();
+                int edad = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getEdad_Deportista();
                 model.addRow(new Object[]{dni, nombre, apellidos, edad});
             }
         }else{
@@ -40,7 +40,7 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
     }
     
     public void habilitarBotonExamenMedico(){
-        if(gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().contarNodos()>0){
+        if(gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().contarNodos()>0){
             jButton2.setEnabled(true);
         }else{
             jButton2.setEnabled(false);
@@ -164,7 +164,7 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(posicionDeBusqueda != -1){
-            gesEvento.getGesEquipos().getEquipos()[posicionDeBusqueda].getListaDepor().ordenarListaDeportista();
+            gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().ordenarListaDeportista();
             actualizarTablaMostrar();
         }else{
             //validar error

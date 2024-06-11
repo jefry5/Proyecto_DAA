@@ -1,12 +1,12 @@
 package Paneles;
 
 import Entidades.Equipo;
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Gestionador;
 
 public class EquipoAgregarPanel extends javax.swing.JPanel{
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Gestionador gesEvento;
    
-    public EquipoAgregarPanel(Gestionador_Evento_Deportivo gesEvento){
+    public EquipoAgregarPanel(Gestionador gesEvento){
         initComponents();
         this.gesEvento = gesEvento;
     }
@@ -141,9 +141,9 @@ public class EquipoAgregarPanel extends javax.swing.JPanel{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(gesEvento.getGesEquipos().getContadorEquipos() <= gesEvento.getGesEquipos().getMax()){
+        if(gesEvento.getEventoDeportivo().getEquiposGes().getContadorEquipos() <= gesEvento.getEventoDeportivo().getEquiposGes().getMax()){
             Equipo auxEq = new Equipo(jTextField2.getText(),jTextField1.getText(),jTextField4.getText(),jTextField5.getText());
-            gesEvento.getGesEquipos().agregarEquipo(auxEq);
+            gesEvento.getEventoDeportivo().getEquiposGes().agregarEquipo(auxEq);
             limpiarCampos();
         }else{
             //Validar error

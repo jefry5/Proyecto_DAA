@@ -8,60 +8,37 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Calendar;
 
-public class Gestionador_Evento_Deportivo implements Serializable{
+public class Gestionador implements Serializable{
     
-    private Evento_Deportivo eventoDeportivo;
-    private GestionarDeEquipos equiposGes;
-    private fixtureArbol enfrentamientosGes;
+    private Evento eventoDeportivo;
 
-    public Gestionador_Evento_Deportivo(){
-        this.equiposGes = new GestionarDeEquipos(); 
-        this.eventoDeportivo = new Evento_Deportivo(-99,"",null,null);
-        this.enfrentamientosGes = new fixtureArbol(equiposGes,null,null);
+    public Gestionador(){
+        this.eventoDeportivo = new Evento(-99,"",null,null); //Inicializa el evento con valores nulos
     }
 
-    public Evento_Deportivo getEventoDeportivo() {
+    public Evento getEventoDeportivo() {
         return eventoDeportivo;
-    }
-
-    public GestionarDeEquipos getGesEquipos() {
-        return equiposGes;
-    }
-
-    public fixtureArbol getEnfrentamientos() {
-        return enfrentamientosGes;
-    }
-    
-    public void iniciarEventoDeportivo(int codigo, String nombre, Calendar fInicio, Calendar fFin){
-        this.eventoDeportivo.setCodigo_Evento(codigo);
-        this.eventoDeportivo.setNombre_Evento(nombre);
-        this.eventoDeportivo.setFecha_Inicio_Evento(fInicio);
-        this.eventoDeportivo.setFecha_Fin_Evento(fFin);
-        
-        this.enfrentamientosGes.setFecha_inicio(fInicio);
-        this.enfrentamientosGes.setFecha_fin(fFin);
     }
     
     public String crearListaEnfrentamiento(int cantidadPartidosXFecha){
-        return enfrentamientosGes.crearListaEnfrentamiento(cantidadPartidosXFecha);
+        return eventoDeportivo.getEnfrentamientosGes().crearListaEnfrentamiento(cantidadPartidosXFecha);
     }
     
     public void definirNuevaEtapa(int[][] goles){
-        enfrentamientosGes.definirEtapas(goles);
+        eventoDeportivo.getEnfrentamientosGes().definirEtapas(goles);
     }
     
     public String mostrarEtapa(){
-        return enfrentamientosGes.mostrarEtapa();
+        return eventoDeportivo.getEnfrentamientosGes().mostrarEtapa();
     }
     
     public String mostrarListaEnfrentamiento(){
-        return enfrentamientosGes.getEnfrentamientos().mostrarEnfrentamientos();
+        return eventoDeportivo.getEnfrentamientosGes().getEnfrentamientos().mostrarEnfrentamientos();
     }
     
     public String guardarArchivo() throws IOException{
-        if (this != null) {
+        if (eventoDeportivo.getCodigo_Evento() != -99) {
             String rutaProyecto = new File("").getAbsolutePath();
             String rutaDirectorio = rutaProyecto + File.separator + "src" + File.separator + "Archivos";
 
@@ -80,11 +57,11 @@ public class Gestionador_Evento_Deportivo implements Serializable{
             return "Archivo guardado";
         }else{
             // Validar error
-            return "Objeto Null";
+            return "Cree o cargue un evento";
         }
     }
     
-    public Gestionador_Evento_Deportivo cargarArchivo(String codigo) throws FileNotFoundException, IOException, ClassNotFoundException{
+    public Gestionador cargarArchivo(String codigo) throws FileNotFoundException, IOException, ClassNotFoundException{
         String rutaProyecto = new File("").getAbsolutePath();
         String rutaDirectorio = rutaProyecto + File.separator + "src" + File.separator + "Archivos";
         File directorio = new File(rutaDirectorio);
@@ -95,7 +72,7 @@ public class Gestionador_Evento_Deportivo implements Serializable{
 
             if (archivoSeleccionado.exists() && archivoSeleccionado.isFile()) {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivoSeleccionado));
-                Gestionador_Evento_Deportivo eventoDeportivoArchivo = (Gestionador_Evento_Deportivo) ois.readObject();
+                Gestionador eventoDeportivoArchivo = (Gestionador) ois.readObject();
                 ois.close();
                 
                 if (eventoDeportivoArchivo != null) {

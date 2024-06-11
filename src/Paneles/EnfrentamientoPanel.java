@@ -1,17 +1,17 @@
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
-import Entidades.fixtureArbol;
+import Entidades.Gestionador;
+import Entidades.Fixture;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 public class EnfrentamientoPanel extends javax.swing.JPanel{
     private JPanel panel;
-    private fixtureArbol enfrentamientos;
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Fixture enfrentamientos;
+    private Gestionador gesEvento;
     private ConcatenarIngresarGolesPanel golesPanel;
     
-    public EnfrentamientoPanel(JPanel p, Gestionador_Evento_Deportivo gesEvento) {
+    public EnfrentamientoPanel(JPanel p, Gestionador gesEvento) {
         initComponents();
         this.gesEvento = gesEvento; 
         this.panel = p;
@@ -30,7 +30,7 @@ public class EnfrentamientoPanel extends javax.swing.JPanel{
     
     public void actualizarPartidosPorDia(){
         jComboBox1.removeAllItems();
-        int cantidadEnfrentamientos = gesEvento.getGesEquipos().getContadorEquipos() - 1;
+        int cantidadEnfrentamientos = gesEvento.getEventoDeportivo().getEquiposGes().getContadorEquipos() - 1;
         for(int i=1; i<=cantidadEnfrentamientos; i++){
             jComboBox1.addItem(String.valueOf(i));
         }
@@ -154,7 +154,7 @@ public class EnfrentamientoPanel extends javax.swing.JPanel{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        gesEvento.getEnfrentamientos().getListaResultados().eliminarLista();
+        gesEvento.getEventoDeportivo().getEnfrentamientosGes().getListaResultados().eliminarLista();
         String aux = String.valueOf(jComboBox1.getSelectedItem()); //Se almacena lo seleccionado en el JCombobox
         jlblAviso.setText(gesEvento.crearListaEnfrentamiento(Integer.parseInt(aux)));
     }//GEN-LAST:event_jButton1ActionPerformed

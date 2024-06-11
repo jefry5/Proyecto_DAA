@@ -1,6 +1,6 @@
 package Paneles;
 
-import Entidades.Gestionador_Evento_Deportivo;
+import Entidades.Gestionador;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,13 +10,13 @@ import javax.swing.JPanel;
 
 public class CrearEventoPanel extends javax.swing.JPanel{
 
-    private Gestionador_Evento_Deportivo gesEvento;
+    private Gestionador gesEvento;
     private JPanel panel;
     private InicioPanel panelAux;
     private Gestionador_Deportivo frame;
     private Calendar calendario;
     
-    public CrearEventoPanel(Gestionador_Deportivo frame,InicioPanel panelAux, JPanel p, Gestionador_Evento_Deportivo gesEvento) {
+    public CrearEventoPanel(Gestionador_Deportivo frame,InicioPanel panelAux, JPanel p, Gestionador gesEvento) {
         initComponents();
         this.frame = frame;
         this.panelAux = panelAux;
@@ -57,11 +57,11 @@ public class CrearEventoPanel extends javax.swing.JPanel{
         iniciarAnios(jcmbAnioFin);
     }
 
-    public Gestionador_Evento_Deportivo getGesEvento() {
+    public Gestionador getGesEvento() {
         return gesEvento;
     }
 
-    public void setGesEvento(Gestionador_Evento_Deportivo gesEvento) {
+    public void setGesEvento(Gestionador gesEvento) {
         this.gesEvento = gesEvento;
     }
 
@@ -288,7 +288,12 @@ public class CrearEventoPanel extends javax.swing.JPanel{
         fin.set(AnioFin,MesFin,DiaFin);
         
         if(!fin.before(inicio) && !jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty()){
-            gesEvento.iniciarEventoDeportivo(Integer.parseInt(jTextField1.getText()),jTextField2.getText(),inicio,fin);
+            gesEvento.getEventoDeportivo().setCodigo_Evento(Integer.parseInt(jTextField1.getText()));
+            gesEvento.getEventoDeportivo().setNombre_Evento(jTextField2.getText());
+            gesEvento.getEventoDeportivo().setFecha_Inicio_Evento(inicio);
+            gesEvento.getEventoDeportivo().setFecha_Fin_Evento(fin);
+            gesEvento.getEventoDeportivo().iniciarEnfrentamientos();
+            
             frame.iniciarPanelEvento();
             frame.getJbtnEvento().setEnabled(true);
             panelAux.eventoEnColaJlabel();
@@ -296,7 +301,7 @@ public class CrearEventoPanel extends javax.swing.JPanel{
             cambiarPanel(panelAux);
         }else{
             //Validar error
-            System.out.println("Fechas invalidas o campo incompleto");
+            System.out.println("Fecha invalida o campo incompleto");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
