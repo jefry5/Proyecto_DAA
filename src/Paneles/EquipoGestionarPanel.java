@@ -194,7 +194,6 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
         if(jtblMostrar.getRowCount() > 0 && jtblMostrar.getSelectedRow()!=-1 && jtblMostrar.getSelectedColumn() != -1){ 
            panelDeportistaMostrar.posicionEquipo(Integer.parseInt(jtblMostrar.getValueAt(jtblMostrar.getSelectedRow(), 0).toString()));
            panelDeportistaMostrar.actualizarTablaMostrar();
-           panelDeportistaMostrar.habilitarBotonExamenMedico();
            cambiarPanel(panelDeportistaMostrar);
         }else{
             //Validar error

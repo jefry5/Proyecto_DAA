@@ -17,9 +17,11 @@ public class EventoPanel extends javax.swing.JPanel{
     private JPanel panel;
     private JFrame frame;
     private Gestionador gesEvento;
+    private InformacionPanel panelInformacion;
     private EnfrentamientoPanel panelEnfrentamiento;
     private EquipoPanel panelEquipo;
     private ResultadoPanel panelResultado;
+    private CalendarioPanel panelCalendario;
     
     
     public EventoPanel(JFrame frame,JPanel p,Gestionador gesEvento) {
@@ -30,8 +32,6 @@ public class EventoPanel extends javax.swing.JPanel{
         iniciarPaneles();
         
         //Botones deshabilitados por el momento
-        jbtnInformacion.setEnabled(false);
-        jbtnCalendario.setEnabled(false);
         jbtnFinalizar.setEnabled(false);
     }
     
@@ -48,6 +48,8 @@ public class EventoPanel extends javax.swing.JPanel{
         panelEnfrentamiento = new EnfrentamientoPanel(panel,gesEvento);
         panelEquipo = new EquipoPanel(frame,panel,gesEvento);
         panelResultado = new ResultadoPanel(gesEvento);
+        panelInformacion = new InformacionPanel(gesEvento);
+        panelCalendario = new CalendarioPanel(gesEvento);
     }
 
     /**
@@ -171,10 +173,14 @@ public class EventoPanel extends javax.swing.JPanel{
 
     private void jbtnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInformacionActionPerformed
         // TODO add your handling code here:
+        panelInformacion.actualizarInformacion();
+        cambiarPanel(panelInformacion);
     }//GEN-LAST:event_jbtnInformacionActionPerformed
 
     private void jbtnCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCalendarioActionPerformed
         // TODO add your handling code here:
+        panelCalendario.actualizarCalendario();
+        cambiarPanel(panelCalendario);
     }//GEN-LAST:event_jbtnCalendarioActionPerformed
 
     private void jbtnResultadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnResultadosActionPerformed

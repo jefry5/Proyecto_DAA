@@ -37,6 +37,22 @@ public class Gestionador implements Serializable{
         return eventoDeportivo.getEnfrentamientosGes().getEnfrentamientos().mostrarEnfrentamientos();
     }
     
+    public String[] listarArchivos(){
+        String rutaProyecto = new File("").getAbsolutePath();
+        String rutaDirectorio = rutaProyecto + File.separator + "src" + File.separator + "Archivos";
+        
+        File directorio = new File(rutaDirectorio);
+        File[] archivos = directorio.listFiles((dir, name) -> name.endsWith(".txt"));
+        
+        String[] lista = new String[archivos.length];
+        if(archivos != null){
+            for(int i=0; i<archivos.length ; i++){
+                lista[i] = archivos[i].getName();
+            }
+        }
+        return lista;
+    }
+    
     public String guardarArchivo() throws IOException{
         if (eventoDeportivo.getCodigo_Evento() != -99) {
             String rutaProyecto = new File("").getAbsolutePath();

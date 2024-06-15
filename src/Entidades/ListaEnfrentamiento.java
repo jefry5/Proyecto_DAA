@@ -40,11 +40,9 @@ public class ListaEnfrentamiento implements Serializable{
     
     public String mostrarEnfrentamientos(){
         String total = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Enfrentamiento aux1 = cabecera;
         while(aux1 != null){
-            total += aux1.getEquipo1().getNombre_Equipo() + "\t" + "vs" + "\t" + aux1.getEquipo2().getNombre_Equipo() + "\t" +
-                    "Fecha: "+ sdf.format(aux1.getFecha_Enfrentamiento().getTime())+"\n";
+            total += aux1.getEquipo1().getNombre_Equipo() + "\t" + "vs" + "\t" + aux1.getEquipo2().getNombre_Equipo()+"\n";
             aux1 = aux1.getSiguiente_enfrentamiento();
         }
         return total;
@@ -76,6 +74,21 @@ public class ListaEnfrentamiento implements Serializable{
             ultimo = actual;
         } 
     }
+    
+    public Enfrentamiento obtenerEnfrentamientoPorIndice(int i){
+        Enfrentamiento actual;
+        if(i < contarEnfrentamientos()){
+            actual = cabecera;
+            for(int j=0; j<i; j++){
+                actual = actual.getSiguiente_enfrentamiento();
+            }
+        }else{
+            //validar error
+            actual = null;
+        }
+        return actual;
+    }
+    
     
     public void eliminarLista() {
         Enfrentamiento actual = cabecera;

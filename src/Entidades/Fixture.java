@@ -120,7 +120,7 @@ public class Fixture implements Serializable{
                     }
                     contadorEquiposRegistrados++;
 
-                    if(equipoLocal.getListaDepor().contarNodos() >= 5 || equipoVisitante.getListaDepor().contarNodos() >= 5){ //Cantidad de jugadores permitidos
+                    if(equipoLocal.getListaDepor().contarNodos() <= 5 || equipoVisitante.getListaDepor().contarNodos() <= 5){ //Cantidad de jugadores permitidos
                         verificarFechaEnfrentamiento(contadorFechasEnfrentamientos);
                         Enfrentamiento enfrentamiento = new Enfrentamiento(equipoLocal, equipoVisitante, fechas[contadorFechasEnfrentamientos++]);
                         listaEnfrentamientos.agregarEnfrentamiento(enfrentamiento);

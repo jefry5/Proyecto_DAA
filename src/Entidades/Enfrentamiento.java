@@ -89,7 +89,7 @@ public class Enfrentamiento implements Serializable{
             this.ganador = equipo2;
         }  
     }
-    
+
     public String mostrarResultados(){
         String resultado = equipo1.getNombre_Equipo()+"("+goles_equipo1+")"+"\t"+"vs"+"\t"+equipo2.getNombre_Equipo()+"("+goles_equipo2+")"+"\n"
                     +"Ganador: "+ganador.getNombre_Equipo()+"\n";

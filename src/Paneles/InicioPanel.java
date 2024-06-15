@@ -6,6 +6,7 @@ package Paneles;
 
 import Entidades.Gestionador;
 import java.awt.BorderLayout;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,8 +17,9 @@ public class InicioPanel extends javax.swing.JPanel{
     private JPanel panel;
     private Gestionador gesEvento;
     private CrearEventoPanel panelCrearEvento;
+    private cargarEventoPanel panelCargarEvento;
     
-    public InicioPanel(Gestionador_Deportivo frame,JPanel p,Gestionador gesEvento) {
+    public InicioPanel(Gestionador_Deportivo frame,JPanel p,Gestionador gesEvento) throws IOException, ClassNotFoundException {
         initComponents();
         this.frame = frame;
         this.gesEvento = gesEvento;
@@ -25,14 +27,20 @@ public class InicioPanel extends javax.swing.JPanel{
         iniciarPaneles();
     }
     
-    private void iniciarPaneles(){
+    private void iniciarPaneles() throws IOException, FileNotFoundException, ClassNotFoundException{
         panelCrearEvento = new CrearEventoPanel(frame,this,panel,gesEvento);
+        panelCargarEvento = new cargarEventoPanel(this,panel,gesEvento);
+        panelCargarEvento.actualizarTablaEvento();
     }
 
     public CrearEventoPanel getPanelCrearEvento() {
         return panelCrearEvento;
     }
 
+    public void setGesEventoEnCrearEvento(Gestionador gesEvento){
+        panelCrearEvento.setGesEvento(gesEvento);
+    }
+    
     public void eventoEnColaJlabel(){
         jLabel2.setText("Evento en Cola");
     }
@@ -49,6 +57,31 @@ public class InicioPanel extends javax.swing.JPanel{
         panel.revalidate();
         panel.repaint();
     }
+    
+    public void cargarArchivoPanel(String cod){
+        String codigo = cod;
+        
+        if (!codigo.isEmpty()) {
+            try {
+                if (gesEvento.cargarArchivo(codigo) != null) {
+                    setGesEventoEnCrearEvento(gesEvento.cargarArchivo(codigo));
+                    deshabilitarBotonCrearEvento();
+                    frame.iniciarPanelEvento();
+                    frame.getJbtnEvento().setEnabled(true);
+                    jLabel2.setText("Archivo cargado correctamente");
+                } else {
+                    jLabel2.setText("No existe Archivo");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            jLabel2.setText("Ingrese un código válido");
+            return;
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -60,10 +93,6 @@ public class InicioPanel extends javax.swing.JPanel{
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -95,23 +124,11 @@ public class InicioPanel extends javax.swing.JPanel{
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Consultar evento en curso:");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Consultar evento finalizado: ");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(283, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -120,24 +137,12 @@ public class InicioPanel extends javax.swing.JPanel{
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(174, 174, 174)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1)))
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,19 +158,11 @@ public class InicioPanel extends javax.swing.JPanel{
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                .addGap(36, 36, 36)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -184,34 +181,15 @@ public class InicioPanel extends javax.swing.JPanel{
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String codigo = jTextField1.getText().trim();
-        
-        if (!codigo.isEmpty()) {
-            try {
-                if (gesEvento.cargarArchivo(codigo) != null) {
-                    panelCrearEvento.setGesEvento(gesEvento.cargarArchivo(codigo));
-                    deshabilitarBotonCrearEvento();
-                    frame.iniciarPanelEvento();
-                    frame.getJbtnEvento().setEnabled(true);
-                    jLabel2.setText("Archivo cargado correctamente");
-                } else {
-                    jLabel2.setText("No existe Archivo");
-                }
-                jTextField1.setText("");
-            } catch (IOException ex) {
-                Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else{
-            jLabel2.setText("Ingrese un código válido");
-            return;
+        try {
+            panelCargarEvento.actualizarTablaEvento();
+        } catch (IOException ex) {
+            Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        cambiarPanel(panelCargarEvento);
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -221,9 +199,5 @@ public class InicioPanel extends javax.swing.JPanel{
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

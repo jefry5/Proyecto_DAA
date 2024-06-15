@@ -2,6 +2,9 @@ package Paneles;
 
 import Entidades.Gestionador;
 import java.awt.BorderLayout;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -12,7 +15,7 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
     private Gestionador gestionar_eventos;
     
     
-    public Gestionador_Deportivo() {
+    public Gestionador_Deportivo() throws IOException, ClassNotFoundException {
         initComponents();
         this.setTitle("Sistema_Deportivo");
         this.setLocationRelativeTo(null);
@@ -20,6 +23,7 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
         panelInicio = new InicioPanel(this,Content,gestionar_eventos);
         cambiarPanel(panelInicio);
         this.jbtnEvento.setEnabled(false);
+        
     }
 
     public JButton getJbtnEvento() {
@@ -194,7 +198,13 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Gestionador_Deportivo().setVisible(true);
+                try {
+                    new Gestionador_Deportivo().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Gestionador_Deportivo.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Gestionador_Deportivo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

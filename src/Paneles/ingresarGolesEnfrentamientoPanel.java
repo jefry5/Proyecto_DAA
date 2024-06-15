@@ -11,14 +11,22 @@ import javax.swing.*;
 
 public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
     private Gestionador gesEvento;
+    private ConcatenarIngresarGolesPanel panelaux;
     private JTextField[] jtxtGol;
+    private boolean validacionCampos;
     
     
-    public ingresarGolesEnfrentamientoPanel(Gestionador gesEvento) {
+    public ingresarGolesEnfrentamientoPanel(ConcatenarIngresarGolesPanel panelaux,Gestionador gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
+        this.panelaux = panelaux;
+        this.validacionCampos = false;
         actualizarPanel();
         anadirElemento();
+    }
+
+    public boolean isValidacionCampos() {
+        return validacionCampos;
     }
     
     public void actualizarPanel(){
@@ -49,16 +57,38 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
         this.repaint();
     }
     
+    public boolean sonTodosNumeros(JTextField[] campos) {
+        for (JTextField campo : campos) {
+            String texto = campo.getText().trim();
+            if (texto.isEmpty()) {
+                return false;
+            }
+            try {
+                Integer.parseInt(texto);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    
     public void guardarGoles(){
         int numEnfrentamientos = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().contarEnfrentamientos();
         int[][] goles = new int[numEnfrentamientos][2];
         int contEnfrentamiento = 0;
-        
-        for(int i=0; i<numEnfrentamientos; i++){
-            goles[i][0] = Integer.parseInt(jtxtGol[contEnfrentamiento++].getText());
-            goles[i][1] = Integer.parseInt(jtxtGol[contEnfrentamiento++].getText());
+        boolean sonNumeros = sonTodosNumeros(jtxtGol);
+
+        if(sonNumeros){
+            for(int i=0; i<numEnfrentamientos; i++){
+                goles[i][0] = Integer.parseInt(jtxtGol[contEnfrentamiento++].getText());
+                goles[i][1] = Integer.parseInt(jtxtGol[contEnfrentamiento++].getText());
+            }
+            gesEvento.definirNuevaEtapa(goles);
+            validacionCampos = true;
+        }else{
+            validacionCampos = false;
         }
-        gesEvento.definirNuevaEtapa(goles);
     }
     
     

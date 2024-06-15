@@ -9,19 +9,20 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
-    private JPanel panel, cambio;
+    private JPanel panel;
+    private EnfrentamientoPanel cambio;
     private Gestionador gesEvento;
     private ingresarGolesEnfrentamientoPanel golesEnfrentamientoPanel;
     
-    public ConcatenarIngresarGolesPanel(JPanel p, JPanel cambio, Gestionador gesEvento) {
+    public ConcatenarIngresarGolesPanel(JPanel p, EnfrentamientoPanel cambio, Gestionador gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
         this.panel = p;
         this.cambio = cambio;
-        this.golesEnfrentamientoPanel = new ingresarGolesEnfrentamientoPanel(this.gesEvento);
+        this.golesEnfrentamientoPanel = new ingresarGolesEnfrentamientoPanel(this,this.gesEvento);
        actualizarPanel();
     }
-    
+
     public void actualizarPanel(){
         jPanelGoles.removeAll();
         golesEnfrentamientoPanel.actualizarPanel();
@@ -51,11 +52,13 @@ public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
         jPanelGoles = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanelGoles.setLayout(new java.awt.BorderLayout());
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("GOLES");
 
         jButton1.setText("Guardar");
@@ -65,46 +68,59 @@ public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(325, 325, 325))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(332, 332, 332)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jPanelGoles, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(307, 307, 307)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                    .addComponent(jPanelGoles, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(352, 352, 352)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanelGoles, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(36, 36, 36)
                 .addComponent(jButton1)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         golesEnfrentamientoPanel.guardarGoles();
-        cambiarPanel(cambio);
+        if(golesEnfrentamientoPanel.isValidacionCampos()){
+            cambio.actualizarEnfrentamientos();
+            jLabel2.setText("");
+            cambiarPanel(cambio);
+        }else{
+            jLabel2.setText("Rellene los campos vacíos");
+        }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanelGoles;
     // End of variables declaration//GEN-END:variables
 }
