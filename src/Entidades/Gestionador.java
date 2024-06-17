@@ -20,7 +20,11 @@ public class Gestionador implements Serializable{
     public Evento getEventoDeportivo() {
         return eventoDeportivo;
     }
-    
+
+    public void setEventoDeportivo(Evento eventoDeportivo) {
+        this.eventoDeportivo = eventoDeportivo;
+    }
+
     public String crearListaEnfrentamiento(int cantidadPartidosXFecha){
         return eventoDeportivo.getEnfrentamientosGes().crearListaEnfrentamiento(cantidadPartidosXFecha);
     }
@@ -67,7 +71,7 @@ public class Gestionador implements Serializable{
             File archivo = new File(directorio, nombreArchivo);
 
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo));
-            oos.writeObject(this);
+            oos.writeObject(this.eventoDeportivo);
             oos.close();
 
             return "Archivo guardado";
@@ -77,7 +81,7 @@ public class Gestionador implements Serializable{
         }
     }
     
-    public Gestionador cargarArchivo(String codigo) throws FileNotFoundException, IOException, ClassNotFoundException{
+    public Evento cargarArchivo(String codigo) throws FileNotFoundException, IOException, ClassNotFoundException{
         String rutaProyecto = new File("").getAbsolutePath();
         String rutaDirectorio = rutaProyecto + File.separator + "src" + File.separator + "Archivos";
         File directorio = new File(rutaDirectorio);
@@ -88,7 +92,7 @@ public class Gestionador implements Serializable{
 
             if (archivoSeleccionado.exists() && archivoSeleccionado.isFile()) {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivoSeleccionado));
-                Gestionador eventoDeportivoArchivo = (Gestionador) ois.readObject();
+                Evento eventoDeportivoArchivo = (Evento) ois.readObject();
                 ois.close();
                 
                 if (eventoDeportivoArchivo != null) {

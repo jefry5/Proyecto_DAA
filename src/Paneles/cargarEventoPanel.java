@@ -37,7 +37,7 @@ public class cargarEventoPanel extends javax.swing.JPanel {
         
         
         for(int i=0; i<archivos.length; i++){
-            aux = gesEvento.cargarArchivo(quitarExtension(archivos[i],".txt"));
+            aux.setEventoDeportivo(gesEvento.cargarArchivo(quitarExtension(archivos[i],".txt")));
             model.addRow(new Object[]{quitarExtension(archivos[i],".txt"),aux.getEventoDeportivo().getNombre_Evento(),"En curso"});
         }
         

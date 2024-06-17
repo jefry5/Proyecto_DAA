@@ -64,7 +64,8 @@ public class InicioPanel extends javax.swing.JPanel{
         if (!codigo.isEmpty()) {
             try {
                 if (gesEvento.cargarArchivo(codigo) != null) {
-                    setGesEventoEnCrearEvento(gesEvento.cargarArchivo(codigo));
+                    gesEvento.setEventoDeportivo(gesEvento.cargarArchivo(codigo));
+                    setGesEventoEnCrearEvento(gesEvento);
                     deshabilitarBotonCrearEvento();
                     frame.iniciarPanelEvento();
                     frame.getJbtnEvento().setEnabled(true);
