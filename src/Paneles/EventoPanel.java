@@ -179,7 +179,8 @@ public class EventoPanel extends javax.swing.JPanel{
 
     private void jbtnCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCalendarioActionPerformed
         // TODO add your handling code here:
-        panelCalendario.actualizarCalendario();
+        //panelCalendario.actualizarCalendario();
+        panelCalendario.actualizarCalendarioV2();
         cambiarPanel(panelCalendario);
     }//GEN-LAST:event_jbtnCalendarioActionPerformed
 

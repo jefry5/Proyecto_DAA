@@ -41,6 +41,10 @@ public class Gestionador implements Serializable{
         return eventoDeportivo.getEnfrentamientosGes().getEnfrentamientos().mostrarEnfrentamientos();
     }
     
+    public void finalizarEvento(){
+        eventoDeportivo.setEventoFinalizado(true);
+    }
+ 
     public String[] listarArchivos(){
         String rutaProyecto = new File("").getAbsolutePath();
         String rutaDirectorio = rutaProyecto + File.separator + "src" + File.separator + "Archivos";

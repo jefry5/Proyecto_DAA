@@ -1,16 +1,19 @@
 package Paneles;
 
+import Entidades.Enfrentamiento;
 import Entidades.Gestionador;
-import static Paneles.cargarEventoPanel.quitarExtension;
+import Herramientas.PilaEnfrentamiento;
 import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 
 public class CalendarioPanel extends javax.swing.JPanel {
 
     private Gestionador gesEvento;
+    private PilaEnfrentamiento pila;
     
     public CalendarioPanel(Gestionador gesEvento) {
         this.gesEvento = gesEvento;
+        this.pila = new PilaEnfrentamiento();
         initComponents();
         jTable1.setRowSelectionAllowed(false);
         jTable1.setColumnSelectionAllowed(false);
@@ -27,6 +30,41 @@ public class CalendarioPanel extends javax.swing.JPanel {
                 String equipo2 = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().obtenerEnfrentamientoPorIndice(i).getEquipo2().getNombre_Equipo();
                 String fecha = formatoFecha.format(gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().obtenerEnfrentamientoPorIndice(i).getFecha_Enfrentamiento().getTime());
                 model.addRow(new Object[]{equipo1,"vs",equipo2,fecha});
+            }
+        }else{
+            //validar error
+        }
+    }
+    
+    public void actualizarCalendarioV2(){
+        Enfrentamiento aux = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().getCabecera();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        model.setRowCount(0); // Limpiar la tabla antes de añadir datos
+        
+        if(aux != null){
+            while(aux.getPartido_prev_1() != null){
+                pila.push(aux);
+                aux = aux.getPartido_prev_1();
+            }
+            
+            while (!pila.estaVacia()) {
+                while (aux != null) {
+                    String equipo1 = aux.getEquipo1().getNombre_Equipo();
+                    String equipo2 = aux.getEquipo2().getNombre_Equipo();
+                    String fecha = formatoFecha.format(aux.getFecha_Enfrentamiento().getTime());
+                    model.addRow(new Object[]{equipo1, "vs", equipo2, fecha});
+                    aux = aux.getSiguiente_enfrentamiento();
+                }
+                model.addRow(new Object[]{"", "", "", ""});
+                aux = pila.pop();
+            }
+            while (aux != null) {
+                String equipo1 = aux.getEquipo1().getNombre_Equipo();
+                String equipo2 = aux.getEquipo2().getNombre_Equipo();
+                String fecha = formatoFecha.format(aux.getFecha_Enfrentamiento().getTime());
+                model.addRow(new Object[]{equipo1, "vs", equipo2, fecha});
+                aux = aux.getSiguiente_enfrentamiento();
             }
         }else{
             //validar error

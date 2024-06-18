@@ -4,13 +4,14 @@ import Entidades.Gestionador;
 import Entidades.Fixture;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class EnfrentamientoPanel extends javax.swing.JPanel{
     private JPanel panel;
     private Fixture enfrentamientos;
     private Gestionador gesEvento;
     private ConcatenarIngresarGolesPanel golesPanel;
-    
+
     public EnfrentamientoPanel(JPanel p, Gestionador gesEvento) {
         initComponents();
         this.gesEvento = gesEvento; 
@@ -150,9 +151,16 @@ public class EnfrentamientoPanel extends javax.swing.JPanel{
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        jlblAviso.setText("");
-        golesPanel.actualizarPanel();
-        cambiarPanel(golesPanel);
+        if(!gesEvento.getEventoDeportivo().getEnfrentamientosGes().isEsPartidosCompletos()){
+            jlblAviso.setText("");
+            golesPanel.actualizarPanel();
+            cambiarPanel(golesPanel); 
+        }else{
+            String ganador = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().getCabecera().getGanador().getNombre_Equipo();
+            jTextArea1.setText("Ganador del Evento: "+ganador);
+            jlblAviso.setText("Ya se definio un ganador");
+            jButton4.setEnabled(false);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

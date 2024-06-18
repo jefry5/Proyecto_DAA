@@ -10,12 +10,14 @@ public class Evento implements Serializable{
     private Calendar fecha_Inicio_Evento, fecha_Fin_Evento;
     private ArregloDeEquipos equiposGes;
     private Fixture enfrentamientosGes;
+    private boolean eventoFinalizado;
     
     public Evento(int codigo, String nombre, Calendar fInicio, Calendar fFin){
         this.codigo_Evento = codigo;
         this.nombre_Evento = nombre;
         this.fecha_Inicio_Evento = fInicio;
         this.fecha_Fin_Evento = fFin;
+        this.eventoFinalizado = false;
     }
     
     public void iniciarEnfrentamientos(){
@@ -55,6 +57,14 @@ public class Evento implements Serializable{
         this.fecha_Fin_Evento = fecha_Fin_Evento;
     }
 
+    public boolean isEventoFinalizado() {
+        return eventoFinalizado;
+    }
+
+    public void setEventoFinalizado(boolean eventoFinalizado) {
+        this.eventoFinalizado = eventoFinalizado;
+    }
+    
     public ArregloDeEquipos getEquiposGes() {
         return equiposGes;
     }

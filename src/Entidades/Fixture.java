@@ -13,6 +13,7 @@ public class Fixture implements Serializable{
     private Calendar fecha_inicio, fecha_fin;
     private Calendar[] fechas;
     private int contadorFechasEnfrentamientos, contadorPartidosPorDia, partidosPorFecha;
+    private boolean esPartidosCompletos;
 
     public Fixture(ArregloDeEquipos e, Calendar inicio, Calendar fin){
         this.equipos = e;
@@ -23,6 +24,11 @@ public class Fixture implements Serializable{
         this.contadorFechasEnfrentamientos = 0;
         this.contadorPartidosPorDia = 0 ;
         this.partidosPorFecha = 0;
+        this.esPartidosCompletos = false;
+    }
+
+    public boolean isEsPartidosCompletos() {
+        return esPartidosCompletos;
     }
 
     public void setFecha_inicio(Calendar fecha_inicio) {
@@ -141,14 +147,13 @@ public class Fixture implements Serializable{
         return mensaje;
     }
     
-    public void definirEtapas(int[][] goles){ 
-        int i = 0;
-
+    public void definirEtapas(int[][] goles){  
         ListaEnfrentamiento nuevaEtapa = new ListaEnfrentamiento();
         Enfrentamiento enfrentamientoActual = listaEnfrentamientos.getCabecera();
         
         String concatenar = "";
         
+        int i = 0;
         while(enfrentamientoActual != null){
             enfrentamientoActual.definirGanador(goles[i][0], goles[i][1]);
             concatenar = concatenar + enfrentamientoActual.mostrarResultados();
@@ -161,11 +166,18 @@ public class Fixture implements Serializable{
         enfrentamientoActual = listaEnfrentamientos.getCabecera();
         if(listaEnfrentamientos.contarEnfrentamientos() == 1){
             //definir ganador
+            nuevaEtapa = listaEnfrentamientos;
+            esPartidosCompletos = true;
             System.out.println("Ganador: "+enfrentamientoActual.getGanador().getNombre_Equipo());
+
         }else if(listaEnfrentamientos.contarEnfrentamientos() % 2 == 0){
             while(enfrentamientoActual != null){
                 verificarFechaEnfrentamiento(contadorFechasEnfrentamientos);
-                nuevaEtapa.agregarEnfrentamiento(new Enfrentamiento(enfrentamientoActual.getGanador(),enfrentamientoActual.getSiguiente_enfrentamiento().getGanador(),fechas[contadorFechasEnfrentamientos++]));
+                Enfrentamiento auxE = new Enfrentamiento(enfrentamientoActual.getGanador(),enfrentamientoActual.getSiguiente_enfrentamiento().getGanador(),fechas[contadorFechasEnfrentamientos++]);
+                auxE.setPartido_prev_1(enfrentamientoActual);
+                auxE.setPartido_prev_2(enfrentamientoActual.getSiguiente_enfrentamiento());
+                nuevaEtapa.agregarEnfrentamiento(auxE);
+                
                 enfrentamientoActual = enfrentamientoActual.getSiguiente_enfrentamiento().getSiguiente_enfrentamiento();
             }
         }else{
@@ -174,13 +186,14 @@ public class Fixture implements Serializable{
             
             while(enfrentamientoActual != null){
                 verificarFechaEnfrentamiento(contadorFechasEnfrentamientos);
-                nuevaEtapa.agregarEnfrentamiento(new Enfrentamiento(enfrentamientoActual.getGanador(),enfrentamientoActual.getSiguiente_enfrentamiento().getGanador(),fechas[contadorFechasEnfrentamientos++]));
+                Enfrentamiento auxE = new Enfrentamiento(enfrentamientoActual.getGanador(),enfrentamientoActual.getSiguiente_enfrentamiento().getGanador(),fechas[contadorFechasEnfrentamientos++]);
+                auxE.setPartido_prev_1(enfrentamientoActual);
+                auxE.setPartido_prev_2(enfrentamientoActual.getSiguiente_enfrentamiento());
+                nuevaEtapa.agregarEnfrentamiento(auxE);
                 enfrentamientoActual = enfrentamientoActual.getSiguiente_enfrentamiento().getSiguiente_enfrentamiento();
             }
             listaEnfrentamientos.agregarEnfrentamiento(auxUltimo);
         }
-        
-        listaEnfrentamientos.eliminarLista();
         listaEnfrentamientos.setCabecera(nuevaEtapa.getCabecera());
     }
     
@@ -188,7 +201,7 @@ public class Fixture implements Serializable{
         NodoResultado actual = listaResultados.getCabecera();
         String retultados_totales = "";
         for(int i=0; i<listaResultados.contarResultados(); i++){
-            retultados_totales = retultados_totales + "Etapa " + (i+1) + ": \n" +
+            retultados_totales = retultados_totales + "***Etapa " + (i+1) + "***\n" +
                                  actual.getResultado() + "\n";  
             actual = actual.getSiguiente();
         }

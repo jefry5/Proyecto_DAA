@@ -11,6 +11,8 @@ public class Enfrentamiento implements Serializable{
     private int goles_equipo1;
     private int goles_equipo2;
     private Calendar fecha_Enfrentamiento;
+    private Enfrentamiento partido_prev_1;
+    private Enfrentamiento partido_prev_2;
     private Enfrentamiento siguiente_enfrentamiento;
     
     public Enfrentamiento(Equipo e1, Equipo e2, Calendar fecha_Enfrentamiento){
@@ -20,6 +22,8 @@ public class Enfrentamiento implements Serializable{
         this.ganador = null;
         this.equipo1 = e1;
         this.equipo2 = e2;
+        this.partido_prev_1 = null;
+        this.partido_prev_2 = null;
         this.siguiente_enfrentamiento = null;
     }
 
@@ -69,6 +73,22 @@ public class Enfrentamiento implements Serializable{
 
     public void setGoles_equipo2(int goles_equipo2) {
         this.goles_equipo2 = goles_equipo2;
+    }
+
+    public Enfrentamiento getPartido_prev_1() {
+        return partido_prev_1;
+    }
+
+    public void setPartido_prev_1(Enfrentamiento partido_prev_1) {
+        this.partido_prev_1 = partido_prev_1;
+    }
+
+    public Enfrentamiento getPartido_prev_2() {
+        return partido_prev_2;
+    }
+
+    public void setPartido_prev_2(Enfrentamiento partido_prev_2) {
+        this.partido_prev_2 = partido_prev_2;
     }
 
     public Enfrentamiento getSiguiente_enfrentamiento() {
