@@ -4,7 +4,12 @@ import Entidades.Gestionador;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
@@ -116,7 +121,51 @@ public class CrearEventoPanel extends javax.swing.JPanel{
         }
     }
     
-
+    public Calendar fechaMayor() throws IOException, FileNotFoundException, ClassNotFoundException{
+        String[] archivos = gesEvento.listarArchivos();
+        Calendar fechaMayor = null;
+        if(archivos.length > 0){
+            Gestionador aux = new Gestionador();
+            aux.setEventoDeportivo(gesEvento.cargarArchivo(archivos[0]));
+            fechaMayor = aux.getEventoDeportivo().getFecha_Fin_Evento();
+            for(int i=1 ; i<archivos.length; i++){
+                aux.setEventoDeportivo(gesEvento.cargarArchivo(archivos[i]));
+                Calendar fechaAux = aux.getEventoDeportivo().getFecha_Fin_Evento();
+                if(fechaAux.compareTo(fechaMayor)>0){
+                    fechaMayor = fechaAux;
+                }
+            } 
+        }
+        return fechaMayor;
+    }
+    
+    public boolean antesUltimoEvento(Calendar fecha) throws IOException, FileNotFoundException, ClassNotFoundException{ 
+        Calendar fechaMayor = fechaMayor();
+        if(fechaMayor != null){
+            fechaMayor.add(Calendar.DAY_OF_MONTH, 1);
+            return fecha.before(fechaMayor);
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean existeCodigo(int codigo) throws IOException, FileNotFoundException, ClassNotFoundException{
+        String[] archivos = gesEvento.listarArchivos();
+        boolean encontro = false;
+        if(archivos.length > 0){
+            int i = 0;
+            Gestionador aux = new Gestionador();
+            while (i < archivos.length && !encontro){
+                aux.setEventoDeportivo(gesEvento.cargarArchivo(archivos[i]));
+                int codigoAux = aux.getEventoDeportivo().getCodigo_Evento();
+                if(codigo == codigoAux){
+                    encontro = true;
+                }
+                i++;
+            }
+        }
+        return encontro;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -140,6 +189,7 @@ public class CrearEventoPanel extends javax.swing.JPanel{
         jcmbMesFin = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jcmbAnioFin = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -193,6 +243,8 @@ public class CrearEventoPanel extends javax.swing.JPanel{
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("/");
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,38 +260,40 @@ public class CrearEventoPanel extends javax.swing.JPanel{
                         .addGap(283, 283, 283))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(97, 97, 97)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jcmbDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcmbMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcmbAnioFin, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jcmbDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jcmbMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jcmbAnioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jcmbDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jcmbMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jcmbAnioFin, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(24, 24, 24)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jcmbDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jcmbMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jcmbAnioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +327,9 @@ public class CrearEventoPanel extends javax.swing.JPanel{
                     .addComponent(jLabel4))
                 .addGap(68, 68, 68)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -287,22 +343,47 @@ public class CrearEventoPanel extends javax.swing.JPanel{
         inicio.set(AnioInicio,MesInicio,DiaInicio);
         fin.set(AnioFin,MesFin,DiaFin);
         
-        if(!fin.before(inicio) && !jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty()){
-            gesEvento.getEventoDeportivo().setCodigo_Evento(Integer.parseInt(jTextField1.getText()));
-            gesEvento.getEventoDeportivo().setNombre_Evento(jTextField2.getText());
-            gesEvento.getEventoDeportivo().setFecha_Inicio_Evento(inicio);
-            gesEvento.getEventoDeportivo().setFecha_Fin_Evento(fin);
-            gesEvento.getEventoDeportivo().iniciarEnfrentamientos();
-            
-            frame.iniciarPanelEvento();
-            frame.getJbtnEvento().setEnabled(true);
-            panelAux.eventoEnColaJlabel();
-            panelAux.deshabilitarBotonCrearEvento();
-            cambiarPanel(panelAux);
+        if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty()){
+            try {
+                if(!existeCodigo(Integer.parseInt(jTextField1.getText().trim()))){
+                    try {
+                        if(!fin.before(inicio) ){
+                            if(!antesUltimoEvento(inicio)){
+                               gesEvento.getEventoDeportivo().setCodigo_Evento(Integer.parseInt(jTextField1.getText()));
+                                gesEvento.getEventoDeportivo().setNombre_Evento(jTextField2.getText());
+                                gesEvento.getEventoDeportivo().setFecha_Inicio_Evento(inicio);
+                                gesEvento.getEventoDeportivo().setFecha_Fin_Evento(fin);
+                                gesEvento.getEventoDeportivo().iniciarEnfrentamientos();
+
+                                frame.iniciarPanelEvento();
+                                frame.getJbtnEvento().setEnabled(true);
+                                panelAux.eventoEnColaJlabel();
+                                panelAux.deshabilitarBotonCrearEvento();
+                                cambiarPanel(panelAux); 
+                            }else{
+                                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                                jLabel10.setText("Fecha invalida"+" || "+
+                                                "Ultimo evento registrado: "+formatoFecha.format(fechaMayor().getTime()));
+                            }
+                        }else{
+                            jLabel10.setText("Fecha fin anterior a Inicio");
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(CrearEventoPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(CrearEventoPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                    jLabel10.setText("Codigo existente");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(CrearEventoPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(CrearEventoPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
-            //Validar error
-            System.out.println("Fecha invalida o campo incompleto");
-        }
+            jLabel10.setText("Complete todos los campos");
+        } 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -317,6 +398,7 @@ public class CrearEventoPanel extends javax.swing.JPanel{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

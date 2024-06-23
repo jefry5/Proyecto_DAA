@@ -33,6 +33,14 @@ public class EquipoPanel extends javax.swing.JPanel{
         panel.revalidate();
         panel.repaint();
     }
+
+    public EquipoGestionarPanel getPanelGestionarEquipo() {
+        return panelGestionarEquipo;
+    }
+    
+    public void deshabilitarAgregar(){
+        jButton2.setEnabled(false);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

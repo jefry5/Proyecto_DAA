@@ -120,6 +120,7 @@
     <Component class="javax.swing.JButton" name="jbtnFinalizar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Finalizar Evento"/>
+        <Property name="toolTipText" type="java.lang.String" value="Se habilita cuando se finalizan todos los enfrentamientos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnFinalizarActionPerformed"/>

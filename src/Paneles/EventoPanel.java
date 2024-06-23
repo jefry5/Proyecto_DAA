@@ -30,9 +30,10 @@ public class EventoPanel extends javax.swing.JPanel{
         this.panel = p;
         this.gesEvento = gesEvento;
         iniciarPaneles();
-        
-        //Botones deshabilitados por el momento
         jbtnFinalizar.setEnabled(false);
+        if(gesEvento.getEventoDeportivo().isEventoFinalizado()){
+            finalizarEvento();
+        }
     }
     
     private void cambiarPanel(JPanel p){
@@ -51,7 +52,21 @@ public class EventoPanel extends javax.swing.JPanel{
         panelInformacion = new InformacionPanel(gesEvento);
         panelCalendario = new CalendarioPanel(gesEvento);
     }
-
+    
+    public void habilitarFinalizarEvento(){
+        if(gesEvento.getEventoDeportivo().getEnfrentamientosGes().isEsPartidosCompletos() && !gesEvento.getEventoDeportivo().isEventoFinalizado()){
+            jbtnFinalizar.setEnabled(true);
+        }
+    }
+    
+    public void finalizarEvento(){
+        gesEvento.finalizarEvento();
+        panelEquipo.deshabilitarAgregar();
+        panelEquipo.getPanelGestionarEquipo().deshabilitarAgregar();
+        jbtnEnfrentamiento.setEnabled(false);
+        jbtnFinalizar.setEnabled(false);
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,6 +119,7 @@ public class EventoPanel extends javax.swing.JPanel{
         });
 
         jbtnFinalizar.setText("Finalizar Evento");
+        jbtnFinalizar.setToolTipText("Se habilita cuando se finalizan todos los enfrentamientos");
         jbtnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnFinalizarActionPerformed(evt);
@@ -163,6 +179,7 @@ public class EventoPanel extends javax.swing.JPanel{
 
     private void jbtnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnFinalizarActionPerformed
         // TODO add your handling code here:
+        finalizarEvento();
     }//GEN-LAST:event_jbtnFinalizarActionPerformed
 
     private void jbtnEnfrentamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEnfrentamientoActionPerformed

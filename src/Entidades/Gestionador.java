@@ -55,11 +55,18 @@ public class Gestionador implements Serializable{
         String[] lista = new String[archivos.length];
         if(archivos != null){
             for(int i=0; i<archivos.length ; i++){
-                lista[i] = archivos[i].getName();
+                lista[i] = quitarExtension(archivos[i].getName(),".txt");
             }
         }
         return lista;
     }
+    
+    public static String quitarExtension(String nombreArchivo, String extension) {
+        if (nombreArchivo != null && nombreArchivo.endsWith(extension)) {
+            return nombreArchivo.substring(0, nombreArchivo.lastIndexOf(extension));
+        }
+        return nombreArchivo;
+    }  
     
     public String guardarArchivo() throws IOException{
         if (eventoDeportivo.getCodigo_Evento() != -99) {

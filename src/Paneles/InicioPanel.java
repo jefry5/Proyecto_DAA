@@ -18,6 +18,7 @@ public class InicioPanel extends javax.swing.JPanel{
     private Gestionador gesEvento;
     private CrearEventoPanel panelCrearEvento;
     private cargarEventoPanel panelCargarEvento;
+    private historialEventoPanel panelHistorialEvento;
     
     public InicioPanel(Gestionador_Deportivo frame,JPanel p,Gestionador gesEvento) throws IOException, ClassNotFoundException {
         initComponents();
@@ -30,7 +31,9 @@ public class InicioPanel extends javax.swing.JPanel{
     private void iniciarPaneles() throws IOException, FileNotFoundException, ClassNotFoundException{
         panelCrearEvento = new CrearEventoPanel(frame,this,panel,gesEvento);
         panelCargarEvento = new cargarEventoPanel(this,panel,gesEvento);
+        panelHistorialEvento = new historialEventoPanel(this,panel,gesEvento);
         panelCargarEvento.actualizarTablaEvento();
+        panelHistorialEvento.actualizarTablaHistorial();
     }
 
     public CrearEventoPanel getPanelCrearEvento() {
@@ -108,8 +111,15 @@ public class InicioPanel extends javax.swing.JPanel{
         });
 
         jButton2.setText("Historial de Eventos");
+        jButton2.setToolTipText("muestra los eventos FINALIZADOS");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Cargar Evento");
+        jButton3.setToolTipText("muestra los eventos EN CURSO");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -191,6 +201,18 @@ public class InicioPanel extends javax.swing.JPanel{
         }
         cambiarPanel(panelCargarEvento);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            panelHistorialEvento.actualizarTablaHistorial();
+        } catch (IOException ex) {
+            Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InicioPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cambiarPanel(panelHistorialEvento);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

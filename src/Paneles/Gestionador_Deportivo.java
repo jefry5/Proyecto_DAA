@@ -38,8 +38,6 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
     public void iniciarPanelEvento(){
         if (panelInicio.getPanelCrearEvento().getGesEvento() != null) {
             panelEvento = new EventoPanel(this, Content, panelInicio.getPanelCrearEvento().getGesEvento());
-        } else {
-                System.out.println("Null Exception");
         }
     }
 
@@ -159,6 +157,7 @@ public class Gestionador_Deportivo extends javax.swing.JFrame{
 
     private void jbtnEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEventoActionPerformed
         // TODO add your handling code here:
+        panelEvento.habilitarFinalizarEvento();
         cambiarPanel(panelEvento);
     }//GEN-LAST:event_jbtnEventoActionPerformed
 

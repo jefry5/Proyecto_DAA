@@ -51,6 +51,10 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
             model.addRow(new Object[]{codigo, nombre, dt, provenencia});
         }
     }
+    
+    public void deshabilitarAgregar(){
+        jButton2.setEnabled(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,7 +122,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
             jtblMostrar.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jButton2.setText("AgregarDeportistaTabla");
+        jButton2.setText("Agregar Deportista");
         jButton2.setToolTipText("Seleccione un elemento de la tabla");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,7 +130,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
             }
         });
 
-        jButton3.setText("MostrarDeportistaTabla");
+        jButton3.setText("Mostrar Deportista");
         jButton3.setToolTipText("Seleccione un elemento de la tabla");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,11 +152,11 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(104, 104, 104)
+                .addGap(115, 115, 115)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3)
-                .addGap(134, 134, 134))
+                .addGap(142, 142, 142))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,8 +168,8 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(165, Short.MAX_VALUE))
         );
