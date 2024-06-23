@@ -41,7 +41,7 @@ public class MergeSortListaDeportista implements Serializable{
         NodoDeportista right = rightArray.getCabecera();
 
         while (left != null && right != null) {
-            if (Integer.parseInt(left.getDepor().getDni_Deportista()) < Integer.parseInt(right.getDepor().getDni_Deportista())) {
+            if (Integer.parseInt(left.getDepor().getCodigo_Deportista()) < Integer.parseInt(right.getDepor().getCodigo_Deportista())) {
                 array.agregarDeportista(left.getDepor());
                 left = left.getSiguiente();
             } else {

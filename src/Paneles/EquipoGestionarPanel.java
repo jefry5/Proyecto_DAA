@@ -43,7 +43,6 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
     public void actualizarTablaMostrar(){
         DefaultTableModel model = (DefaultTableModel) jtblMostrar.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de añadir datos
-        
         for(int i=0; i<gesEvento.getEventoDeportivo().getEquiposGes().getContadorEquipos(); i++){
             String codigo = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[i].getCodigo_Equipo();
             String nombre = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[i].getNombre_Equipo();

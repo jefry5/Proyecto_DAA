@@ -22,6 +22,7 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
         jTextField3.setText("");
         jTextField4.setText("");
         jTextField6.setText("");
+        jLabel7.setText("");
     }
     
     @SuppressWarnings("unchecked")
@@ -40,6 +41,7 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
         jTextField6 = new javax.swing.JTextField();
         JbtnIngresar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 515));
@@ -50,7 +52,7 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jLabel2.setText("DNI");
+        jLabel2.setText("Codigo");
 
         jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -100,12 +102,20 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel6.setText("Deportista");
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(319, 319, 319)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(276, 276, 276)
+                        .addComponent(JbtnIngresar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -130,12 +140,9 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
                         .addGap(18, 18, 18)
                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(319, 319, 319)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(276, 276, 276)
-                        .addComponent(JbtnIngresar)))
-                .addContainerGap(164, Short.MAX_VALUE))
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,21 +167,33 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(JbtnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(173, 173, 173))
+                .addGap(40, 40, 40)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void JbtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnIngresarActionPerformed
         // TODO add your handling code here:
-        if(posicionDeBusqueda!=-1){
-            Deportista depo = new Deportista(jTextField1.getText(),jTextField2.getText(),jTextField3.getText(),jTextField4.getText(),
-                                        Integer.parseInt(jTextField6.getText()));
-            gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().agregarDeportista(depo);
-            limpiarCampos();
+        if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty() && !jTextField3.getText().isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty()){
+            if(posicionDeBusqueda!=-1){
+                if(!gesEvento.getEventoDeportivo().getEquiposGes().existeCodigoDeportista(Integer.parseInt(jTextField1.getText().trim()))){
+                    Deportista depo = new Deportista(jTextField1.getText().trim(),jTextField2.getText().trim(),jTextField3.getText().trim(),jTextField4.getText().trim(),
+                                                Integer.parseInt(jTextField6.getText().trim()));
+                    gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().agregarDeportista(depo);
+                    gesEvento.getEventoDeportivo().getEquiposGes().agregarCodigoDeportista(Integer.parseInt(jTextField1.getText().trim()));
+                    limpiarCampos();
+                    jLabel7.setText("Jugador registrado correctamente");
+                }else{
+                    jLabel7.setText("Codigo ya existente");
+                }
+            }else{
+                jLabel7.setText("Equipo inexistente");
+            }
         }else{
-            //Validar
+            jLabel7.setText("Rellene todos los campos");
         }
     }//GEN-LAST:event_JbtnIngresarActionPerformed
 
@@ -203,6 +222,7 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

@@ -7,6 +7,7 @@ public class ListaDeportista implements Serializable{
     private NodoDeportista cabecera;
     private NodoDeportista ultimo;
     private MergeSortListaDeportista ordenar;
+    
  
     public NodoDeportista getCabecera() {
         return cabecera;
@@ -45,7 +46,7 @@ public class ListaDeportista implements Serializable{
         String cadena = "";
         aux = cabecera;
         while(aux != null){
-            cadena+= "\n" + aux.getDepor().getDni_Deportista() +"\t"+ aux.getDepor().getNombre_Deportista();
+            cadena+= "\n" + aux.getDepor().getCodigo_Deportista() +"\t"+ aux.getDepor().getNombre_Deportista();
             aux = aux.getSiguiente();
         }
         return cadena;
@@ -79,5 +80,6 @@ public class ListaDeportista implements Serializable{
             aux = aux.getSiguiente();
         }
         return contador;
-    }
+    }  
+    
 }
