@@ -10,6 +10,8 @@ public class Enfrentamiento implements Serializable{
     private Equipo ganador;
     private int goles_equipo1;
     private int goles_equipo2;
+    private int goles_penales_equipo1;
+    private int goles_penales_equipo2;
     private Calendar fecha_Enfrentamiento;
     private Enfrentamiento partido_prev_1;
     private Enfrentamiento partido_prev_2;
@@ -18,6 +20,8 @@ public class Enfrentamiento implements Serializable{
     public Enfrentamiento(Equipo e1, Equipo e2, Calendar fecha_Enfrentamiento){
         this.goles_equipo1 = 0;
         this.goles_equipo2 = 0;
+        this.goles_penales_equipo1 = 0;
+        this.goles_penales_equipo2 = 0;
         this.fecha_Enfrentamiento = fecha_Enfrentamiento;
         this.ganador = null;
         this.equipo1 = e1;
@@ -111,8 +115,16 @@ public class Enfrentamiento implements Serializable{
     }
 
     public String mostrarResultados(){
-        String resultado = equipo1.getNombre_Equipo()+"("+goles_equipo1+")"+"\t"+"vs"+"\t"+equipo2.getNombre_Equipo()+"("+goles_equipo2+")"+"\n"
-                    +"Ganador: "+ganador.getNombre_Equipo()+"\n";
+        String resultado;
+        if(goles_equipo1 == goles_equipo2){
+            resultado = equipo1.getNombre_Equipo()+"\t"+goles_equipo1+"("+goles_penales_equipo1+")\n"
+                    +equipo2.getNombre_Equipo()+"\t"+goles_equipo2+"("+goles_penales_equipo2+")\n"
+                    +"Ganador: "+ganador.getNombre_Equipo()+"\n\n";
+        }else{
+            resultado = equipo1.getNombre_Equipo()+"\t"+goles_equipo1+"\n"
+                    +equipo2.getNombre_Equipo()+"\t"+goles_equipo2+"\n"
+                    +"Ganador: "+ganador.getNombre_Equipo()+"\n\n";
+        }
         return resultado;
     }
 

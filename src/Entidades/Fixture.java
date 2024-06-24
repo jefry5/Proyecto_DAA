@@ -108,8 +108,7 @@ public class Fixture implements Serializable{
         
         //Enfrentamiento aleatorios
         aleatorio = new NumeroAleatorioRango(0,equipos.getContadorEquipos()-1);
-        int[] aleatorios = new int[equipos.getContadorEquipos()];
-        aleatorios = aleatorio.generarAleatoriosSinRepetir(equipos.getContadorEquipos());
+        int[] aleatorios = aleatorio.generarAleatoriosSinRepetir(equipos.getContadorEquipos());
         
         
         if(equipos.getContadorEquipos() > 0){
@@ -147,6 +146,7 @@ public class Fixture implements Serializable{
         return mensaje;
     }
     
+    
     public void definirEtapas(int[][] goles){  
         ListaEnfrentamiento nuevaEtapa = new ListaEnfrentamiento();
         Enfrentamiento enfrentamientoActual = listaEnfrentamientos.getCabecera();
@@ -168,7 +168,6 @@ public class Fixture implements Serializable{
             //definir ganador
             nuevaEtapa = listaEnfrentamientos;
             esPartidosCompletos = true;
-            System.out.println("Ganador: "+enfrentamientoActual.getGanador().getNombre_Equipo());
 
         }else if(listaEnfrentamientos.contarEnfrentamientos() % 2 == 0){
             while(enfrentamientoActual != null){
