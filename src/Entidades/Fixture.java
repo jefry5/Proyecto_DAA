@@ -146,21 +146,30 @@ public class Fixture implements Serializable{
         return mensaje;
     }
     
+    public void definirGoles(int[][] goles, int[][] penales){
+        Enfrentamiento enfrentamientoActual = listaEnfrentamientos.getCabecera();
+        int i = 0;
+        while(enfrentamientoActual != null){
+            enfrentamientoActual.definirGanador(goles[i][0], goles[i][1], penales[i][0], penales[i][1]);
+            enfrentamientoActual = enfrentamientoActual.getSiguiente_enfrentamiento();
+            i++;
+        }
+    }
     
-    public void definirEtapas(int[][] goles){  
+  
+    public void nuevaEtapa(){  
         ListaEnfrentamiento nuevaEtapa = new ListaEnfrentamiento();
         Enfrentamiento enfrentamientoActual = listaEnfrentamientos.getCabecera();
         
         String concatenar = "";
-        
         int i = 0;
         while(enfrentamientoActual != null){
-            enfrentamientoActual.definirGanador(goles[i][0], goles[i][1]);
             concatenar = concatenar + enfrentamientoActual.mostrarResultados();
             enfrentamientoActual = enfrentamientoActual.getSiguiente_enfrentamiento();
             i++;
         }
         listaResultados.agregarNodo(concatenar);
+
         
         //Se crea la nueva etapa
         enfrentamientoActual = listaEnfrentamientos.getCabecera();

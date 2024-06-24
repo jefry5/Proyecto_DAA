@@ -102,15 +102,41 @@ public class Enfrentamiento implements Serializable{
     public void setSiguiente_enfrentamiento(Enfrentamiento siguiente_enfrentamiento) {
         this.siguiente_enfrentamiento = siguiente_enfrentamiento;
     }
+
+    public int getGoles_penales_equipo1() {
+        return goles_penales_equipo1;
+    }
+
+    public void setGoles_penales_equipo1(int goles_penales_equipo1) {
+        this.goles_penales_equipo1 = goles_penales_equipo1;
+    }
+
+    public int getGoles_penales_equipo2() {
+        return goles_penales_equipo2;
+    }
+
+    public void setGoles_penales_equipo2(int goles_penales_equipo2) {
+        this.goles_penales_equipo2 = goles_penales_equipo2;
+    }
     
-    public void definirGanador(int g_equipo1, int g_equipo2){
+    public void definirGanador(int g_equipo1, int g_equipo2, int g_p_equipo1, int g_p_equipo2){
         goles_equipo1 = g_equipo1;
         goles_equipo2 = g_equipo2;
+        goles_penales_equipo1 = g_p_equipo1;
+        goles_penales_equipo2 = g_p_equipo2;
         
-        if(goles_equipo1 > goles_equipo2){
-            this.ganador = equipo1;
-        }else if(goles_equipo1 < goles_equipo2){
-            this.ganador = equipo2;
+        if(goles_equipo1 == goles_equipo2){
+            if(goles_penales_equipo1 > goles_penales_equipo2){
+                this.ganador = equipo1;
+            }else if(goles_penales_equipo1 < goles_penales_equipo2){
+                this.ganador = equipo2;
+            }
+        }else{
+            if(goles_equipo1 > goles_equipo2){
+                this.ganador = equipo1;
+            }else if(goles_equipo1 < goles_equipo2){
+                this.ganador = equipo2;
+            }
         }  
     }
 
@@ -118,8 +144,11 @@ public class Enfrentamiento implements Serializable{
         String resultado;
         if(goles_equipo1 == goles_equipo2){
             resultado = equipo1.getNombre_Equipo()+"\t"+goles_equipo1+"("+goles_penales_equipo1+")\n"
-                    +equipo2.getNombre_Equipo()+"\t"+goles_equipo2+"("+goles_penales_equipo2+")\n"
-                    +"Ganador: "+ganador.getNombre_Equipo()+"\n\n";
+                    +equipo2.getNombre_Equipo()+"\t"+goles_equipo2+"("+goles_penales_equipo2+")\n";
+            if (ganador != null) {
+                resultado += "Ganador: " + ganador.getNombre_Equipo() + "\n\n";
+            }
+                    
         }else{
             resultado = equipo1.getNombre_Equipo()+"\t"+goles_equipo1+"\n"
                     +equipo2.getNombre_Equipo()+"\t"+goles_equipo2+"\n"

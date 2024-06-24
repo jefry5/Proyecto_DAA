@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Paneles;
 
 import Entidades.Gestionador;
@@ -13,19 +9,21 @@ public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
     private EnfrentamientoPanel cambio;
     private Gestionador gesEvento;
     private ingresarGolesEnfrentamientoPanel golesEnfrentamientoPanel;
+    private boolean actualizarEmpate;
     
     public ConcatenarIngresarGolesPanel(JPanel p, EnfrentamientoPanel cambio, Gestionador gesEvento) {
         initComponents();
+        this.actualizarEmpate = false;
         this.gesEvento = gesEvento;
         this.panel = p;
         this.cambio = cambio;
         this.golesEnfrentamientoPanel = new ingresarGolesEnfrentamientoPanel(this,this.gesEvento);
-       actualizarPanel();
+       actualizarPanel(gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().contarEnfrentamientos());
     }
 
-    public void actualizarPanel(){
+    public void actualizarPanel(int partidos){
         jPanelGoles.removeAll();
-        golesEnfrentamientoPanel.actualizarPanel();
+        golesEnfrentamientoPanel.actualizarPanel(partidos);
         jPanelGoles.add(golesEnfrentamientoPanel, BorderLayout.CENTER);
         jPanelGoles.revalidate();
         jPanelGoles.repaint();
@@ -106,11 +104,36 @@ public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        golesEnfrentamientoPanel.guardarGoles();
+        if(!actualizarEmpate){
+            golesEnfrentamientoPanel.guardarGoles();
+        }else{
+            golesEnfrentamientoPanel.guardarPenales(golesEnfrentamientoPanel.getGoles(), golesEnfrentamientoPanel.getContadorEmpate());
+        }
+
         if(golesEnfrentamientoPanel.isValidacionCampos()){
-            cambio.actualizarEnfrentamientos();
-            jLabel2.setText("");
-            cambiarPanel(cambio);
+            if(!golesEnfrentamientoPanel.isEmpate(golesEnfrentamientoPanel.getGoles(), golesEnfrentamientoPanel.getNumEnfrentamientos())){
+                gesEvento.definirNuevaEtapa();
+                cambio.actualizarEnfrentamientos();
+                jLabel2.setText("");
+                cambiarPanel(cambio);
+            }else{
+                jLabel2.setText("PENALES");
+                if(!actualizarEmpate){
+                    golesEnfrentamientoPanel.actualizarPanelEmpate(golesEnfrentamientoPanel.getGoles(), golesEnfrentamientoPanel.getContadorEmpate());
+                    actualizarEmpate = true;
+                }else{
+                    if(!golesEnfrentamientoPanel.isEmpate(golesEnfrentamientoPanel.getPenales(), golesEnfrentamientoPanel.getContadorEmpate())){
+                        gesEvento.definirNuevaEtapa();
+                        cambio.actualizarEnfrentamientos();
+                        jLabel2.setText("");
+                        actualizarEmpate = false;
+                        cambiarPanel(cambio);
+                    }else{
+                       golesEnfrentamientoPanel.actualizarPanelEmpate(golesEnfrentamientoPanel.getPenales(), golesEnfrentamientoPanel.getContadorEmpate());
+                       jLabel2.setText("No puede haber empates || PENALES"); 
+                    }
+                }   
+            }
         }else{
             jLabel2.setText("Rellene los campos vacíos");
         }   

@@ -29,8 +29,12 @@ public class Gestionador implements Serializable{
         return eventoDeportivo.getEnfrentamientosGes().crearListaEnfrentamiento(cantidadPartidosXFecha);
     }
     
-    public void definirNuevaEtapa(int[][] goles){
-        eventoDeportivo.getEnfrentamientosGes().definirEtapas(goles);
+    public void definirNuevaEtapa(){
+        eventoDeportivo.getEnfrentamientosGes().nuevaEtapa();
+    }
+    
+    public void definirGoles(int[][] goles, int[][] penales){
+        eventoDeportivo.getEnfrentamientosGes().definirGoles(goles, penales);
     }
     
     public String mostrarEtapa(){

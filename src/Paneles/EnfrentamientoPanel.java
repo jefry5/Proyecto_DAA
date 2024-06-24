@@ -153,7 +153,7 @@ public class EnfrentamientoPanel extends javax.swing.JPanel{
         // TODO add your handling code here:
         if(!gesEvento.getEventoDeportivo().getEnfrentamientosGes().isEsPartidosCompletos()){
             jlblAviso.setText("");
-            golesPanel.actualizarPanel();
+            golesPanel.actualizarPanel(gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().contarEnfrentamientos());
             cambiarPanel(golesPanel); 
         }else{
             String ganador = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().getCabecera().getGanador().getNombre_Equipo();
