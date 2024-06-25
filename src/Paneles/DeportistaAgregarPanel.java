@@ -179,11 +179,10 @@ public class DeportistaAgregarPanel extends javax.swing.JPanel{
         // TODO add your handling code here:
         if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty() && !jTextField3.getText().isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty()){
             if(posicionDeBusqueda!=-1){
-                if(!gesEvento.getEventoDeportivo().getEquiposGes().existeCodigoDeportista(Integer.parseInt(jTextField1.getText().trim()))){
+                if(!gesEvento.buscarCodigo(jTextField1.getText().trim())){
                     Deportista depo = new Deportista(jTextField1.getText().trim(),jTextField2.getText().trim(),jTextField3.getText().trim(),jTextField4.getText().trim(),
                                                 Integer.parseInt(jTextField6.getText().trim()));
                     gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().agregarDeportista(depo);
-                    gesEvento.getEventoDeportivo().getEquiposGes().agregarCodigoDeportista(Integer.parseInt(jTextField1.getText().trim()));
                     limpiarCampos();
                     jLabel7.setText("Jugador registrado correctamente");
                 }else{

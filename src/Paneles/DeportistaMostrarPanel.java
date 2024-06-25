@@ -40,6 +40,7 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
     }
     
     
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -48,6 +49,9 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
         jScrollPane2 = new javax.swing.JScrollPane();
         jtblMostrar = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        eliminarDepButton = new javax.swing.JButton();
+        eliminarDepText = new javax.swing.JTextField();
+        salidaEliminarDep = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -77,7 +81,7 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
                 {null, null, null, null}
             },
             new String [] {
-                "DNI", "Nombre", "Apellidos", "Edad"
+                "Codigo", "Nombre", "Apellidos", "Edad"
             }
         ) {
             Class[] types = new Class [] {
@@ -111,6 +115,13 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
             }
         });
 
+        eliminarDepButton.setText("Eliminar");
+        eliminarDepButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarDepButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,8 +133,14 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(eliminarDepText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(eliminarDepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(salidaEliminarDep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +151,12 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(eliminarDepText, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eliminarDepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(salidaEliminarDep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -148,11 +170,26 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void eliminarDepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarDepButtonActionPerformed
+        // TODO add your handling code here:
+        if(eliminarDepText.getText() != ""){
+            String codigo = eliminarDepText.getText();
+            salidaEliminarDep.setText(gesEvento.eliminarDeportista(codigo,posicionDeBusqueda));
+            eliminarDepText.setText("");
+            actualizarTablaMostrar();
+        }else{
+            salidaEliminarDep.setText("Introduzca un codigo");
+        }
+    }//GEN-LAST:event_eliminarDepButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton eliminarDepButton;
+    private javax.swing.JTextField eliminarDepText;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jtblMostrar;
+    private javax.swing.JLabel salidaEliminarDep;
     // End of variables declaration//GEN-END:variables
 }

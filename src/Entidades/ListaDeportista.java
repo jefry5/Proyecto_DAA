@@ -66,6 +66,32 @@ public class ListaDeportista implements Serializable{
         return deportista;
     }
     
+    public String eliminarElemento(int codigo) {  
+        if (cabecera == null) {
+            return "Lista vacía";
+        }
+        NodoDeportista actual = cabecera;
+        NodoDeportista previo = null;
+        if (Integer.parseInt(actual.getDepor().getCodigo_Deportista()) == codigo) {
+            cabecera = actual.getSiguiente(); // Cambia la cabecera
+            actual.setSiguiente(null); // Opcional: Desconecta el nodo eliminado
+            return "Deportista eliminado con éxito";
+        }
+        while (actual != null) {
+            int auxiliar = Integer.parseInt(actual.getDepor().getCodigo_Deportista());
+            if (codigo == auxiliar) {
+                previo.setSiguiente(actual.getSiguiente());
+                actual.setSiguiente(null); // Opcional: Desconecta el nodo eliminado
+                return "Deportista eliminado con éxito";
+            } else {
+                previo = actual;
+                actual = actual.getSiguiente();
+            }
+        }
+
+        return "Deportista no registrado";
+    }
+    
     
     public void ordenarListaDeportista(){
         ordenar.mergeSort(this, this.contarNodos());

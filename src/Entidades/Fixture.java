@@ -154,8 +154,7 @@ public class Fixture implements Serializable{
             enfrentamientoActual = enfrentamientoActual.getSiguiente_enfrentamiento();
             i++;
         }
-    }
-    
+    }      
   
     public void nuevaEtapa(){  
         ListaEnfrentamiento nuevaEtapa = new ListaEnfrentamiento();

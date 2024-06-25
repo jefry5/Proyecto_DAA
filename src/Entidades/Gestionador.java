@@ -117,4 +117,49 @@ public class Gestionador implements Serializable{
         }
         return null;
     }
+    
+    public String buscarDeportista(String codigo){
+        String mensaje = "", s;
+        int codigoInt = Integer.parseInt(codigo);
+        for(int i = 0; i<eventoDeportivo.getEquiposGes().getContadorEquipos(); i++){
+            NodoDeportista nodoActual = eventoDeportivo.getEquiposGes().getEquipos()[i].getListaDepor().getCabecera();
+            while(nodoActual != null){
+                s = nodoActual.getDepor().getCodigo_Deportista();
+                int code = Integer.parseInt(s);
+                if(codigoInt == code){
+                    mensaje = "Deportista encontrado: " + nodoActual.getDepor().getNombre_Deportista() +" "+ nodoActual.getDepor().getApellidoPaterno_Deportista() + " ->  Equipo: " + eventoDeportivo.getEquiposGes().getEquipos()[i].getNombre_Equipo();
+                    return mensaje;
+                }else{
+                    nodoActual = nodoActual.getSiguiente();
+                }
+            }
+        }
+        mensaje = "Deportista no registrado!";
+        return mensaje;
+    }
+    
+    public boolean buscarCodigo(String codigo){
+        String s;
+        int codigoInt = Integer.parseInt(codigo);
+        for(int i = 0; i<eventoDeportivo.getEquiposGes().getContadorEquipos(); i++){
+            NodoDeportista nodoActual = eventoDeportivo.getEquiposGes().getEquipos()[i].getListaDepor().getCabecera();
+            while(nodoActual != null){
+                s = nodoActual.getDepor().getCodigo_Deportista();
+                int code = Integer.parseInt(s);
+                if(codigoInt == code){        
+                    return true;
+                }else{
+                    nodoActual = nodoActual.getSiguiente();
+                }
+            }
+        }
+        return false;
+    }
+    
+    public String eliminarDeportista(String codigo, int indice){
+        int codigoInt = Integer.parseInt(codigo);
+        String mensaje = "";
+        mensaje = eventoDeportivo.getEquiposGes().getEquipos()[indice].getListaDepor().eliminarElemento(codigoInt);
+        return mensaje;
+    }
 }
