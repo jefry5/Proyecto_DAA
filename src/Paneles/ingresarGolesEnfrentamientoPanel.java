@@ -3,6 +3,7 @@ package Paneles;
 import Entidades.Enfrentamiento;
 import Entidades.Gestionador;
 import java.awt.*;
+import java.util.Arrays;
 import javax.swing.*;
 
 public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
@@ -12,6 +13,7 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
     private boolean validacionCampos;
     private int contadorEmpate,numEnfrentamientos;
     private int[][] goles, penales;
+    private int[] indiceEmpate;
     
     
     public ingresarGolesEnfrentamientoPanel(ConcatenarIngresarGolesPanel panelaux,Gestionador gesEvento) {
@@ -26,8 +28,8 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
 
     public boolean isValidacionCampos() {
         return validacionCampos;
-    }
-
+    }   
+    
     public int[][] getGoles() {
         return goles;
     }
@@ -49,7 +51,7 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
     public void actualizarPanelEmpate(int[][] goles,int partidos){
         this.removeAll();
         this.setLayout(new GridLayout(partidos,4));
-        anadirElemento(partidos,empate(goles,partidos));
+        anadirElemento(partidos,indiceEmpate);
     }
 
     public int getContadorEmpate() {
@@ -84,14 +86,18 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
         for (int i = 0; i < jtxtGol.length; i++) {
             jtxtGol[i] = new JTextField();
         }
+        
+        System.out.println(Arrays.toString(empate));
 
         int cont = 0;
         for (int i = 0; i < contadorEmpate; i++) {
-            actual = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().obtenerEnfrentamientoPorIndice(empate[i]);
-            this.add(new JLabel(actual.getEquipo1().getNombre_Equipo()+" (P)"));
-            this.add(jtxtGol[cont++]);
-            this.add(jtxtGol[cont++]);
-            this.add(new JLabel(actual.getEquipo2().getNombre_Equipo()+" (P)"));
+            if(empate[i]!=-1){
+                actual = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().obtenerEnfrentamientoPorIndice(empate[i]);
+                this.add(new JLabel(actual.getEquipo1().getNombre_Equipo()+" (P)"));
+                this.add(jtxtGol[cont++]);
+                this.add(jtxtGol[cont++]);
+                this.add(new JLabel(actual.getEquipo2().getNombre_Equipo()+" (P)"));
+            }
         }
 
         this.revalidate();
@@ -113,25 +119,24 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
         return true;
     }
     
-    public int[] empate(int[][] goles, int nEnfrentamientos){
-        int[] empate = new int[nEnfrentamientos];
+    public void empate(int[][] goles, int nEnfrentamientos){
+        indiceEmpate = new int[numEnfrentamientos];
         contadorEmpate = 0;
-        for(int i=0; i < nEnfrentamientos; i++){
-            empate[i] = -1;
+        for(int i=0; i < numEnfrentamientos; i++){
+            indiceEmpate[i] = -1;
         }
         
-        for(int i=0; i < nEnfrentamientos; i++){
+        for(int i=0; i < numEnfrentamientos; i++){
             if(goles[i][0] == goles[i][1]){
-                empate[contadorEmpate++] = i;
+                indiceEmpate[contadorEmpate++] = i;
             }
         }
-        return empate;
     }
     
     public boolean isEmpate(int[][] goles, int nEnfrentamientos){
-        int[] empate = empate(goles,nEnfrentamientos);
+        empate(goles,nEnfrentamientos);
         for(int i=0; i < contadorEmpate; i++){
-            if(empate[i] != -1){
+            if(indiceEmpate[i] != -1){
                 return true;
             }
         }
@@ -142,6 +147,10 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
         numEnfrentamientos = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().contarEnfrentamientos();
         this.goles = goles;
         penales = new int[numEnfrentamientos][2];
+        /*for(int i=0; i<penales.length; i++){
+            penales[i][0]=-1;
+            penales[i][1]=-1;
+        }*/
         int contEnfrentamiento = 0;
         boolean sonNumeros = sonTodosNumeros(jtxtGol);
         

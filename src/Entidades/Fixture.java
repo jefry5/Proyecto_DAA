@@ -166,6 +166,7 @@ public class Fixture implements Serializable{
         while(enfrentamientoActual != null){
             concatenar = concatenar + enfrentamientoActual.mostrarResultados();
             enfrentamientoActual = enfrentamientoActual.getSiguiente_enfrentamiento();
+            System.out.println("CONCATENAR"+concatenar+"\n");
             i++;
         }
         listaResultados.agregarNodo(concatenar);
