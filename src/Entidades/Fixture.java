@@ -93,6 +93,16 @@ public class Fixture implements Serializable{
         }
         return duracionEventoSegunPartidosXFecha;
     }
+    
+    public boolean esPotenciaDos(int n){ //Verifica si es potencia de 2 para crear la lista de enfrentamientos (eliminatorias)
+         if (n <= 0) {
+            return false;
+        }
+        while (n % 2 == 0) {
+            n = n / 2;
+        }
+        return n == 1;
+    }
 
     public String crearListaEnfrentamiento(int cantidadPartidosXFecha){
         listaEnfrentamientos.eliminarLista();
@@ -112,28 +122,32 @@ public class Fixture implements Serializable{
         
         if(equipos.getContadorEquipos() > 0){
             if(duracionEventoSegunPartidosXFecha <= diasEvento){
-                while(contadorEquiposRegistrados < equipos.getContadorEquipos()){
-                    Equipo equipoVisitante, equipoLocal; 
-                    equipoLocal = equipos.getEquiposPorPosicion(aleatorios[contadorEquiposRegistrados]);
+                if(esPotenciaDos(equipos.getContadorEquipos()) && equipos.getContadorEquipos()>1){
+                    while(contadorEquiposRegistrados < equipos.getContadorEquipos()){
+                        Equipo equipoVisitante, equipoLocal; 
+                        equipoLocal = equipos.getEquiposPorPosicion(aleatorios[contadorEquiposRegistrados]);
 
-                    if(contadorEquiposRegistrados < equipos.getContadorEquipos()-1){
+                        if(contadorEquiposRegistrados < equipos.getContadorEquipos()-1){
+                            contadorEquiposRegistrados++;
+                            equipoVisitante = equipos.getEquiposPorPosicion(aleatorios[contadorEquiposRegistrados]);
+                        }else{
+                            equipoVisitante = equipos.getEquiposPorPosicion(aleatorios[aleatorios.length-1]); //El ultimo nodo agarra dos veces al mismo equipo si la cantida de equipos es impar
+                        }
                         contadorEquiposRegistrados++;
-                        equipoVisitante = equipos.getEquiposPorPosicion(aleatorios[contadorEquiposRegistrados]);
-                    }else{
-                        equipoVisitante = equipos.getEquiposPorPosicion(aleatorios[aleatorios.length-1]); //El ultimo nodo agarra dos veces al mismo equipo si la cantida de equipos es impar
-                    }
-                    contadorEquiposRegistrados++;
 
-                    if(equipoLocal.getListaDepor().contarNodos() <= 5 || equipoVisitante.getListaDepor().contarNodos() <= 5){ //Cantidad de jugadores permitidos
-                        verificarFechaEnfrentamiento(contadorFechasEnfrentamientos);
-                        Enfrentamiento enfrentamiento = new Enfrentamiento(equipoLocal, equipoVisitante, fechas[contadorFechasEnfrentamientos++]);
-                        listaEnfrentamientos.agregarEnfrentamiento(enfrentamiento);
-                        mensaje = "Se creo enfrentamiento correctamente";
-                    }else{
-                        mensaje = "Numero de integrantes incompletos "+equipoLocal.getNombre_Equipo()+"("+equipoLocal.getListaDepor().contarNodos()+")"+" || "
-                                    +equipoVisitante.getNombre_Equipo()+"("+equipoVisitante.getListaDepor().contarNodos()+")";
-                        break;
-                    } 
+                        if(equipoLocal.getListaDepor().contarNodos() <= 5 || equipoVisitante.getListaDepor().contarNodos() <= 5){ //Cantidad de jugadores permitidos
+                            verificarFechaEnfrentamiento(contadorFechasEnfrentamientos);
+                            Enfrentamiento enfrentamiento = new Enfrentamiento(equipoLocal, equipoVisitante, fechas[contadorFechasEnfrentamientos++]);
+                            listaEnfrentamientos.agregarEnfrentamiento(enfrentamiento);
+                            mensaje = "Se creo enfrentamiento correctamente";
+                        }else{
+                            mensaje = "Numero de integrantes incompletos "+equipoLocal.getNombre_Equipo()+"("+equipoLocal.getListaDepor().contarNodos()+")"+" || "
+                                        +equipoVisitante.getNombre_Equipo()+"("+equipoVisitante.getListaDepor().contarNodos()+")";
+                            break;
+                        } 
+                    }
+                }else{
+                    mensaje = "No hay suficientes equipos para eliminatoria";
                 }
             }else{
                 mensaje = "No hay suficientes días para la cantidad de "+cantidadPartidosXFecha+" partidos por fecha";

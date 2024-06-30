@@ -32,13 +32,24 @@ public class ArregloDeEquipos implements Serializable{
         return equipos[i];
     }
 
-    public void agregarEquipo(Equipo eq){
-        if(contadorEquipos < max){
-            equipos[contadorEquipos] = eq;
-            contadorEquipos++;
+    public String agregarEquipo(Equipo eq){
+        String mensaje;
+        if(!existeCodigo(eq.getCodigo_Equipo())){
+            if(!existeNombre(eq.getNombre_Equipo())){
+                if(contadorEquipos < max){
+                    equipos[contadorEquipos] = eq;
+                    contadorEquipos++;
+                    mensaje = "Equipos registrado correctamente";
+                }else{
+                    mensaje = "Equipos completos";
+                }
+            }else{
+                mensaje = "Nombres ya existentes";
+            }
         }else{
-            //Comentario de validación
-        }    
+            mensaje = "Codigo ya existente";
+        }
+        return mensaje;
     }
     
     public String mostrarEquipo(){

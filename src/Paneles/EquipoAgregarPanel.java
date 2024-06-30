@@ -138,22 +138,9 @@ public class EquipoAgregarPanel extends javax.swing.JPanel{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty() && !jTextField4.getText().isEmpty()){
-            if(!gesEvento.getEventoDeportivo().getEquiposGes().existeCodigo(jTextField2.getText().trim())){
-                if(!gesEvento.getEventoDeportivo().getEquiposGes().existeNombre(jTextField1.getText().trim())){
-                    if(gesEvento.getEventoDeportivo().getEquiposGes().getContadorEquipos() <= gesEvento.getEventoDeportivo().getEquiposGes().getMax()){
-                        Equipo auxEq = new Equipo(jTextField2.getText().trim(),jTextField1.getText().trim(),jTextField4.getText().trim());
-                        gesEvento.getEventoDeportivo().getEquiposGes().agregarEquipo(auxEq);
-                        limpiarCampos();
-                        jLabel4.setText("Equipo registrado correctamente");
-                    }else{
-                        jLabel4.setText("Número de equipos completos");
-                    }
-                }else{
-                   jLabel4.setText("Nombre ya existente"); 
-                }
-            }else{
-                jLabel4.setText("Código ya existente");
-            }
+            Equipo auxEq = new Equipo(jTextField2.getText().trim(),jTextField1.getText().trim(),jTextField4.getText().trim());
+            limpiarCampos();
+            jLabel4.setText(gesEvento.getEventoDeportivo().getEquiposGes().agregarEquipo(auxEq));
         }else{
             jLabel4.setText("Rellene todos los campos");
         }

@@ -39,7 +39,6 @@ public class EnfrentamientoPanel extends javax.swing.JPanel{
     }
     
     public void actualizarEnfrentamientos(){
-        jlblAviso.setText("");
         jTextArea1.setText(gesEvento.mostrarListaEnfrentamiento());
     }
     
@@ -135,8 +134,8 @@ public class EnfrentamientoPanel extends javax.swing.JPanel{
                     .addComponent(jButton1)
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addComponent(jlblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(95, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

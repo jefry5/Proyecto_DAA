@@ -302,7 +302,7 @@ public class CrearEventoPanel extends javax.swing.JPanel{
                     try {
                         if(!fin.before(inicio) ){
                             if(!gesEvento.getEventoDeportivo().antesUltimoEvento(inicio, gesEvento)){
-                               gesEvento.getEventoDeportivo().setCodigo_Evento(Integer.parseInt(jTextField1.getText()));
+                                gesEvento.getEventoDeportivo().setCodigo_Evento(Integer.parseInt(jTextField1.getText()));
                                 gesEvento.getEventoDeportivo().setNombre_Evento(jTextField2.getText());
                                 gesEvento.getEventoDeportivo().setFecha_Inicio_Evento(inicio);
                                 gesEvento.getEventoDeportivo().setFecha_Fin_Evento(fin);
