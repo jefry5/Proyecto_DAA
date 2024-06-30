@@ -4,7 +4,6 @@ import Entidades.Gestionador;
 import Entidades.Fixture;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 public class EnfrentamientoPanel extends javax.swing.JPanel{
     private JPanel panel;

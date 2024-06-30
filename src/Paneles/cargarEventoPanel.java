@@ -34,7 +34,6 @@ public class cargarEventoPanel extends javax.swing.JPanel {
         model.setRowCount(0); // Limpiar la tabla antes de añadir datos
         String[] archivos = gesEvento.listarArchivos();
         Gestionador aux = new Gestionador();
-        
         for(int i=0; i<archivos.length; i++){
             aux.setEventoDeportivo(gesEvento.cargarArchivo(archivos[i]));
             String estado;
@@ -43,12 +42,12 @@ public class cargarEventoPanel extends javax.swing.JPanel {
                 model.addRow(new Object[]{archivos[i],aux.getEventoDeportivo().getNombre_Evento(),estado});
             }
         }
-        
+
         if(jTable1.getRowCount() > 0){
             jButton1.setEnabled(true);
         }else{
             jButton1.setEnabled(false);
-        }
+        } 
     }
      
 

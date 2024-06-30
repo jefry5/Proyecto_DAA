@@ -107,11 +107,11 @@ public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
         if(!actualizarEmpate){
             golesEnfrentamientoPanel.guardarGoles();
         }else{
-            golesEnfrentamientoPanel.guardarPenales(golesEnfrentamientoPanel.getGoles(), golesEnfrentamientoPanel.getContadorEmpate());
+            golesEnfrentamientoPanel.guardarPenales(golesEnfrentamientoPanel.getGoles());
         }
 
         if(golesEnfrentamientoPanel.isValidacionCampos()){
-            if(!golesEnfrentamientoPanel.isEmpate(golesEnfrentamientoPanel.getGoles(), golesEnfrentamientoPanel.getNumEnfrentamientos())){
+            if(!golesEnfrentamientoPanel.isEmpate(golesEnfrentamientoPanel.getGoles())){
                 gesEvento.definirNuevaEtapa();
                 cambio.actualizarEnfrentamientos();
                 jLabel2.setText("");
@@ -120,22 +120,17 @@ public class ConcatenarIngresarGolesPanel extends javax.swing.JPanel{
                 jLabel2.setText("PENALES");
                 
                 if(!actualizarEmpate){
-                    System.out.println("NUMERO DE ENFRENTAMIENTOS EMPATE: "+golesEnfrentamientoPanel.getContadorEmpate());
-                    System.out.println("NUMERO DE ENFRENTAMIENTOS NORMAL: "+golesEnfrentamientoPanel.getNumEnfrentamientos());
-                    golesEnfrentamientoPanel.actualizarPanelEmpate(golesEnfrentamientoPanel.getGoles(),golesEnfrentamientoPanel.getContadorEmpate());
+                    golesEnfrentamientoPanel.actualizarPanelEmpate(golesEnfrentamientoPanel.getGoles());
                     actualizarEmpate = true;
                 }else{
-                    if(!golesEnfrentamientoPanel.isEmpate(golesEnfrentamientoPanel.getPenales(), golesEnfrentamientoPanel.getContadorEmpate())){
+                    if(!golesEnfrentamientoPanel.isEmpate(golesEnfrentamientoPanel.getPenales())){
                         gesEvento.definirNuevaEtapa();
-                        System.out.println("PASO POR DEFINIR ETAPA");
                         cambio.actualizarEnfrentamientos();
-                        System.out.println("PASO POR ACTUALIZAR ENFRENTAMIENTO");
                         jLabel2.setText("");
                         actualizarEmpate = false;
                         cambiarPanel(cambio);
                     }else{
-                       System.out.println("NUMERO DE ENFRENTAMIENTOS EMPATE 2: "+golesEnfrentamientoPanel.getContadorEmpate());
-                       golesEnfrentamientoPanel.actualizarPanelEmpate(golesEnfrentamientoPanel.getPenales(),golesEnfrentamientoPanel.getContadorEmpate());
+                       golesEnfrentamientoPanel.actualizarPanelEmpate(golesEnfrentamientoPanel.getPenales());
                        jLabel2.setText("No puede haber empates || PENALES"); 
                     }
                 }   

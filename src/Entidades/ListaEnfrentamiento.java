@@ -1,6 +1,8 @@
 package Entidades;
 
+import Herramientas.PilaEnfrentamiento;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 public class ListaEnfrentamiento implements Serializable{
     

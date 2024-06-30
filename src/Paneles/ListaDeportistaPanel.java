@@ -1,17 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Paneles;
 
 import Entidades.Gestionador;
+import Entidades.ListaDeportista;
+import Entidades.NodoDeportista;
 import javax.swing.table.DefaultTableModel;
 
-public class DeportistaMostrarPanel extends javax.swing.JPanel{
+public class ListaDeportistaPanel extends javax.swing.JPanel{
     private Gestionador gesEvento;
     private int posicionDeBusqueda;
+    private ListaDeportista lista;
     
-    public DeportistaMostrarPanel(Gestionador gesEvento) {
+    public ListaDeportistaPanel(Gestionador gesEvento) {
         initComponents();
         this.gesEvento = gesEvento;
     }
@@ -20,22 +19,20 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
         this.posicionDeBusqueda = gesEvento.getEventoDeportivo().getEquiposGes().busquedaBinariaPorCodigo(codigo);
     }
     
-    public void actualizarTablaMostrar(){
-        if(posicionDeBusqueda != -1){
-            DefaultTableModel model = (DefaultTableModel) jtblMostrar.getModel();
-            model.setRowCount(0); // Limpiar la tabla antes de añadir datos
-
-            for(int i=0; i<gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().contarNodos(); i++){ //Saber a que equipo se refiere
-
-                String dni = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getCodigo_Deportista();
-                String nombre = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getNombre_Deportista();
-                String apellidos = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getApellidoPaterno_Deportista()
-                                    + " "+gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getApellidoMaterno_Deportista();
-                int edad = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().obtenerDeportistaPorIndice(i).getDepor().getEdad_Deportista();
-                model.addRow(new Object[]{dni, nombre, apellidos, edad});
-            }
-        }else{
-            //validar error
+    public void actualizarListaDeportista(){
+        DefaultTableModel model = (DefaultTableModel) jtblMostrar.getModel();
+        model.setRowCount(0); // Limpiar la tabla antes de añadir datos
+        lista = gesEvento.listarDeportistas();
+        NodoDeportista aux = lista.getCabecera();
+        while(aux != null){
+            String codigo = aux.getDepor().getCodigo_Deportista();
+            String nombre = aux.getDepor().getNombre_Deportista();
+            String apellidos = aux.getDepor().getApellidoPaterno_Deportista()+ " " + aux.getDepor().getApellidoMaterno_Deportista();
+            int edad = aux.getDepor().getEdad_Deportista();
+            int indiceEquipo = gesEvento.indiceEquipo(codigo);
+            String equipo = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[indiceEquipo].getNombre_Equipo();
+            model.addRow(new Object[]{codigo, nombre, apellidos, edad, equipo});    
+            aux = aux.getSiguiente();
         }
     }
     
@@ -55,40 +52,40 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Mostrar deportista:");
+        jLabel1.setText("Mostrar todos los deportistas:");
 
         jtblMostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Apellidos", "Edad"
+                "Codigo", "Nombre", "Apellidos", "Edad", "Equipo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -106,6 +103,7 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
             jtblMostrar.getColumnModel().getColumn(1).setResizable(false);
             jtblMostrar.getColumnModel().getColumn(2).setResizable(false);
             jtblMostrar.getColumnModel().getColumn(3).setResizable(false);
+            jtblMostrar.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jButton1.setText("Ordenar");
@@ -163,12 +161,8 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(posicionDeBusqueda != -1){
-            gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().ordenarListaDeportista();
-            actualizarTablaMostrar();
-        }else{
-            //validar error
-        }
+        lista.ordenarListaDeportista();
+        actualizarListaDeportista();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void eliminarDepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarDepButtonActionPerformed
@@ -177,7 +171,7 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
             String codigo = eliminarDepText.getText();
             salidaEliminarDep.setText(gesEvento.eliminarDeportista(codigo,posicionDeBusqueda));
             eliminarDepText.setText("");
-            actualizarTablaMostrar();
+            actualizarListaDeportista();
         }else{
             salidaEliminarDep.setText("Introduzca un codigo");
         }

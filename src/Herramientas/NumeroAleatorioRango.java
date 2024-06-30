@@ -7,13 +7,13 @@ public class NumeroAleatorioRango implements Serializable{
     private int valorMinimo;
     private int valorMaximo;
     private Random random;
-    private boolean[] hashTable;
+    private boolean[] repetidos;
     
     public NumeroAleatorioRango(int _valorMinimo, int _valorMaximo){
         this.valorMinimo = _valorMinimo;
         this.valorMaximo = _valorMaximo;
         this.random = new Random();
-        this.hashTable = new boolean[_valorMaximo - _valorMinimo + 1];
+        this.repetidos = new boolean[_valorMaximo - _valorMinimo + 1];
     }
     
     public int generarAleatorio(){
@@ -28,9 +28,8 @@ public class NumeroAleatorioRango implements Serializable{
             throw new IllegalArgumentException("La cantidad solicitada excede el rango de números únicos disponibles.");
         }
         
-        // Reiniciar la tabla de dispersión para asegurar que esté vacía
-        for (int i = 0; i < hashTable.length; i++) {
-            hashTable[i] = false;
+        for (int i = 0; i < repetidos.length; i++) {
+            repetidos[i] = false;
         }
         
         int[] arregloNumerosInt = new int[cantidad];
@@ -40,8 +39,8 @@ public class NumeroAleatorioRango implements Serializable{
             int numeroAleatorio = valorMinimo + random.nextInt(valorMaximo - valorMinimo + 1);
             int index = numeroAleatorio - valorMinimo;
             
-            if (!hashTable[index]) {
-                hashTable[index] = true;
+            if (!repetidos[index]) {
+                repetidos[index] = true;
                 arregloNumerosInt[count++] = numeroAleatorio;
             }
         }

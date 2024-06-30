@@ -98,7 +98,7 @@ public class Fixture implements Serializable{
         listaEnfrentamientos.eliminarLista();
         int contadorEquiposRegistrados = 0, diasEvento = cantidadDeDiasEvento(), 
             duracionEventoSegunPartidosXFecha = calcularDuracionDeEventoSegunXFecha(cantidadPartidosXFecha);
-        contadorFechasEnfrentamientos = 0; //Inicializamos las fechas
+        contadorFechasEnfrentamientos = 0; //Inicializamos el contador de fechas
         contadorPartidosPorDia = 0; 
         partidosPorFecha = cantidadPartidosXFecha; //Inicializamos el contador de partidos por fecha
         String mensaje = "";
@@ -109,7 +109,6 @@ public class Fixture implements Serializable{
         //Enfrentamiento aleatorios
         aleatorio = new NumeroAleatorioRango(0,equipos.getContadorEquipos()-1);
         int[] aleatorios = aleatorio.generarAleatoriosSinRepetir(equipos.getContadorEquipos());
-        
         
         if(equipos.getContadorEquipos() > 0){
             if(duracionEventoSegunPartidosXFecha <= diasEvento){
@@ -131,7 +130,6 @@ public class Fixture implements Serializable{
                         listaEnfrentamientos.agregarEnfrentamiento(enfrentamiento);
                         mensaje = "Se creo enfrentamiento correctamente";
                     }else{
-                        contadorEquiposRegistrados = contadorEquiposRegistrados - 2;
                         mensaje = "Numero de integrantes incompletos "+equipoLocal.getNombre_Equipo()+"("+equipoLocal.getListaDepor().contarNodos()+")"+" || "
                                     +equipoVisitante.getNombre_Equipo()+"("+equipoVisitante.getListaDepor().contarNodos()+")";
                         break;
@@ -165,7 +163,6 @@ public class Fixture implements Serializable{
         while(enfrentamientoActual != null){
             concatenar = concatenar + enfrentamientoActual.mostrarResultados();
             enfrentamientoActual = enfrentamientoActual.getSiguiente_enfrentamiento();
-            System.out.println("CONCATENAR"+concatenar+"\n");
             i++;
         }
         listaResultados.agregarNodo(concatenar);

@@ -18,6 +18,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
     private JFrame frame;
     private DeportistaAgregarPanel deportistaPanel;
     private DeportistaMostrarPanel panelDeportistaMostrar;
+    private ListaDeportistaPanel panelListaDeportisa;
     private JPanel panel;
     /**
      * Creates new form EquipoGestionarPanel
@@ -29,6 +30,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
         this.panel = p;
         this.deportistaPanel = new DeportistaAgregarPanel(this.gesEvento);
         this.panelDeportistaMostrar = new DeportistaMostrarPanel(this.gesEvento);
+        this.panelListaDeportisa = new ListaDeportistaPanel(this.gesEvento);
     }
 
     private void cambiarPanel(JPanel p){
@@ -47,8 +49,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
             String codigo = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[i].getCodigo_Equipo();
             String nombre = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[i].getNombre_Equipo();
             String dt = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[i].getNombre_DT();
-            String provenencia = gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[i].getProvenencia_Equipo();
-            model.addRow(new Object[]{codigo, nombre, dt, provenencia});
+            model.addRow(new Object[]{codigo, nombre, dt});
         }
     }
     
@@ -74,6 +75,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
         buscarDepText = new javax.swing.JTextField();
         buscarDepButton = new javax.swing.JButton();
         salidaBusquedaDep = new javax.swing.JLabel();
+        jbtnListaDeportista = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -88,24 +90,24 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
 
         jtblMostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "DT", "Provenencia"
+                "Codigo", "Nombre", "DT"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -122,7 +124,6 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
             jtblMostrar.getColumnModel().getColumn(0).setResizable(false);
             jtblMostrar.getColumnModel().getColumn(1).setResizable(false);
             jtblMostrar.getColumnModel().getColumn(2).setResizable(false);
-            jtblMostrar.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jButton2.setText("Agregar Deportista");
@@ -148,6 +149,13 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
             }
         });
 
+        jbtnListaDeportista.setText("Lista Deportistas");
+        jbtnListaDeportista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnListaDeportistaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,20 +163,26 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(46, 46, 46)
-                        .addComponent(jButton3)
-                        .addGap(62, 62, 62)
-                        .addComponent(buscarDepText, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(buscarDepButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
-                    .addComponent(salidaBusquedaDep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jbtnListaDeportista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jButton3)
+                                .addGap(62, 62, 62)
+                                .addComponent(buscarDepText, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(buscarDepButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(salidaBusquedaDep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -187,7 +201,9 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
                     .addComponent(buscarDepText, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscarDepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(salidaBusquedaDep, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(salidaBusquedaDep, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jbtnListaDeportista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(107, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -230,6 +246,12 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
         }
     }//GEN-LAST:event_buscarDepButtonActionPerformed
 
+    private void jbtnListaDeportistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnListaDeportistaActionPerformed
+        // TODO add your handling code here:
+        panelListaDeportisa.actualizarListaDeportista();
+        cambiarPanel(panelListaDeportisa);
+    }//GEN-LAST:event_jbtnListaDeportistaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarDepButton;
@@ -239,6 +261,7 @@ public class EquipoGestionarPanel extends javax.swing.JPanel{
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbtnListaDeportista;
     private javax.swing.JTable jtblMostrar;
     private javax.swing.JLabel salidaBusquedaDep;
     // End of variables declaration//GEN-END:variables

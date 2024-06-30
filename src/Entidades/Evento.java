@@ -1,5 +1,7 @@
 package Entidades;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -71,6 +73,52 @@ public class Evento implements Serializable{
 
     public Fixture getEnfrentamientosGes() {
         return enfrentamientosGes;
+    }
+    
+    public Calendar fechaMayor(Gestionador gesEvento) throws IOException, FileNotFoundException, ClassNotFoundException{
+        String[] archivos = gesEvento.listarArchivos();
+        Calendar fechaMayor = null;
+        if(archivos.length > 0){
+            Gestionador aux = new Gestionador();
+            aux.setEventoDeportivo(gesEvento.cargarArchivo(archivos[0]));
+            fechaMayor = aux.getEventoDeportivo().getFecha_Fin_Evento();
+            for(int i=1 ; i<archivos.length; i++){
+                aux.setEventoDeportivo(gesEvento.cargarArchivo(archivos[i]));
+                Calendar fechaAux = aux.getEventoDeportivo().getFecha_Fin_Evento();
+                if(fechaAux.compareTo(fechaMayor)>0){
+                    fechaMayor = fechaAux;
+                }
+            } 
+        }
+        return fechaMayor;
+    }
+    
+    public boolean antesUltimoEvento(Calendar fecha, Gestionador gesEvento) throws IOException, FileNotFoundException, ClassNotFoundException{ 
+        Calendar fechaMayor = fechaMayor(gesEvento);
+        if(fechaMayor != null){
+            fechaMayor.add(Calendar.DAY_OF_MONTH, 1);
+            return fecha.before(fechaMayor);
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean existeCodigo(int codigo, Gestionador gesEvento) throws IOException, FileNotFoundException, ClassNotFoundException{
+        String[] archivos = gesEvento.listarArchivos();
+        boolean encontro = false;
+        if(archivos.length > 0){
+            int i = 0;
+            Gestionador aux = new Gestionador();
+            while (i < archivos.length && !encontro){
+                aux.setEventoDeportivo(gesEvento.cargarArchivo(archivos[i]));
+                int codigoAux = aux.getEventoDeportivo().getCodigo_Evento();
+                if(codigo == codigoAux){
+                    encontro = true;
+                }
+                i++;
+            }
+        }
+        return encontro;
     }
     
 }

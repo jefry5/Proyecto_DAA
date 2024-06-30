@@ -4,7 +4,6 @@ import Entidades.Gestionador;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -119,52 +118,6 @@ public class CrearEventoPanel extends javax.swing.JPanel{
             case "Diciembre": anadirDiasAComboBox(j,31);
                               break;                   
         }
-    }
-    
-    public Calendar fechaMayor() throws IOException, FileNotFoundException, ClassNotFoundException{
-        String[] archivos = gesEvento.listarArchivos();
-        Calendar fechaMayor = null;
-        if(archivos.length > 0){
-            Gestionador aux = new Gestionador();
-            aux.setEventoDeportivo(gesEvento.cargarArchivo(archivos[0]));
-            fechaMayor = aux.getEventoDeportivo().getFecha_Fin_Evento();
-            for(int i=1 ; i<archivos.length; i++){
-                aux.setEventoDeportivo(gesEvento.cargarArchivo(archivos[i]));
-                Calendar fechaAux = aux.getEventoDeportivo().getFecha_Fin_Evento();
-                if(fechaAux.compareTo(fechaMayor)>0){
-                    fechaMayor = fechaAux;
-                }
-            } 
-        }
-        return fechaMayor;
-    }
-    
-    public boolean antesUltimoEvento(Calendar fecha) throws IOException, FileNotFoundException, ClassNotFoundException{ 
-        Calendar fechaMayor = fechaMayor();
-        if(fechaMayor != null){
-            fechaMayor.add(Calendar.DAY_OF_MONTH, 1);
-            return fecha.before(fechaMayor);
-        }else{
-            return false;
-        }
-    }
-    
-    public boolean existeCodigo(int codigo) throws IOException, FileNotFoundException, ClassNotFoundException{
-        String[] archivos = gesEvento.listarArchivos();
-        boolean encontro = false;
-        if(archivos.length > 0){
-            int i = 0;
-            Gestionador aux = new Gestionador();
-            while (i < archivos.length && !encontro){
-                aux.setEventoDeportivo(gesEvento.cargarArchivo(archivos[i]));
-                int codigoAux = aux.getEventoDeportivo().getCodigo_Evento();
-                if(codigo == codigoAux){
-                    encontro = true;
-                }
-                i++;
-            }
-        }
-        return encontro;
     }
     
     @SuppressWarnings("unchecked")
@@ -345,10 +298,10 @@ public class CrearEventoPanel extends javax.swing.JPanel{
         
         if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty()){
             try {
-                if(!existeCodigo(Integer.parseInt(jTextField1.getText().trim()))){
+                if(!gesEvento.getEventoDeportivo().existeCodigo(Integer.parseInt(jTextField1.getText().trim()), gesEvento)){
                     try {
                         if(!fin.before(inicio) ){
-                            if(!antesUltimoEvento(inicio)){
+                            if(!gesEvento.getEventoDeportivo().antesUltimoEvento(inicio, gesEvento)){
                                gesEvento.getEventoDeportivo().setCodigo_Evento(Integer.parseInt(jTextField1.getText()));
                                 gesEvento.getEventoDeportivo().setNombre_Evento(jTextField2.getText());
                                 gesEvento.getEventoDeportivo().setFecha_Inicio_Evento(inicio);
@@ -363,7 +316,7 @@ public class CrearEventoPanel extends javax.swing.JPanel{
                             }else{
                                 SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
                                 jLabel10.setText("Fecha invalida"+" || "+
-                                                "Ultimo evento registrado: "+formatoFecha.format(fechaMayor().getTime()));
+                                                "Ultimo evento registrado: "+formatoFecha.format(gesEvento.getEventoDeportivo().fechaMayor(gesEvento).getTime()));
                             }
                         }else{
                             jLabel10.setText("Fecha fin anterior a Inicio");

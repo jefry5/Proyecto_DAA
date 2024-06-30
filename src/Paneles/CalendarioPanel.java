@@ -2,6 +2,7 @@ package Paneles;
 
 import Entidades.Enfrentamiento;
 import Entidades.Gestionador;
+import Entidades.ListaEnfrentamiento;
 import Herramientas.PilaEnfrentamiento;
 import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
@@ -18,25 +19,8 @@ public class CalendarioPanel extends javax.swing.JPanel {
         jTable1.setRowSelectionAllowed(false);
         jTable1.setColumnSelectionAllowed(false);
     }
-    
+   
     public void actualizarCalendario(){
-        int nEnfrentamientos = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().contarEnfrentamientos();
-        if(nEnfrentamientos > 0){
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            model.setRowCount(0); // Limpiar la tabla antes de añadir datos
-            for(int i=0; i<nEnfrentamientos; i++){
-                String equipo1 = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().obtenerEnfrentamientoPorIndice(i).getEquipo1().getNombre_Equipo();
-                String equipo2 = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().obtenerEnfrentamientoPorIndice(i).getEquipo2().getNombre_Equipo();
-                String fecha = formatoFecha.format(gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().obtenerEnfrentamientoPorIndice(i).getFecha_Enfrentamiento().getTime());
-                model.addRow(new Object[]{equipo1,"vs",equipo2,fecha});
-            }
-        }else{
-            //validar error
-        }
-    }
-    
-    public void actualizarCalendarioV2(){
         Enfrentamiento aux = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().getCabecera();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");

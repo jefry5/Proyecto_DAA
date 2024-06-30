@@ -48,10 +48,10 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
         anadirElemento(partidos);
     }
     
-    public void actualizarPanelEmpate(int[][] goles,int partidos){
+    public void actualizarPanelEmpate(int[][] goles){
         this.removeAll();
-        this.setLayout(new GridLayout(partidos,4));
-        anadirElemento(partidos,indiceEmpate);
+        this.setLayout(new GridLayout(contadorEmpate,4));
+        anadirElemento(contadorEmpate,empate(goles));
     }
 
     public int getContadorEmpate() {
@@ -79,27 +79,25 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
         this.repaint();
     }
     
-    public void anadirElemento(int partidos, int[] empate){
+    public void anadirElemento(int partidos, boolean[] empate){
         Enfrentamiento actual;
         jtxtGol = new JTextField[partidos * 2];
 
         for (int i = 0; i < jtxtGol.length; i++) {
             jtxtGol[i] = new JTextField();
         }
-        
-        System.out.println(Arrays.toString(empate));
 
         int cont = 0;
-        for (int i = 0; i < contadorEmpate; i++) {
-            if(empate[i]!=-1){
-                actual = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().obtenerEnfrentamientoPorIndice(empate[i]);
+        for (int i = 0; i < numEnfrentamientos; i++) {
+            if(empate[i]){
+                actual = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().obtenerEnfrentamientoPorIndice(i);
                 this.add(new JLabel(actual.getEquipo1().getNombre_Equipo()+" (P)"));
                 this.add(jtxtGol[cont++]);
                 this.add(jtxtGol[cont++]);
                 this.add(new JLabel(actual.getEquipo2().getNombre_Equipo()+" (P)"));
             }
         }
-
+        
         this.revalidate();
         this.repaint();
     }
@@ -119,45 +117,55 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
         return true;
     }
     
-    public void empate(int[][] goles, int nEnfrentamientos){
-        indiceEmpate = new int[numEnfrentamientos];
+    public boolean[] empate(int[][] goles){
+        boolean[] esEmpate = new boolean[numEnfrentamientos];
         contadorEmpate = 0;
         for(int i=0; i < numEnfrentamientos; i++){
-            indiceEmpate[i] = -1;
-        }
-        
-        for(int i=0; i < numEnfrentamientos; i++){
-            if(goles[i][0] == goles[i][1]){
-                indiceEmpate[contadorEmpate++] = i;
+            if(goles[i][0] == goles[i][1] && (goles[i][0] != -1 && goles[i][1] != -1)){
+                esEmpate[i] = true; // significa hay empate
+                contadorEmpate++;
+            }else{
+                esEmpate[i] = false;
             }
         }
+        return esEmpate;
     }
     
-    public boolean isEmpate(int[][] goles, int nEnfrentamientos){
-        empate(goles,nEnfrentamientos);
-        for(int i=0; i < contadorEmpate; i++){
-            if(indiceEmpate[i] != -1){
+    public boolean isEmpate(int[][] goles){
+        boolean[] esEmpate = empate(goles);
+        for(int i=0; i < numEnfrentamientos; i++){
+            if(esEmpate[i]){
                 return true;
             }
         }
         return false;
     }
     
-    public void guardarPenales(int goles[][], int nEnfrentamientos){
-        numEnfrentamientos = gesEvento.getEventoDeportivo().getEnfrentamientosGes().getEnfrentamientos().contarEnfrentamientos();
+    public void guardarPenales(int goles[][]){
         this.goles = goles;
-        penales = new int[numEnfrentamientos][2];
-        /*for(int i=0; i<penales.length; i++){
-            penales[i][0]=-1;
-            penales[i][1]=-1;
-        }*/
-        int contEnfrentamiento = 0;
-        boolean sonNumeros = sonTodosNumeros(jtxtGol);
+        int contEnfrentamiento = 0, contEmp=0;
+        boolean sonNumeros = sonTodosNumeros(jtxtGol), repiteEmpate = false;
+        boolean[] empate;
+        
+        while(contEmp < numEnfrentamientos && !repiteEmpate){
+            if(penales[contEmp][0] !=-1 && penales[contEmp][1] !=-1){
+                repiteEmpate = true;
+            }
+            contEmp++;
+        }   
+        
+        if(!repiteEmpate){
+            empate = empate(goles); //Esto sucede si es la primeraa vez que va a penales
+        }else{
+            empate = empate(penales);//Si se repite los penales despues de haber sucedido la primera vez
+        }
         
         if(sonNumeros){
-            for(int i=0; i<nEnfrentamientos; i++){
-                penales[i][0] = Integer.parseInt(jtxtGol[contEnfrentamiento++].getText());
-                penales[i][1] = Integer.parseInt(jtxtGol[contEnfrentamiento++].getText());
+            for(int i=0; i<numEnfrentamientos; i++){ // No se guarda donde corresponde
+                if(empate[i]){
+                    penales[i][0] = Integer.parseInt(jtxtGol[contEnfrentamiento++].getText());
+                    penales[i][1] = Integer.parseInt(jtxtGol[contEnfrentamiento++].getText());
+                }
             }
             gesEvento.definirGoles(this.goles,penales);
             validacionCampos = true;
@@ -173,7 +181,11 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
         penales = new int[numEnfrentamientos][2];
         int contEnfrentamiento = 0;
         boolean sonNumeros = sonTodosNumeros(jtxtGol);
-
+        for(int i=0; i<numEnfrentamientos; i++){
+            penales[i][0] = -1;
+            penales[i][1] = -1;
+        }
+        
         if(sonNumeros){
             for(int i=0; i<numEnfrentamientos; i++){
                 goles[i][0] = Integer.parseInt(jtxtGol[contEnfrentamiento++].getText());

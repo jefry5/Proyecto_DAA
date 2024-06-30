@@ -43,7 +43,7 @@ public class Gestionador implements Serializable{
     
     public String mostrarListaEnfrentamiento(){
         return eventoDeportivo.getEnfrentamientosGes().getEnfrentamientos().mostrarEnfrentamientos();
-    }
+    }  
     
     public void finalizarEvento(){
         eventoDeportivo.setEventoFinalizado(true);
@@ -91,7 +91,6 @@ public class Gestionador implements Serializable{
 
             return "Archivo guardado";
         }else{
-            // Validar error
             return "Cree o cargue un evento";
         }
     }
@@ -136,6 +135,35 @@ public class Gestionador implements Serializable{
         }
         mensaje = "Deportista no registrado!";
         return mensaje;
+    }
+    
+    public int indiceEquipo(String codigo){
+        int codigoInt = Integer.parseInt(codigo);
+        for(int i = 0; i<eventoDeportivo.getEquiposGes().getContadorEquipos(); i++){
+            NodoDeportista nodoActual = eventoDeportivo.getEquiposGes().getEquipos()[i].getListaDepor().getCabecera();
+            while(nodoActual != null){
+                String s = nodoActual.getDepor().getCodigo_Deportista();
+                int code = Integer.parseInt(s);
+                if(codigoInt == code){
+                    return i;
+                }else{
+                    nodoActual = nodoActual.getSiguiente();
+                }
+            }
+        }
+        return -1; 
+    }
+    
+    public ListaDeportista listarDeportistas(){
+        ListaDeportista lista = new ListaDeportista();
+        for(int i = 0; i<eventoDeportivo.getEquiposGes().getContadorEquipos(); i++){
+            NodoDeportista nodoActual = eventoDeportivo.getEquiposGes().getEquipos()[i].getListaDepor().getCabecera();
+            while(nodoActual != null){
+                lista.agregarDeportista(nodoActual.getDepor());
+                nodoActual = nodoActual.getSiguiente();
+            }
+        }
+        return lista;
     }
     
     public boolean buscarCodigo(String codigo){

@@ -4,15 +4,14 @@ import java.io.Serializable;
 
 
 public class Equipo implements Serializable{
-    private String codigo_Equipo, nombre_Equipo, nombre_DT, provenencia_Equipo;
+    private String codigo_Equipo, nombre_Equipo, nombre_DT;
     private ListaDeportista listaDepor;
     private int puntuacion;
 
-    public Equipo(String codigo_Equipo, String nombre_Equipo, String nombre_DT, String provenencia_Equipo) {
+    public Equipo(String codigo_Equipo, String nombre_Equipo, String nombre_DT) {
         this.codigo_Equipo = codigo_Equipo;
         this.nombre_Equipo = nombre_Equipo;
         this.nombre_DT = nombre_DT;
-        this.provenencia_Equipo = provenencia_Equipo;
         this.puntuacion = 0;
         listaDepor = new ListaDeportista();
     }
@@ -51,14 +50,5 @@ public class Equipo implements Serializable{
 
     public void setNombre_DT(String nombre_DT) {
         this.nombre_DT = nombre_DT;
-    }
-
-    public String getProvenencia_Equipo() {
-        return provenencia_Equipo;
-    }
-
-    public void setProvenencia_Equipo(String provenencia_Equipo) {
-        this.provenencia_Equipo = provenencia_Equipo;
-    }
-    
+    } 
 }
