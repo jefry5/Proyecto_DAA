@@ -54,7 +54,12 @@ public class Gestionador implements Serializable{
         String rutaDirectorio = rutaProyecto + File.separator + "src" + File.separator + "Archivos";
         
         File directorio = new File(rutaDirectorio);
+        if (!directorio.exists()) {
+            directorio.mkdirs(); //Crea el folder si no existe
+        }
+            
         File[] archivos = directorio.listFiles((dir, name) -> name.endsWith(".txt"));
+        
         
         String[] lista = new String[archivos.length];
         if(archivos != null){
