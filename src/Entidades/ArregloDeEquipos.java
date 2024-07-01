@@ -110,4 +110,24 @@ public class ArregloDeEquipos implements Serializable{
         return encontro;
     }
     
+    public String eliminarEquipo(String codigo) {
+        int index = -1;
+        for (int i = 0; i < contadorEquipos; i++) {
+            if (equipos[i].getCodigo_Equipo().equals(codigo)) {
+                index = i;
+                break;
+            }
+        }
+        
+        if (index != -1) {
+            for (int i = index; i < contadorEquipos - 1; i++) {
+                equipos[i] = equipos[i + 1];
+            }
+            equipos[contadorEquipos - 1] = null; // Eliminar la referencia al último elemento
+            contadorEquipos--;
+            return "Equipo eliminado con exito.";
+        } else {
+            return "Equipo no encontrado.";
+        }
+    }
 }

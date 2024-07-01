@@ -3,7 +3,6 @@ package Paneles;
 import Entidades.Enfrentamiento;
 import Entidades.Gestionador;
 import java.awt.*;
-import java.util.Arrays;
 import javax.swing.*;
 
 public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
@@ -13,7 +12,6 @@ public class ingresarGolesEnfrentamientoPanel extends javax.swing.JPanel{
     private boolean validacionCampos;
     private int contadorEmpate,numEnfrentamientos;
     private int[][] goles, penales;
-    private int[] indiceEmpate;
     
     
     public ingresarGolesEnfrentamientoPanel(ConcatenarIngresarGolesPanel panelaux,Gestionador gesEvento) {

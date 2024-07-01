@@ -50,7 +50,6 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
         jtblMostrar = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         eliminarDepButton = new javax.swing.JButton();
-        eliminarDepText = new javax.swing.JTextField();
         salidaEliminarDep = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -133,12 +132,11 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(eliminarDepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(eliminarDepText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(eliminarDepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(330, 330, 330)
                         .addComponent(salidaEliminarDep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
@@ -148,15 +146,12 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eliminarDepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(salidaEliminarDep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(eliminarDepText, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(eliminarDepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(salidaEliminarDep, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addGap(44, 44, 44))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -166,27 +161,20 @@ public class DeportistaMostrarPanel extends javax.swing.JPanel{
         if(posicionDeBusqueda != -1){
             gesEvento.getEventoDeportivo().getEquiposGes().getEquipos()[posicionDeBusqueda].getListaDepor().ordenarListaDeportista();
             actualizarTablaMostrar();
-        }else{
-            //validar error
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void eliminarDepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarDepButtonActionPerformed
         // TODO add your handling code here:
-        if(eliminarDepText.getText() != ""){
-            String codigo = eliminarDepText.getText();
-            salidaEliminarDep.setText(gesEvento.eliminarDeportista(codigo,posicionDeBusqueda));
-            eliminarDepText.setText("");
+        if(jtblMostrar.getRowCount() > 0 && jtblMostrar.getSelectedRow()!=-1 && jtblMostrar.getSelectedColumn() != -1){  
+            salidaEliminarDep.setText(gesEvento.eliminarDeportista(jtblMostrar.getValueAt(jtblMostrar.getSelectedRow(), 0).toString(),posicionDeBusqueda));
             actualizarTablaMostrar();
-        }else{
-            salidaEliminarDep.setText("Introduzca un codigo");
         }
     }//GEN-LAST:event_eliminarDepButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton eliminarDepButton;
-    private javax.swing.JTextField eliminarDepText;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
