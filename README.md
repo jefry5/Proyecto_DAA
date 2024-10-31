@@ -1,2 +1,2 @@
 # Manual de Usuario
-[Manual de Usuario](https://github.com/user-attachments/files/17580343/Manual.de.Usuario.-.Grupo.1.-.DAA.pdf)
+A continuación se presenta el link para visualizar el manual de usuario. [Manual de Usuario](https://drive.google.com/file/d/1LuYRmmW3MjzeD0IMcq-trHJogTFJEH7i/view?usp=sharing)
